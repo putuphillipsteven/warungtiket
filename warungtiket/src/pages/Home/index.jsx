@@ -1,8 +1,10 @@
-import { Box, Text, Center } from "@chakra-ui/react";
+
+import { Box, Text, Center, VStack, Text } from "@chakra-ui/react";
 import Jumbotron from "../../components/Jumbotron";
 import UpcomingEvents from "../../components/UpcomingEvents";
 import EventsCategories from "../../components/EventsCategories";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar/index";
 
 export default function Home() {
   return (
