@@ -2,7 +2,7 @@ import { Box, Img, Text, VStack } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
 export default function Jumbotron() {
   return (
-    <Box p={"1.5em 3.5em"}>
+    <Box p={"1.5em 3.5em"} pt={"5em"}>
       <VStack>
         <Box w={"40%"}>
           <Img src={logo} />
