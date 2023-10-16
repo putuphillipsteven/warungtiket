@@ -1,17 +1,21 @@
-import { Box, VStack, Text } from "@chakra-ui/react";
+import { Box, Text, Center } from "@chakra-ui/react";
+import Jumbotron from "../../components/Jumbotron";
+import UpcomingEvents from "../../components/UpcomingEvents";
+import EventsCategories from "../../components/EventsCategories";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   return (
-    <VStack spacing={"0"} align={"stretch"}>
-      <Box bgColor={"gray"} p={"1em 2.5em"}>
-        <Text>Navbar</Text>
+    <Box>
+      <Box>
+        <Center>
+          <Text>This is Navbar</Text>
+        </Center>
       </Box>
-      <Box bgColor={"gray.500"} p={"1em 2.5em"}>
-        <Text>Body</Text>
-      </Box>
-      <Box bgColor={"gray.300"} p={"1em 2.5em"}>
-        <Text>Footer</Text>
-      </Box>
-    </VStack>
+      <Jumbotron />
+      <UpcomingEvents />
+      <EventsCategories />
+      <Footer />
+    </Box>
   );
 }
