@@ -1,4 +1,4 @@
-import { Box, Text, Center } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Jumbotron from "../../components/Jumbotron";
 import UpcomingEvents from "../../components/UpcomingEvents";
 import EventsCategories from "../../components/EventsCategories";
