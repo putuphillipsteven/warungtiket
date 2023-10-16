@@ -15,10 +15,30 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
+import { useFormik } from "formik";
+import { basicSchema } from "../../schemas";
+
+const onSubmit = async (values, actions) => {
+  console.log(values);
+  console.log(actions);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm()
+}
 
 export default function SignUp() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const {values, handleBlur, handleChange, handleSubmit, errors, isSubmitting} = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
 
   return (
     <Box
@@ -39,86 +59,111 @@ export default function SignUp() {
             <Text as={"b"}>SIGN UP</Text>
           </Center>
         </Box>
-        <Box>
-          <FormControl isRequired>
-            <Box>
-              <FormLabel>Full Name</FormLabel>
-              <Input
-                placeholder="Enter Your Full Name"
-                // borderColor={"black"}
-                // _placeholder={{ color: "black" }}
-                // _hover={{ borderColor: "white" }}
-                // _focusVisible={{ borderColor: "white" }}
-              ></Input>
-            </Box>
-            <Box>
-              <Flex>
-                <Box w={"100%"}>
-                  <FormLabel>Provinsi</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-                <Spacer m={".5em"} />
-                <Box w={"100%"}>
-                  <FormLabel>Kota</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-              </Flex>
-              <FormLabel>Email</FormLabel>
-              <Input
-                placeholder="Enter Your Email"
-                // borderColor={"black"}
-                // _placeholder={{ color: "black" }}
-                // _hover={{ borderColor: "white" }}
-                // _focusVisible={{ borderColor: "white" }}
-              ></Input>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
+        <form onSubmit={handleSubmit}>
+          <Box>
+            <FormControl>
+              <Box>
+                <Flex>
+                  <Box w={"100%"}>
+                    <FormLabel>First Name</FormLabel>
+                    <Input
+                      id="firstname"
+                      name="firstname"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.firstname}
+                      onBlur={handleBlur}
+                      // borderColor={"black"}
+                      // _hover={{ borderColor: "white" }}
+                      // _focusVisible={{ borderColor: "white" }}
+                    />
+                    {<Text fontSize={"0.75em"} color={"red"}>{errors.firstname}</Text>}
+                  </Box>
+                  <Spacer m={".5em"} />
+                  <Box w={"100%"}>
+                    <FormLabel>Last Name</FormLabel>
+                    <Input
+                      id="lastname"
+                      name="lastname"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.lastname}
+                      onBlur={handleBlur}
+                      // borderColor={"black"}
+                      // _hover={{ borderColor: "white" }}
+                      // _focusVisible={{ borderColor: "white" }}
+                    />
+                     {<Text fontSize={"0.75em"} color={"red"}>{errors.lastname}</Text>}
+                  </Box>
+                </Flex>
+                <FormLabel>Email</FormLabel>
                 <Input
-                  placeholder="Enter Your Password"
-                  type={show ? "text" : "password"}
+                  id="email"
+                  name="email"
+                  type="email"
+                  onChange={handleChange}
+                  value={values.email}
+                  onBlur={handleBlur}
+                  // placeholder="Enter Your Email"
                   // borderColor={"black"}
                   // _placeholder={{ color: "black" }}
                   // _hover={{ borderColor: "white" }}
                   // _focusVisible={{ borderColor: "white" }}
                 ></Input>
-                <InputRightElement width="4em">
-                  <Button size="xs" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              <FormLabel>Confirm Password</FormLabel>
-              <InputGroup>
-                <Input
-                  type={show ? "text" : "password"}
-                  placeholder="Confirm Your Password"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                ></Input>
-                <InputRightElement width="4em">
-                  <Button size="xs" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </Box>
-          </FormControl>
-        </Box>
-        <Box>
-          <Center>
-            <Button>REGISTER</Button>
-          </Center>
-        </Box>
+                {<Text fontSize={"0.75em"} color="red">{errors.email}</Text>}
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                  id="password"
+                  name="password"
+                  onChange={handleChange}
+                  value={values.password}
+                  onBlur={handleBlur}
+                    // placeholder="Enter Your Password"
+                    type={show ? "text" : "password"}
+                    // borderColor={"black"}
+                    // _placeholder={{ color: "black" }}
+                    // _hover={{ borderColor: "white" }}
+                    // _focusVisible={{ borderColor: "white" }}
+                  ></Input>
+                  <InputRightElement width="4em">
+                    <Button size="xs" onClick={handleClick}>
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {<Text fontSize={"0.75em"} color={"red"}>{errors.password}</Text>}
+                <FormLabel>Confirm Password</FormLabel>
+                <InputGroup>
+                  <Input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.confirmPassword}
+                    type={show ? "text" : "password"}
+                    // placeholder="Confirm Your Password"
+                    // borderColor={"black"}
+                    // _placeholder={{ color: "black" }}
+                    // _hover={{ borderColor: "white" }}
+                    // _focusVisible={{ borderColor: "white" }}
+                  ></Input>
+                  <InputRightElement width="4em">
+                    <Button size="xs" onClick={handleClick}>
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {<Text fontSize={"0.75em"} color={"red"}>{errors.confirmPassword}</Text>}
+              </Box>
+            </FormControl>
+          </Box>
+          <Box mt={"2em"}>
+            <Center>
+              <Button disabled={isSubmitting} type="submit">REGISTER</Button>
+            </Center>
+          </Box>
+        </form>
       </VStack>
     </Box>
   );
