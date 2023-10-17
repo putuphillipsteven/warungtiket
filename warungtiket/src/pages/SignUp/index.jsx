@@ -18,6 +18,7 @@ import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
+import { useNavigate } from "react-router";
 
 const onSubmit = async (values, actions) => {
   console.log(values);
@@ -27,6 +28,7 @@ const onSubmit = async (values, actions) => {
 };
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched, isSubmitting } =
@@ -188,7 +190,7 @@ export default function SignUp() {
           </Box>
           <Box mt={"2em"}>
             <Center>
-              <Button disabled={isSubmitting} w={"300px"} type="submit">REGISTER</Button>
+              <Button  disabled={isSubmitting} w={"300px"} type="submit">REGISTER</Button>
             </Center>
           </Box>
         </form>
@@ -196,3 +198,4 @@ export default function SignUp() {
     </Box>
   );
 }
+// onClick={()=>navigate("/login")}
