@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   VStack,
@@ -20,29 +22,70 @@ import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { useNavigate } from "react-router";
 
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
-
 export default function SignUp() {
   const navigate = useNavigate();
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched, isSubmitting } =
-    useFormik({
-      initialValues: {
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: basicSchema,
-      onSubmit,
-    });
+  const [data, setData] = useState();
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      setData(response.data);
+      console.log("--Fetch User Success--");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const register = async (fullName, email, password) => {
+    try {
+      await axios.post("http://localhost:3000/users", {
+        fullName,
+        password,
+        email,
+      });
+      await alert("---SignUp Success---");
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const onSubmit = async (values, actions) => {
+    console.log(values);
+    console.log(actions);
+    register(
+      (values.fullName = `${values.firstname} ${values.lastname}`),
+      values.email,
+      values.password
+    );
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [data]);
+
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
 
   return (
     <Box
@@ -52,7 +95,12 @@ export default function SignUp() {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <VStack w={"50%"} spacing={"1em"} align={"stretch"} bgColor={"transparent"}>
+      <VStack
+        w={"50%"}
+        spacing={"1em"}
+        align={"stretch"}
+        bgColor={"transparent"}
+      >
         <Box>
           <Center>
             <Image src={logo} w={"50%"} />
@@ -109,88 +157,100 @@ export default function SignUp() {
                   </Box>
                 </Flex>
                 <Box mt={"20px"}>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  id="email"
-                  name="email"
-                  type="text"
-                  onChange={handleChange}
-                  value={values.email}
-                  onBlur={handleBlur}
-                  // placeholder="Enter Your Email"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                ></Input>
-                {touched.email && errors.email ? (
-                  <Text fontSize={"0.75em"} color="red">
-                    {errors.email}
-                  </Text>
-                ) : null}
-                </Box>
-                <Box mt={"20px"}>
-                <FormLabel>Password</FormLabel>
-                <InputGroup>
+                  <FormLabel>Email</FormLabel>
                   <Input
-                    id="password"
-                    name="password"
+                    id="email"
+                    name="email"
+                    type="text"
                     onChange={handleChange}
-                    value={values.password}
+                    value={values.email}
                     onBlur={handleBlur}
-                    // placeholder="Enter Your Password"
-                    type={show ? "text" : "password"}
+                    // placeholder="Enter Your Email"
                     // borderColor={"black"}
                     // _placeholder={{ color: "black" }}
                     // _hover={{ borderColor: "white" }}
                     // _focusVisible={{ borderColor: "white" }}
                   ></Input>
-                  <InputRightElement width="4em">
-                    <Button size="xs" onClick={handleClick} bgColor={"transparent"} _hover={{bgColor:"transparent"}}>
-                    {show ? <BiHide/> : <BiShowAlt/>}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                {touched.password && errors.password ? (
-                  <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.password}
-                  </Text>
-                ) : null}
+                  {touched.email && errors.email ? (
+                    <Text fontSize={"0.75em"} color="red">
+                      {errors.email}
+                    </Text>
+                  ) : null}
                 </Box>
                 <Box mt={"20px"}>
-                <FormLabel>Confirm Password</FormLabel>
-                <InputGroup>
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.confirmPassword}
-                    type={show ? "text" : "password"}
-                    // placeholder="Confirm Your Password"
-                    // borderColor={"black"}
-                    // _placeholder={{ color: "black" }}
-                    // _hover={{ borderColor: "white" }}
-                    // _focusVisible={{ borderColor: "white" }}
-                  ></Input>
-                  <InputRightElement width="4em">
-                    <Button size="xs" onClick={handleClick} bgColor={"transparent"} _hover={{bgColor:"transparent"}}>
-                    {show ? <BiHide/> : <BiShowAlt/>}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                {touched.confirmPassword && errors.confirmPassword ? (
-                  <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.confirmPassword}
-                  </Text>
-                ) : null}
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
+                    <Input
+                      id="password"
+                      name="password"
+                      onChange={handleChange}
+                      value={values.password}
+                      onBlur={handleBlur}
+                      // placeholder="Enter Your Password"
+                      type={show ? "text" : "password"}
+                      // borderColor={"black"}
+                      // _placeholder={{ color: "black" }}
+                      // _hover={{ borderColor: "white" }}
+                      // _focusVisible={{ borderColor: "white" }}
+                    ></Input>
+                    <InputRightElement width="4em">
+                      <Button
+                        size="xs"
+                        onClick={handleClick}
+                        bgColor={"transparent"}
+                        _hover={{ bgColor: "transparent" }}
+                      >
+                        {show ? <BiHide /> : <BiShowAlt />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {touched.password && errors.password ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.password}
+                    </Text>
+                  ) : null}
+                </Box>
+                <Box mt={"20px"}>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <InputGroup>
+                    <Input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.confirmPassword}
+                      type={show ? "text" : "password"}
+                      // placeholder="Confirm Your Password"
+                      // borderColor={"black"}
+                      // _placeholder={{ color: "black" }}
+                      // _hover={{ borderColor: "white" }}
+                      // _focusVisible={{ borderColor: "white" }}
+                    ></Input>
+                    <InputRightElement width="4em">
+                      <Button
+                        size="xs"
+                        onClick={handleClick}
+                        bgColor={"transparent"}
+                        _hover={{ bgColor: "transparent" }}
+                      >
+                        {show ? <BiHide /> : <BiShowAlt />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {touched.confirmPassword && errors.confirmPassword ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.confirmPassword}
+                    </Text>
+                  ) : null}
                 </Box>
               </Box>
             </FormControl>
           </Box>
           <Box mt={"2em"}>
             <Center>
-              <Button  disabled={isSubmitting} w={"300px"} type="submit">REGISTER</Button>
+              <Button disabled={isSubmitting} w={"300px"} type="submit">
+                REGISTER
+              </Button>
             </Center>
           </Box>
         </form>
