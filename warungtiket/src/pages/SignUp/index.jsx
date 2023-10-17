@@ -20,7 +20,6 @@ import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import { useNavigate } from "react-router";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -258,4 +257,3 @@ export default function SignUp() {
     </Box>
   );
 }
-// onClick={()=>navigate("/login")}
