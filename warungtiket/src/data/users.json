@@ -29,6 +29,18 @@
       "password": "baikB@1K",
       "email": "surya@gmail.com",
       "id": 5
+    },
+    {
+      "fullName": "Testing Testing",
+      "password": "baikB@1K",
+      "email": "testing@gmail.com",
+      "id": 6
+    },
+    {
+      "fullName": "testing testing",
+      "password": "baikB@1K",
+      "email": "testing@gmail.com",
+      "id": 7
     }
   ]
 }

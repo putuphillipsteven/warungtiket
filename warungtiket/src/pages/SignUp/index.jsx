@@ -25,16 +25,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [data, setData] = useState();
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setData(response.data);
-      console.log("--Fetch User Success--");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const register = async (fullName, email, password) => {
     try {
@@ -60,10 +50,6 @@ export default function SignUp() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [data]);
 
   const {
     values,
