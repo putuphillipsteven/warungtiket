@@ -22,23 +22,24 @@ const onSubmit = async (values, actions) => {
   console.log(values);
   console.log(actions);
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm()
-}
+  actions.resetForm();
+};
 
 export default function SignUp() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const {values, handleBlur, handleChange, handleSubmit, errors, isSubmitting} = useFormik({
-    initialValues: {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: basicSchema,
-    onSubmit,
-  });
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      },
+      validationSchema: basicSchema,
+      onSubmit,
+    });
 
   return (
     <Box
@@ -77,7 +78,11 @@ export default function SignUp() {
                       // _hover={{ borderColor: "white" }}
                       // _focusVisible={{ borderColor: "white" }}
                     />
-                    {<Text fontSize={"0.75em"} color={"red"}>{errors.firstname}</Text>}
+                    {touched.firstname && errors.firstname ? (
+                      <Text fontSize={"0.75em"} color={"red"}>
+                        {errors.firstname}
+                      </Text>
+                    ) : null}
                   </Box>
                   <Spacer m={".5em"} />
                   <Box w={"100%"}>
@@ -93,14 +98,18 @@ export default function SignUp() {
                       // _hover={{ borderColor: "white" }}
                       // _focusVisible={{ borderColor: "white" }}
                     />
-                     {<Text fontSize={"0.75em"} color={"red"}>{errors.lastname}</Text>}
+                    {touched.lastname && errors.lastname ? (
+                      <Text fontSize={"0.75em"} color={"red"}>
+                        {errors.lastname}
+                      </Text>
+                    ) : null}
                   </Box>
                 </Flex>
                 <FormLabel>Email</FormLabel>
                 <Input
                   id="email"
                   name="email"
-                  type="email"
+                  type="text"
                   onChange={handleChange}
                   value={values.email}
                   onBlur={handleBlur}
@@ -110,15 +119,19 @@ export default function SignUp() {
                   // _hover={{ borderColor: "white" }}
                   // _focusVisible={{ borderColor: "white" }}
                 ></Input>
-                {<Text fontSize={"0.75em"} color="red">{errors.email}</Text>}
+                {touched.email && errors.email ? (
+                  <Text fontSize={"0.75em"} color="red">
+                    {errors.email}
+                  </Text>
+                ) : null}
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input
-                  id="password"
-                  name="password"
-                  onChange={handleChange}
-                  value={values.password}
-                  onBlur={handleBlur}
+                    id="password"
+                    name="password"
+                    onChange={handleChange}
+                    value={values.password}
+                    onBlur={handleBlur}
                     // placeholder="Enter Your Password"
                     type={show ? "text" : "password"}
                     // borderColor={"black"}
@@ -132,15 +145,19 @@ export default function SignUp() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                {<Text fontSize={"0.75em"} color={"red"}>{errors.password}</Text>}
+                {touched.password && errors.password ? (
+                  <Text fontSize={"0.75em"} color={"red"}>
+                    {errors.password}
+                  </Text>
+                ) : null}
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
                   <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.confirmPassword}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.confirmPassword}
                     type={show ? "text" : "password"}
                     // placeholder="Confirm Your Password"
                     // borderColor={"black"}
@@ -154,13 +171,17 @@ export default function SignUp() {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                {<Text fontSize={"0.75em"} color={"red"}>{errors.confirmPassword}</Text>}
+                {touched.confirmPassword && errors.confirmPassword ? (
+                  <Text fontSize={"0.75em"} color={"red"}>
+                    {errors.confirmPassword}
+                  </Text>
+                ) : null}
               </Box>
             </FormControl>
           </Box>
           <Box mt={"2em"}>
             <Center>
-              <Button disabled={isSubmitting} type="submit">REGISTER</Button>
+              <Button type="submit">REGISTER</Button>
             </Center>
           </Box>
         </form>
