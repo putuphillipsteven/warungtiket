@@ -17,6 +17,7 @@ import {
 import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
+import { BiShowAlt, BiHide } from "react-icons/bi";
 
 const onSubmit = async (values, actions) => {
   console.log(values);
@@ -28,7 +29,7 @@ const onSubmit = async (values, actions) => {
 export default function SignUp() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched, isSubmitting } =
     useFormik({
       initialValues: {
         firstname: "",
@@ -49,7 +50,7 @@ export default function SignUp() {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <VStack w={"50%"} spacing={"1em"} align={"stretch"}>
+      <VStack w={"50%"} spacing={"1em"} align={"stretch"} bgColor={"transparent"}>
         <Box>
           <Center>
             <Image src={logo} w={"50%"} />
@@ -105,6 +106,7 @@ export default function SignUp() {
                     ) : null}
                   </Box>
                 </Flex>
+                <Box mt={"20px"}>
                 <FormLabel>Email</FormLabel>
                 <Input
                   id="email"
@@ -124,6 +126,8 @@ export default function SignUp() {
                     {errors.email}
                   </Text>
                 ) : null}
+                </Box>
+                <Box mt={"20px"}>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                   <Input
@@ -140,8 +144,8 @@ export default function SignUp() {
                     // _focusVisible={{ borderColor: "white" }}
                   ></Input>
                   <InputRightElement width="4em">
-                    <Button size="xs" onClick={handleClick}>
-                      {show ? "Hide" : "Show"}
+                    <Button size="xs" onClick={handleClick} bgColor={"transparent"} _hover={{bgColor:"transparent"}}>
+                    {show ? <BiHide/> : <BiShowAlt/>}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -150,6 +154,8 @@ export default function SignUp() {
                     {errors.password}
                   </Text>
                 ) : null}
+                </Box>
+                <Box mt={"20px"}>
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
                   <Input
@@ -166,8 +172,8 @@ export default function SignUp() {
                     // _focusVisible={{ borderColor: "white" }}
                   ></Input>
                   <InputRightElement width="4em">
-                    <Button size="xs" onClick={handleClick}>
-                      {show ? "Hide" : "Show"}
+                    <Button size="xs" onClick={handleClick} bgColor={"transparent"} _hover={{bgColor:"transparent"}}>
+                    {show ? <BiHide/> : <BiShowAlt/>}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -176,12 +182,13 @@ export default function SignUp() {
                     {errors.confirmPassword}
                   </Text>
                 ) : null}
+                </Box>
               </Box>
             </FormControl>
           </Box>
           <Box mt={"2em"}>
             <Center>
-              <Button type="submit">REGISTER</Button>
+              <Button disabled={isSubmitting} w={"300px"} type="submit">REGISTER</Button>
             </Center>
           </Box>
         </form>
