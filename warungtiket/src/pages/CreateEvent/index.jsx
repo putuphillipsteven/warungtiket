@@ -2,7 +2,6 @@ import React from "react";
 import {
   Box,
   VStack,
-  Stack,
   Checkbox,
   Button,
   Image,
@@ -10,13 +9,12 @@ import {
   FormControl,
   Input,
   FormLabel,
-  InputGroup,
-  InputRightElement,
   Center,
   Spacer,
   Flex,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
+import { Field } from "formik";
 
 export default function CreateEvent() {
   const [show, setShow] = React.useState(false);
@@ -111,6 +109,14 @@ export default function CreateEvent() {
                   // _hover={{ borderColor: "white" }}
                   // _focusVisible={{ borderColor: "white" }}
                 ></Input>
+              </Box>
+              <Box>
+                <Field type="radio" name="picked" value="One" />
+                One
+              </Box>
+              <Box>
+                <Field type="radio" name="picked" value="Two" />
+                Two
               </Box>
               <Box>
                 <FormLabel>Kategori Tiket</FormLabel>
