@@ -1,8 +1,13 @@
-import { Box, Flex, Text, HStack, Spacer, Img } from "@chakra-ui/react";
+import { Box, Flex, Text, HStack, Spacer, Img, IconButton } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
+import { useState } from "react";
+import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs"
 
 function Navbar() {
+
+  const [isLogin, setisLogin] = useState(true)
+  
   return (
     <Box position={"fixed"} zIndex={"2"} w={"full"}>
       <Box bgColor={"white"} p={"0em 3.5em"}>
@@ -29,10 +34,10 @@ function Navbar() {
                 <Link to={"/findevent"}>FIND EVENT</Link>
                 <Link to={"/createevent"}>CREATE EVENT</Link>
                 <Text as={"b"}>
-                  <Link to={"/signup"}>SIGN UP</Link>
+                  { isLogin ? <IconButton fontSize={"1.5em"} _hover={{bgColor:"transparent"}} bgColor={"transparent"} icon={<BsTicketPerforated/>}/> : <Link to={"/signup"}>SIGN UP</Link> }
                 </Text>
                 <Text as={"b"}>
-                  <Link to={"/login"}>LOGIN</Link>
+                  { isLogin ? <IconButton fontSize={"1.5em"} _hover={{bgColor:"transparent"}} bgColor={"transparent"} icon={<BsPersonCircle/>}/> : <Link to={"/login"}>LOGIN</Link> } 
                 </Text>
               </HStack>
             </Box>
