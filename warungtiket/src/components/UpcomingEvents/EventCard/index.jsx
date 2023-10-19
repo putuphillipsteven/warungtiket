@@ -1,13 +1,14 @@
 import { Box, Center, Text, VStack, Flex, Spacer } from "@chakra-ui/react";
 
-export default function EventCard() {
+export default function EventCard(props) {
   return (
     <Box
       bgColor={"gray"}
-      h={"16em"}
-      p={".5em"}
+      h={"25em"}
+      p={"2.5em"}
       borderRadius={".5em"}
       position={"relative"}
+      m={props.margin}
     >
       <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
         <Box>

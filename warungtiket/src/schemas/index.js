@@ -28,11 +28,9 @@ export const basicSchema = yup.object().shape({
 
 export const loginSchema = yup.object().shape({
   email: yup
-  .string()
-  .email("Invalid Email")
-  .matches(emailRules, "Invalid Email")
-  .required("Email is Required"),
-  password: yup
-  .string()
-  .required("Password is Required")
-})
+    .string()
+    .email("Invalid Email")
+    .matches(emailRules, "Invalid Email")
+    .required("Email is Required"),
+  password: yup.string().required("Password is Required"),
+});

@@ -15,7 +15,7 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";

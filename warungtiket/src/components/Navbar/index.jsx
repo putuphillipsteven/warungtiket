@@ -1,8 +1,8 @@
-import { Box, Flex, Text, HStack, Spacer, Img } from "@chakra-ui/react";
+import { Box, Flex, Text, HStack, Spacer, Img, Input } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 
-function Navbar() {
+function Navbar(props) {
   return (
     <Box position={"fixed"} zIndex={"2"} w={"full"}>
       <Box bgColor={"white"} p={"0em 3.5em"}>
@@ -13,7 +13,7 @@ function Navbar() {
         </Flex>
       </Box>
       <Box
-        bgColor={"gray"}
+        bgColor={"#5D3891"}
         p={".5em 3.5em"}
         w={"full"}
         //   border="1px"
@@ -21,17 +21,29 @@ function Navbar() {
         <Box>
           <Flex alignItems={"center"}>
             <Box w={"15%"}>
-              <Img src={logo} />
+              <Link to={"/"}>
+                <Img src={logo} />
+              </Link>
             </Box>
+            <Spacer />
+            {props.input}
             <Spacer />
             <Box>
               <HStack spacing={"1em"}>
-                <Link to={"/findevent"}>FIND EVENT</Link>
-                <Link to={"/createevent"}>CREATE EVENT</Link>
-                <Text as={"b"}>
+                <Link to={"/findevent"}>
+                  <Text display={props.display} color={"#F99417"}>
+                    FIND EVENT
+                  </Text>
+                </Link>
+                <Link to={"/createevent"}>
+                  <Text display={props.display} color={"#F99417"}>
+                    CREATE EVENT
+                  </Text>
+                </Link>
+                <Text as={"b"} color={"#F99417"}>
                   <Link to={"/signup"}>SIGN UP</Link>
                 </Text>
-                <Text as={"b"}>
+                <Text as={"b"} color={"#F99417"}>
                   <Link to={"/login"}>LOGIN</Link>
                 </Text>
               </HStack>
