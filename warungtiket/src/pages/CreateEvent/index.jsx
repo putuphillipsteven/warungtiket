@@ -18,8 +18,15 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
+<<<<<<< Updated upstream
 import logo from "../../img/logo.png";
 <<<<<<< Updated upstream
+=======
+
+import logo from "../../img/logo.svg";
+
+import { Field } from "formik";
+>>>>>>> Stashed changes
 import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { useNavigate } from "react-router";
