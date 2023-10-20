@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   VStack,
@@ -15,11 +15,17 @@ import {
   Center,
   Spacer,
   Flex,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import paint from "../../img/paint.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
+import registerIcon from "../../img/register.svg";
+import loginIcon from "../../img/login.svg";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -102,14 +108,16 @@ export default function SignUp() {
       >
         <Box>
           <Center>
-            <Image src={logo} w={"50%"} />
+            <Link to={"/"}>
+              <Image src={paint} w={"400%"} />
+            </Link>
           </Center>
         </Box>
-        <Box>
+        {/* <Box>
           <Center>
             <Text as={"b"}>SIGN UP</Text>
           </Center>
-        </Box>
+        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
@@ -129,9 +137,18 @@ export default function SignUp() {
                       // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.firstname && errors.firstname ? (
-                      <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.firstname}
-                      </Text>
+                      <Alert
+                        status="error"
+                        fontSize={"0.75em"}
+                        borderRadius={"0.5em"}
+                        h={"1em"}
+                      >
+                        <AlertIcon />
+                        <AlertTitle>{errors.firstname}</AlertTitle>
+                        <AlertDescription>
+                          Please fill this field
+                        </AlertDescription>
+                      </Alert>
                     ) : null}
                   </Box>
                   <Spacer m={".5em"} />
@@ -149,9 +166,18 @@ export default function SignUp() {
                       // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.lastname && errors.lastname ? (
-                      <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.lastname}
-                      </Text>
+                      <Alert
+                        status="error"
+                        fontSize={"0.75em"}
+                        borderRadius={"0.5em"}
+                        h={"1em"}
+                      >
+                        <AlertIcon />
+                        <AlertTitle>{errors.lastname}</AlertTitle>
+                        <AlertDescription>
+                          Please fill this field
+                        </AlertDescription>
+                      </Alert>
                     ) : null}
                   </Box>
                 </Flex>
@@ -171,9 +197,28 @@ export default function SignUp() {
                     // _focusVisible={{ borderColor: "white" }}
                   ></Input>
                   {touched.email && errors.email ? (
-                    <Text fontSize={"0.75em"} color="red">
-                      {errors.email}
-                    </Text>
+                    <Alert
+                      status="error"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertDescription>{errors.email}</AlertDescription>
+                      {/* <AlertDescription>
+                        Please fill this field to register
+                      </AlertDescription> */}
+                    </Alert>
+                  ) : touched.email && !errors.email ? (
+                    <Alert
+                      status="success"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertTitle>Email is Valid!</AlertTitle>
+                    </Alert>
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
@@ -186,7 +231,7 @@ export default function SignUp() {
                       value={values.password}
                       onBlur={handleBlur}
                       // placeholder="Enter Your Password"
-                      type={show ? "text" : "password"}
+                      type={!show ? "password" : "text"}
                       // borderColor={"black"}
                       // _placeholder={{ color: "black" }}
                       // _hover={{ borderColor: "white" }}
@@ -204,9 +249,25 @@ export default function SignUp() {
                     </InputRightElement>
                   </InputGroup>
                   {touched.password && errors.password ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.password}
-                    </Text>
+                    <Alert
+                      status="error"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertDescription>{errors.password}</AlertDescription>
+                    </Alert>
+                  ) : touched.password && !errors.password ? (
+                    <Alert
+                      status="success"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertTitle>Password is Valid!</AlertTitle>
+                    </Alert>
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
@@ -237,9 +298,27 @@ export default function SignUp() {
                     </InputRightElement>
                   </InputGroup>
                   {touched.confirmPassword && errors.confirmPassword ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.confirmPassword}
-                    </Text>
+                    <Alert
+                      status="error"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertDescription>
+                        {errors.confirmPassword}
+                      </AlertDescription>
+                    </Alert>
+                  ) : touched.confirmPassword && !errors.confirmPassword ? (
+                    <Alert
+                      status="success"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertTitle>Password is Match!</AlertTitle>
+                    </Alert>
                   ) : null}
                 </Box>
               </Box>
@@ -247,12 +326,30 @@ export default function SignUp() {
           </Box>
           <Box mt={"2em"}>
             <Center>
-              <Button disabled={isSubmitting} w={"300px"} type="submit">
-                REGISTER
+              <Button
+                bgColor={"transparent"}
+                _hover={{ bgColor: "transparent" }}
+                variant="solid"
+                isDisabled={isSubmitting}
+                type="submit"
+              >
+                <Image src={registerIcon} w={"50%"} />
               </Button>
             </Center>
           </Box>
         </form>
+        <VStack spacing={"1em"} mt={"1em"}>
+          <Text fontSize={"0.75em"}>Sudah Punya Akun?</Text>
+          <Button
+            type="submit"
+            bgColor={"transparent"}
+            _hover={{ bgColor: "transparent" }}
+            variant="solid"
+            isDisabled={isSubmitting}
+          >
+            <Image src={loginIcon} w={"50%"} />
+          </Button>
+        </VStack>
       </VStack>
     </Box>
   );

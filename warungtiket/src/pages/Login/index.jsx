@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
@@ -11,25 +11,82 @@ import {
   InputGroup,
   InputRightElement,
   Center,
-  Spacer,
   Flex,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  AlertTitle,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import paint from "../../img/paint.svg";
 import { useFormik } from "formik";
-import { basicSchema, loginSchema } from "../../schemas";
+import { loginSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import { Link } from "react-router-dom";
-
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
+import { Link, useNavigate } from "react-router-dom";
+import registerIcon from "../../img/register.svg";
+import loginIcon from "../../img/login.svg";
+import axios from "axios";
 
 export default function SignIn() {
-  const [show, setShow] = React.useState(false);
+  const [accounts, setAccounts] = useState([]);
+  const navigate = useNavigate();
+  const [show, setShow] = React.useState(true);
   const handleClick = () => setShow(!show);
+  let newEmail = null;
+  let indexUser = null;
+  const fetchDataLogin = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      setAccounts(response.data);
+      console.log(response);
+      console.log(`--Fetch Login Success--`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataLogin();
+  }, []);
+  const updateIsLogin = (index) => {
+    axios
+      .patch(`http://localhost:3000/users/${index}`, {
+        isLogin: "true",
+      })
+      .then((resp) => {
+        console.log(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const allEmail = accounts.map((item) => item.email);
+
+  const check = (email, password) => {
+    if (allEmail.includes(email)) {
+      newEmail = accounts[allEmail.indexOf(email)];
+      indexUser = allEmail.indexOf(email) + 1;
+      updateIsLogin(indexUser);
+      console.log(newEmail);
+      console.log(indexUser);
+      if (newEmail.password.includes(password)) {
+        navigate("/");
+      } else {
+        alert("Password Salah");
+      }
+    } else {
+      alert("Email Tidak Terdaftar");
+    }
+  };
+
+  const onSubmit = async (values, actions) => {
+    check(values.email, values.password);
+    console.log(values);
+    console.log(actions);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
+  };
+
   const {
     values,
     handleBlur,
@@ -63,14 +120,16 @@ export default function SignIn() {
       >
         <Box>
           <Center>
-            <Image src={logo} w={"50%"} />
+            <Link to={"/"}>
+              <Image src={paint} w={"400%"} />
+            </Link>
           </Center>
         </Box>
-        <Box>
+        {/* <Box>
           <Center>
             <Text as={"b"}>LOG IN</Text>
           </Center>
-        </Box>
+        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
@@ -94,10 +153,29 @@ export default function SignIn() {
                     // _hover={{ borderColor: "white" }}
                     // _focusVisible={{ borderColor: "white" }}
                   ></Input>
-                  {touched.email && errors.email ? (
-                    <Text fontSize={"0.75em"} color="red">
-                      {errors.email}
-                    </Text>
+                  {errors.email ? (
+                    <Alert
+                      status="error"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertDescription>{errors.email}</AlertDescription>
+                      {/* <AlertDescription>
+                        Please fill this field to register
+                      </AlertDescription> */}
+                    </Alert>
+                  ) : touched.email && !errors.email ? (
+                    <Alert
+                      status="success"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
+                      <AlertTitle>Email is Valid!</AlertTitle>
+                    </Alert>
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
@@ -109,8 +187,7 @@ export default function SignIn() {
                       onChange={handleChange}
                       value={values.password}
                       onBlur={handleBlur}
-                      // placeholder="Enter Your Password"
-                      type={show ? "text" : "password"}
+                      type={!show ? "password" : "text"}
                       // borderColor={"black"}
                       // _placeholder={{ color: "black" }}
                       // _hover={{ borderColor: "white" }}
@@ -128,27 +205,45 @@ export default function SignIn() {
                     </InputRightElement>
                   </InputGroup>
                   {touched.password && errors.password ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
+                    <Alert
+                      status="error"
+                      fontSize={"0.75em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
                       {errors.password}
-                    </Text>
+                    </Alert>
                   ) : null}
                 </Box>
               </Box>
             </FormControl>
           </Box>
-          <VStack spacing={"0"} mt={"2em"}>
+          <VStack spacing={"2em"} mt={"2em"}>
+            <Button
+              type="submit"
+              bgColor={"transparent"}
+              _hover={{ bgColor: "transparent" }}
+              variant="solid"
+              isDisabled={isSubmitting}
+            >
+              <Image src={loginIcon} w={"50%"} />
+            </Button>
             <Text fontSize={"0.75em"} _hover={{ color: "blue" }}>
               <Link>Lupa Password?</Link>
             </Text>
-            <Button disabled={isSubmitting} w={"300px"} type="submit">
-              LOGIN
-            </Button>
           </VStack>
         </form>
-        <VStack spacing={"0"}>
+        <VStack spacing={"0.5em"}>
           <Text fontSize={"0.75em"}>Belum Punya Akun?</Text>
           <Link to={"/signup"}>
-            <Button w={"300px"}>REGISTER</Button>
+            <Button
+              bgColor={"transparent"}
+              _hover={{ bgColor: "transparent" }}
+              variant="solid"
+            >
+              <Image src={registerIcon} w={"50%"} />
+            </Button>
           </Link>
         </VStack>
       </VStack>

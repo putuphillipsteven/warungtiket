@@ -4,7 +4,8 @@
       "fullName": "Asrar Abuchaer",
       "password": "baikB@1K",
       "email": "asrar@gmail.com",
-      "id": 1
+      "id": 1,
+      "isLogin": "true"
     },
     {
       "fullName": "I Putu Phillip Steven",
@@ -16,7 +17,8 @@
       "fullName": "Samuel Williams",
       "password": "baikB@1K",
       "email": "wllmsawi@gmail.com",
-      "id": 3
+      "id": 3,
+      "isLogin": "true"
     },
     {
       "fullName": "Andri Anggoro",

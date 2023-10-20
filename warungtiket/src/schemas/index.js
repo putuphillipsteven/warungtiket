@@ -1,6 +1,7 @@
 import * as yup from "yup";
+import { Text } from "@chakra-ui/react";
 
-const passwordRules = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
+const passwordRules = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 const emailRules =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -9,21 +10,21 @@ export const basicSchema = yup.object().shape({
   lastname: yup.string().required("Last Name is Required"),
   email: yup
     .string()
-    .email("Invalid Email")
-    .matches(emailRules, "Invalid Email")
-    .required("Email is Required"),
+    .email("Invalid Email Address")
+    .matches(emailRules, "Invalid Email Address")
+    .required(<Text as="b">Email is Required!</Text>),
   password: yup
     .string()
     .min(
-      6,
-      "Password must contain minimum 8-16 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number"
+      8,
+      "Password Must Contain Minimum 8-16 Characters, at Least 1 Uppercase Letter, 1 Lowercase Letter and 1 Number"
     )
-    .matches(passwordRules, { message: "Please create a stronger password" })
-    .required("Password is Required"),
+    .matches(passwordRules, { message: <Text as="b">Please Create a Stronger Password!</Text>})
+    .required(<Text as="b">Password is Required!</Text>),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Password must match")
-    .required("Please Confirm your Password"),
+    .oneOf([yup.ref("password"), null], "Password Must Match!")
+    .required(<Text as="b">Please Confirm your Password!</Text>),
 });
 
 export const loginSchema = yup.object().shape({
@@ -31,8 +32,8 @@ export const loginSchema = yup.object().shape({
   .string()
   .email("Invalid Email")
   .matches(emailRules, "Invalid Email")
-  .required("Email is Required"),
+  .required(<Text as="b">Email is Required!</Text>),
   password: yup
   .string()
-  .required("Password is Required")
+  .required(<Text as="b">Password is Required!</Text>)
 })
