@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
-  Checkbox,
   Button,
   Image,
   Text,
@@ -15,9 +14,7 @@ import {
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
-
-import logo from "../../img/logo.svg";
-
+import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { useNavigate } from "react-router";
@@ -179,15 +176,75 @@ export default function CreateEvent() {
                 ) : null}
               </Box>
               <Box>
-                <Field type="radio" name="picked" value="One" />
-                One
+                <FormLabel>Start Date</FormLabel>
+                <Input
+                  id="startDate"
+                  name="startDate"
+                  type="datetime-local"
+                  onChange={handleChange}
+                  value={values.startDate}
+                  onBlur={handleBlur}
+                />
+                {touched.startDate && errors.startDate ? (
+                  <Text fontSize={"0.75em"} color={"red"}>
+                    {errors.startDate}
+                  </Text>
+                ) : null}
               </Box>
               <Box>
-                <Field type="radio" name="picked" value="Two" />
-                Two
+                <FormLabel>End Date</FormLabel>
+                <Input
+                  id="endDate"
+                  name="endDate"
+                  type="datetime-local"
+                  onChange={handleChange}
+                  value={values.endDate}
+                  onBlur={handleBlur}
+                />
+                {touched.endDate && errors.endDate ? (
+                  <Text fontSize={"0.75em"} color={"red"}>
+                    {errors.endDate}
+                  </Text>
+                ) : null}
               </Box>
               <Box>
-                <FormLabel>Kategori Tiket</FormLabel>
+                <Flex>
+                  <Box w={"100%"}>
+                    <FormLabel>Provinsi</FormLabel>
+                    <Input
+                      placeholder="..."
+                      id="provinsi"
+                      name="provinsi"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.provinsi}
+                      onBlur={handleBlur}
+                    />
+                    {touched.provinsi && errors.provinsi ? (
+                      <Text fontSize={"0.75em"} color={"red"}>
+                        {errors.provinsi}
+                      </Text>
+                    ) : null}
+                  </Box>
+                  <Spacer m={".5em"} />
+                  <Box w={"100%"}>
+                    <FormLabel>Kota</FormLabel>
+                    <Input
+                      placeholder="..."
+                      id="kota"
+                      name="kota"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.kota}
+                      onBlur={handleBlur}
+                    />
+                    {touched.kota && errors.kota ? (
+                      <Text fontSize={"0.75em"} color={"red"}>
+                        {errors.kota}
+                      </Text>
+                    ) : null}
+                  </Box>
+                </Flex>
                 <Box>
                   <FormLabel>Address</FormLabel>
                   <Input
