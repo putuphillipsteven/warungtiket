@@ -13,7 +13,7 @@ import logo from "../../img/logo.svg";
 import { useState } from "react";
 import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs";
 
-function Navbar() {
+function Navbar(props) {
   const [isLogin, setisLogin] = useState(false);
 
   return (
