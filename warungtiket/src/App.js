@@ -3,7 +3,6 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/Login";
 import CreateEvent from "./pages/CreateEvent";
-
 function App() {
   return (
     <Routes>

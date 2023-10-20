@@ -28,11 +28,24 @@ export const basicSchema = yup.object().shape({
 
 export const loginSchema = yup.object().shape({
   email: yup
-  .string()
-  .email("Invalid Email")
-  .matches(emailRules, "Invalid Email")
-  .required("Email is Required"),
-  password: yup
-  .string()
-  .required("Password is Required")
-})
+    .string()
+    .email("Invalid Email")
+    .matches(emailRules, "Invalid Email")
+    .required("Email is Required"),
+  password: yup.string().required("Password is Required"),
+});
+
+export const createSchema = yup.object().shape({
+  nameEvent: yup.string().required("input name"),
+  startDate: yup.date().required("input date"),
+  endDate: yup.date().required("input date"),
+  provinsi: yup.string().required("input data"),
+  kota: yup.string().required("input data"),
+  address: yup.string().required("address is required"),
+  ticketCategory: yup.string().required("categoryticket is required"),
+  // gratis: yup.string(0),
+  // berbayar: yup.string(0),
+  price: yup.number("").required("input price"),
+  descriptionEvent: yup.string().required("description is Required"),
+  password: yup.string().required("Password is Required"),
+});
