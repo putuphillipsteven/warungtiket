@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
-  Stack,
   Checkbox,
   Button,
   Image,
@@ -10,17 +9,135 @@ import {
   FormControl,
   Input,
   FormLabel,
-  InputGroup,
-  InputRightElement,
   Center,
   Spacer,
   Flex,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
+
 import logo from "../../img/logo.svg";
 
+import { useFormik } from "formik";
+import { createSchema } from "../../schemas";
+import { useNavigate } from "react-router";
+import axios from "axios";
+
 export default function CreateEvent() {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(true);
   const handleClick = () => setShow(!show);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
+  // const register = async (fullName, email, password) => {
+  //   try {
+  //     await axios.post("http://localhost:3000/EO", {
+  //       fullName,
+  //       password,
+  //       email,
+  //     });
+  //     await alert("---Create Ticket Success---");
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const fD = async () => {
+    try {
+      const responses = await axios.get("http://localhost:3000/events");
+      setData(responses.data);
+      console.log("----sks-----");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fD();
+  }, []);
+
+  const createEvent = async (
+    nameEvent,
+    startDate,
+    endDate,
+    provinsi,
+    kota,
+    address,
+    ticketCategory,
+    // harga1,
+    // harga2,
+    price,
+    descriptionEvent
+  ) => {
+    try {
+      await axios.post("http://localhost:3000/events", {
+        nameEvent,
+        startDate,
+        endDate,
+        provinsi,
+        kota,
+        address,
+        ticketCategory,
+        // harga1,
+        // harga2,
+        price,
+        descriptionEvent,
+      });
+      await alert("---Create Tiket Success");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onChangeSubmit = async (values, actions) => {
+    console.log(values);
+    console.log(actions);
+    createEvent(
+      values.nameEvent,
+      values.startDate,
+      values.endDate,
+      values.provinsi,
+      values.kota,
+      values.address,
+      values.ticketCategory,
+      // values.harga1,
+      // values.harga2,
+      values.price,
+      values.descriptionEvent
+    );
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  };
+
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      nameEvent: "",
+      startDate: "",
+      endDate: "",
+      provinsi: "",
+      kota: "",
+      address: "",
+      ticketCategory: "",
+      // harga1: "",
+      // harga2: "",
+      price: "",
+      descriptionEvent: "",
+    },
+    // validationSchema: createSchema,
+    onSubmit: (values, actions) => {
+      onChangeSubmit(values);
+      actions.resetForm();
+    },
+  });
 
   return (
     <Box
@@ -41,135 +158,143 @@ export default function CreateEvent() {
             <Text as={"b"}>CREATE EVENT</Text>
           </Center>
         </Box>
-        <Box>
-          <FormControl isRequired>
-            <Box>
-              <FormLabel>Nama</FormLabel>
-              <Input
-                placeholder="Nama Lengkap"
-                // borderColor={"black"}
-                // _placeholder={{ color: "black" }}
-                // _hover={{ borderColor: "white" }}
-                // _focusVisible={{ borderColor: "white" }}
-              ></Input>
-            </Box>
-            <Box>
-              <FormLabel>Tanggal</FormLabel>
-              <Input
-                placeholder="Tanggal Event"
-                // borderColor={"black"}
-                // _placeholder={{ color: "black" }}
-                // _hover={{ borderColor: "white" }}
-                // _focusVisible={{ borderColor: "white" }}
-              ></Input>
-            </Box>
-            <Box>
-              <Flex>
-                <Box w={"100%"}>
-                  <FormLabel>Waktu Mulai</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-                <Spacer m={".5em"} />
-                <Box w={"100%"}>
-                  <FormLabel>Waktu Selesai</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-              </Flex>
-              <Flex>
-                <Box w={"100%"}>
-                  <FormLabel>Provinsi</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-                <Spacer m={".5em"} />
-                <Box w={"100%"}>
-                  <FormLabel>Kota</FormLabel>
-                  <Input
-                  // borderColor={"black"}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                  />
-                </Box>
-              </Flex>
+        <form onSubmit={handleSubmit}>
+          <Box>
+            <FormControl>
               <Box>
-                <FormLabel>Alamat</FormLabel>
+                <FormLabel>Event Name</FormLabel>
                 <Input
-                  placeholder="Alamat Lengkap"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
+                  placeholder="input here"
+                  id="nameEvent"
+                  name="nameEvent"
+                  type="text"
+                  onChange={handleChange}
+                  value={values.nameEvent}
+                  onBlur={handleBlur}
                 ></Input>
+                {touched.nameEvent && errors.nameEvent ? (
+                  <Text fontSize={"0.75em"} color={"red"}>
+                    {errors.nameEvent}
+                  </Text>
+                ) : null}
+              </Box>
+              <Box>
+                <Field type="radio" name="picked" value="One" />
+                One
+              </Box>
+              <Box>
+                <Field type="radio" name="picked" value="Two" />
+                Two
               </Box>
               <Box>
                 <FormLabel>Kategori Tiket</FormLabel>
                 <Box>
-                  <Checkbox colorScheme="green" defaultChecked>
-                    Berbayar
-                  </Checkbox>
+                  <FormLabel>Address</FormLabel>
+                  <Input
+                    placeholder="..."
+                    id="address"
+                    name="address"
+                    type="text"
+                    onChange={handleChange}
+                    value={values.address}
+                    onBlur={handleBlur}
+                  />
+                  {touched.address && errors.address ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.address}
+                    </Text>
+                  ) : null}
                 </Box>
-                <Spacer />
                 <Box>
-                  <Checkbox colorScheme="green" defaultChecked>
-                    Gratis
-                  </Checkbox>
+                  <FormLabel>Ticket Category</FormLabel>
+                  <Input
+                    placeholder="Berbayar/Gratis"
+                    id="ticketCategory"
+                    name="ticketCategory"
+                    type="text"
+                    onChange={handleChange}
+                    value={values.ticketCategory}
+                    onBlur={handleBlur}
+                  />
+                  {touched.ticketCategory && errors.ticketCategory ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.ticketCategory}
+                    </Text>
+                  ) : null}
+                </Box>
+                {/* <Box>
+                  <FormLabel>Ticket Category</FormLabel>
+                  <RadioGroup>
+                    <VStack align={"baseline"}>
+                      <Radio
+                        value="harga1"
+                        isChecked={true}
+                        onChange={handleClick}
+                      >
+                        Gratis
+                      </Radio>
+                      <Radio
+                        value="harga2"
+                        isChecked={show}
+                        onChange={handleClick}
+                      >
+                        Berbayar
+                      </Radio>
+                      {touched.berbayar && errors.berbayar ? (
+                        <Text fontSize={"0.75em"} color={"red"}>
+                          {errors.berbayar}
+                        </Text>
+                      ) : null}
+                    </VStack>
+                  </RadioGroup>
+                </Box> */}
+                {show ? (
+                  <Box>
+                    <FormLabel>Price</FormLabel>
+                    <Input
+                      placeholder="Rp. "
+                      id="price"
+                      name="price"
+                      type="text"
+                      onChange={handleChange}
+                      value={values.price}
+                      onBlur={handleBlur}
+                    />
+                    {touched.price && errors.price ? (
+                      <Text fontSize={"0.75em"} color={"red"}>
+                        {errors.price}
+                      </Text>
+                    ) : null}
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Box>
+                  <FormLabel>Event Description</FormLabel>
+                  <Input
+                    placeholder="..."
+                    id="descriptionEvent"
+                    name="descriptionEvent"
+                    type="text"
+                    onChange={handleChange}
+                    value={values.descriptionEvent}
+                    onBlur={handleBlur}
+                  ></Input>
+                  {touched.descriptionEvent && errors.descriptionEvent ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.descriptionEvent}
+                    </Text>
+                  ) : null}
                 </Box>
               </Box>
-              <Box>
-                <FormLabel>Deskripsi</FormLabel>
-                <Input
-                  placeholder="Deskripsi Event"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                ></Input>
-              </Box>
-              <Box>
-                <FormLabel>Harga Tiket</FormLabel>
-                <Input
-                  placeholder="Masukkan Harga Tiket"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                ></Input>
-              </Box>
-              {/* <FormLabel>Confirm Password</FormLabel>
-              <InputGroup>
-                <Input
-                  type={show ? "text" : "password"}
-                  placeholder="Confirm Your Password"
-                  // borderColor={"black"}
-                  // _placeholder={{ color: "black" }}
-                  // _hover={{ borderColor: "white" }}
-                  // _focusVisible={{ borderColor: "white" }}
-                ></Input>
-                <InputRightElement width="4em">
-                  <Button size="xs" onClick={handleClick}>
-                    {show ? "Hide" : "Show"}
-                  </Button>
-                </InputRightElement>
-              </InputGroup> */}
-            </Box>
-          </FormControl>
-        </Box>
-        <Box>
-          <Center>
-            <Button>Buat Tiket Event</Button>
-          </Center>
-        </Box>
+            </FormControl>
+          </Box>
+          <Box>
+            <Center>
+              <Button type={"submit"}>Create Ticket</Button>
+            </Center>
+          </Box>
+        </form>
       </VStack>
     </Box>
   );

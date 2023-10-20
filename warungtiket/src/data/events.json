@@ -1,0 +1,289 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "nameevent": "",
+      "startdate": "",
+      "enddate": "",
+      "provinsi": "",
+      "kota": "",
+      "address": "",
+      "ticketcategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "",
+      "descriptionevent": ""
+    },
+    {
+      "username": "masriski",
+      "password": "riski123",
+      "id": 2
+    },
+    {
+      "username": "masriski",
+      "password": "riski123",
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
+    },
+    {
+      "id": 7
+    },
+    {
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "nameevent": "etghhg",
+      "id": 10
+    },
+    {
+      "nameevent": "etghhg",
+      "startdate": "2023-10-13T10:32",
+      "enddate": "",
+      "provinsi": "efgth",
+      "kota": "wreeu",
+      "address": "rtwyeur",
+      "ticketcategory": "",
+      "price": "jgftdyr",
+      "descriptionevent": "",
+      "id": 11
+    },
+    {
+      "nameevent": "putu",
+      "startdate": "2023-10-26T10:34",
+      "enddate": "2023-10-23T10:34",
+      "provinsi": "jogja",
+      "kota": "solo",
+      "address": "purwadhika jogja",
+      "ticketcategory": "",
+      "price": "",
+      "descriptionevent": "",
+      "id": 12
+    },
+    {
+      "nameevent": "putu",
+      "startdate": "2023-10-26T10:35",
+      "enddate": "2023-10-17T10:35",
+      "provinsi": "aegsrh",
+      "kota": "faeregst",
+      "address": "erty",
+      "ticketcategory": "",
+      "price": "",
+      "descriptionevent": "",
+      "id": 13
+    },
+    {
+      "nameevent": "asrar test",
+      "startdate": "2023-10-20T10:49",
+      "enddate": "2023-10-20T10:49",
+      "provinsi": "jogja",
+      "kota": "solo",
+      "address": "purwadhika jogja",
+      "ticketcategory": "private",
+      "gratis": "",
+      "berbayar": "",
+      "price": "1230000",
+      "descriptionevent": "",
+      "id": 14
+    },
+    {
+      "nameEvent": "",
+      "startDate": "",
+      "endDate": "",
+      "provinsi": "",
+      "kota": "",
+      "address": "",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "",
+      "descriptionEvent": "",
+      "id": 15
+    },
+    {
+      "nameEvent": "",
+      "startDate": "",
+      "endDate": "",
+      "provinsi": "abc",
+      "kota": "abc",
+      "address": "abc",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "12000",
+      "descriptionEvent": "",
+      "id": 16
+    },
+    {
+      "nameEvent": "",
+      "startDate": "",
+      "endDate": "",
+      "provinsi": "qwerty",
+      "kota": "qwerty",
+      "address": "qwerty",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "",
+      "descriptionEvent": "",
+      "id": 17
+    },
+    {
+      "nameEvent": "halo",
+      "startDate": "2023-10-20T13:03",
+      "endDate": "2023-10-21T13:03",
+      "provinsi": "halo",
+      "kota": "halo",
+      "address": "halo",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "",
+      "descriptionEvent": "halo",
+      "id": 18
+    },
+    {
+      "nameEvent": "tes",
+      "startDate": "2023-11-02T13:07",
+      "endDate": "2023-10-31T13:07",
+      "provinsi": "tes",
+      "kota": "tes",
+      "address": "tes",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "100000",
+      "descriptionEvent": "tes",
+      "id": 19
+    },
+    {
+      "nameEvent": "tes",
+      "startDate": "2023-10-20T13:11",
+      "endDate": "2023-10-21T13:11",
+      "provinsi": "tes",
+      "kota": "tes",
+      "address": "tes",
+      "ticketCategory": "",
+      "gratis": "",
+      "berbayar": "",
+      "price": "",
+      "descriptionEvent": "tes",
+      "id": 20
+    },
+    {
+      "nameEvent": "fg",
+      "startDate": "2023-10-12T13:18",
+      "endDate": "2023-11-08T13:18",
+      "provinsi": "dfregt",
+      "kota": "wqqedfrty",
+      "address": "ewretyrt",
+      "ticketCategory": "",
+      "price": "",
+      "descriptionEvent": "",
+      "id": 21
+    },
+    {
+      "nameEvent": "sfdgh",
+      "startDate": "2023-10-14T13:20",
+      "endDate": "2023-11-08T13:20",
+      "provinsi": "esfrdgth",
+      "kota": "wdefrgt",
+      "address": "wdefrgt",
+      "ticketCategory": "",
+      "harga": "",
+      "price": "",
+      "descriptionEvent": "",
+      "id": 22
+    },
+    {
+      "nameEvent": "dsfg",
+      "startDate": "2023-10-05T13:25",
+      "endDate": "2023-10-16T13:25",
+      "provinsi": "wdefr",
+      "kota": "defr",
+      "address": "defr",
+      "ticketCategory": "",
+      "harga1": "",
+      "harga2": "",
+      "price": "1231234",
+      "descriptionEvent": "asdfgdhyjhnbvfdefrt",
+      "id": 23
+    },
+    {
+      "nameEvent": "weretr",
+      "startDate": "2023-10-17T13:28",
+      "endDate": "2023-10-31T13:28",
+      "provinsi": "defer",
+      "kota": "deret",
+      "address": "ert",
+      "ticketCategory": "",
+      "harga1": "",
+      "harga2": "",
+      "price": "defregt",
+      "descriptionEvent": "defrty",
+      "id": 24
+    },
+    {
+      "nameEvent": "halo",
+      "startDate": "2023-10-17T13:35",
+      "endDate": "2023-10-30T13:35",
+      "provinsi": "halo",
+      "kota": "loha",
+      "address": "lolo",
+      "ticketCategory": "",
+      "harga1": "",
+      "harga2": "",
+      "price": "150.000",
+      "descriptionEvent": "sam ganteng ",
+      "id": 25
+    },
+    {
+      "nameEvent": "aku putu",
+      "startDate": "2023-10-20T13:39",
+      "endDate": "2023-10-21T13:39",
+      "provinsi": "putu",
+      "kota": "nadya",
+      "address": "sam",
+      "ticketCategory": "",
+      "harga1": "",
+      "harga2": "",
+      "price": "100000",
+      "descriptionEvent": "ini konser",
+      "id": 26
+    },
+    {
+      "nameEvent": "dsdd",
+      "startDate": "2023-10-20T13:44",
+      "endDate": "2023-10-28T13:44",
+      "provinsi": "sad",
+      "kota": "de",
+      "address": "sad",
+      "ticketCategory": "",
+      "price": "10000000000",
+      "descriptionEvent": "goyang2",
+      "id": 27
+    },
+    {
+      "nameEvent": "dsgrt",
+      "startDate": "2023-10-19T13:47",
+      "endDate": "2023-11-01T13:47",
+      "provinsi": "zXscd",
+      "kota": "asd",
+      "address": "as",
+      "ticketCategory": "sxdf",
+      "price": "23243",
+      "descriptionEvent": "sadfdxfgv",
+      "id": 28
+    }
+  ]
+}
