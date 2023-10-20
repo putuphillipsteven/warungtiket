@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
+<<<<<<< Updated upstream
+=======
+  Checkbox,
+>>>>>>> Stashed changes
   Button,
   Image,
   Text,
@@ -15,10 +19,14 @@ import {
   RadioGroup,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
+<<<<<<< Updated upstream
 import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { useNavigate } from "react-router";
 import axios from "axios";
+=======
+import { Field } from "formik";
+>>>>>>> Stashed changes
 
 export default function CreateEvent() {
   const [show, setShow] = useState(true);
@@ -176,6 +184,7 @@ export default function CreateEvent() {
                 ) : null}
               </Box>
               <Box>
+<<<<<<< Updated upstream
                 <FormLabel>Start Date</FormLabel>
                 <Input
                   id="startDate"
@@ -245,6 +254,17 @@ export default function CreateEvent() {
                     ) : null}
                   </Box>
                 </Flex>
+=======
+                <Field type="radio" name="picked" value="One" />
+                One
+              </Box>
+              <Box>
+                <Field type="radio" name="picked" value="Two" />
+                Two
+              </Box>
+              <Box>
+                <FormLabel>Kategori Tiket</FormLabel>
+>>>>>>> Stashed changes
                 <Box>
                   <FormLabel>Address</FormLabel>
                   <Input
