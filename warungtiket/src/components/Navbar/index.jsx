@@ -4,7 +4,6 @@ import {
   Text,
   HStack,
   Spacer,
-  Img,
   IconButton,
   Image,
 } from "@chakra-ui/react";
@@ -35,7 +34,7 @@ function Navbar(props) {
           <Flex alignItems={"center"}>
             <Box w={"15%"}>
               <Link to={"/"}>
-                <Img src={logo} />
+                <Image src={logo} />
               </Link>
             </Box>
             <Spacer />
