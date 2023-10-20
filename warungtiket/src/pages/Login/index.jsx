@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   VStack,
@@ -14,22 +14,49 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema, loginSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
-
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-};
+import axios from "axios";
 
 export default function SignIn() {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState([]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/users");
+      setData(response["data"]);
+      console.log("---Fetch Data Sucess----");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  for (let element in data) {
+    console.log(data[element]);
+  }
+
+  let email = "putu.phillip@gmail.com";
+
+  console.log(email === data[1]["email"]);
+
+  let user = null;
+
   const handleClick = () => setShow(!show);
+
+  const onSubmit = async (values, actions) => {
+    console.log(values);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await alert("Login Success");
+    actions.resetForm();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const {
     values,
     handleBlur,

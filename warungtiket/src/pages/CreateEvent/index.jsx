@@ -16,7 +16,7 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 
 export default function CreateEvent() {
   const [show, setShow] = React.useState(false);

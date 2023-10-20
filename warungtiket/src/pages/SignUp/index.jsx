@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   VStack,
@@ -16,7 +15,7 @@ import {
   Spacer,
   Flex,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
@@ -26,16 +25,6 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [data, setData] = useState();
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setData(response.data);
-      console.log("--Fetch User Success--");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const register = async (fullName, email, password) => {
     try {
@@ -61,10 +50,6 @@ export default function SignUp() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [data]);
 
   const {
     values,

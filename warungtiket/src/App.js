@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/Login";
 import CreateEvent from "./pages/CreateEvent";
+import FindEvent from "./pages/FindEvent";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/findevent" element={<Home />} />
+      <Route path="/findevent" element={<FindEvent />} />
       <Route path="/createevent" element={<CreateEvent />} />
     </Routes>
   );

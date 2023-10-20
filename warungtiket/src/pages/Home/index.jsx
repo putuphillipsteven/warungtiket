@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Box>
       <Navbar />
-      <Jumbotron />
+      {/* <Jumbotron /> */}
       <UpcomingEvents />
       <EventsCategories />
       <Footer />
