@@ -1,8 +1,21 @@
-import { Box, Flex, Text, HStack, Spacer, Img, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  HStack,
+  Spacer,
+  Img,
+  IconButton,
+  Image,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.svg";
+import { useState } from "react";
+import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs";
 
-function Navbar(props) {
+function Navbar() {
+  const [isLogin, setisLogin] = useState(false);
+
   return (
     <Box position={"fixed"} zIndex={"2"} w={"full"}>
       <Box bgColor={"white"} p={"0em 3.5em"}>
