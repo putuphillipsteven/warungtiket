@@ -16,8 +16,8 @@ import {
   AlertIcon,
   AlertDescription,
   AlertTitle,
+  useToast,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.svg";
 import paint from "../../img/paint.svg";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas";
@@ -32,6 +32,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const [show, setShow] = React.useState(true);
   const handleClick = () => setShow(!show);
+  const toast = useToast();
   let newEmail = null;
   let indexUser = null;
   const fetchDataLogin = async () => {
@@ -71,12 +72,31 @@ export default function SignIn() {
       console.log(newEmail);
       console.log(indexUser);
       if (newEmail.password.includes(password)) {
+        toast({
+          title: "Login Success",
+          duration: 3000,
+          isClosable: true,
+          status: "success",
+          position: "top",
+        });
         navigate("/");
       } else {
-        alert("Password Salah");
+        toast({
+          title: "Password Salah",
+          duration: 5000,
+          isClosable: true,
+          status: "error",
+          position: "top",
+        });
       }
     } else {
-      alert("Email Tidak Terdaftar");
+      toast({
+        title: "Akun Belum Terdaftar",
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        position: "top",
+      });
     }
   };
 

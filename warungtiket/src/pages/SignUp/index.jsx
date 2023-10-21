@@ -19,6 +19,7 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  useToast,
 } from "@chakra-ui/react";
 import paint from "../../img/paint.svg";
 import { useFormik } from "formik";
@@ -31,6 +32,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const toast = useToast();
 
   const register = async (fullName, email, password) => {
     try {
@@ -39,7 +41,13 @@ export default function SignUp() {
         password,
         email,
       });
-      await alert("---SignUp Success---");
+      await toast({
+        title: "Register Success",
+        duration: 5000,
+        isClosable: true,
+        status: "success",
+        position: "top",
+      });
       navigate("/login");
     } catch (err) {
       console.log(err);
