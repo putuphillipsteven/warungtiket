@@ -13,7 +13,7 @@ import { useState } from "react";
 import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs";
 
 function Navbar(props) {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(true);
 
   return (
     <Box position={"fixed"} zIndex={"2"} w={"full"}>
@@ -53,10 +53,36 @@ function Navbar(props) {
                   </Text>
                 </Link>
                 <Text as={"b"} color={"#F99417"}>
-                  <Link to={"/signup"}>SIGN UP</Link>
+                  <Link to={isLogin ? "/cart" : "/signup"}>
+                    {isLogin ? (
+                      <IconButton
+                        fontSize={"1.5em"}
+                        color={"white"}
+                        bgColor={"transparent"}
+                        _hover={{ bgColor: "tranparent" }}
+                      >
+                        <BsTicketPerforated />
+                      </IconButton>
+                    ) : (
+                      "SIGN UP"
+                    )}
+                  </Link>
                 </Text>
                 <Text as={"b"} color={"#F99417"}>
-                  <Link to={"/login"}>LOGIN</Link>
+                  <Link to={isLogin ? "/profile" : "/login"}>
+                    {isLogin ? (
+                      <IconButton
+                        fontSize={"1.5em"}
+                        color={"white"}
+                        bgColor={"transparent"}
+                        _hover={{ bgColor: "tranparent" }}
+                      >
+                        <BsPersonCircle />
+                      </IconButton>
+                    ) : (
+                      "LOGIN"
+                    )}
+                  </Link>
                 </Text>
               </HStack>
             </Box>
