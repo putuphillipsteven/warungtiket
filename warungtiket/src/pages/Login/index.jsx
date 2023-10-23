@@ -145,11 +145,6 @@ export default function SignIn() {
             </Link>
           </Center>
         </Box>
-        {/* <Box>
-          <Center>
-            <Text as={"b"}>LOG IN</Text>
-          </Center>
-        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
@@ -170,28 +165,25 @@ export default function SignIn() {
                     color={"black"}
                     bgColor={"white"}
                     focusBorderColor={"transparent"}
-                    borderRadius={"0"}
+                    borderRadius={"0.5em"}
                     borderColor={"transparent"}
                     _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {errors.email ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
-                      borderRadius={"0"}
+                      fontSize={"0.7em"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
                       <AlertDescription>{errors.email}</AlertDescription>
-                      {/* <AlertDescription>
-                        Please fill this field to register
-                      </AlertDescription> */}
                     </Alert>
                   ) : touched.email && !errors.email ? (
                     <Alert
                       status="success"
-                      fontSize={"0.75em"}
-                      borderRadius={"0"}
+                      fontSize={"0.7em"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -212,7 +204,7 @@ export default function SignIn() {
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       borderColor={"transparent"}
                       _hover={{ borderColor: "transparent" }}
                     ></Input>
@@ -231,8 +223,8 @@ export default function SignIn() {
                   {touched.password && errors.password ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
-                      borderRadius={"0"}
+                      fontSize={"0.7em"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />

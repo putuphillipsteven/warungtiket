@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -124,7 +124,7 @@ export default function SignUp() {
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       _hover={{ borderColor: "transparent" }}
                       borderColor={"transparent"}
                       // _focusVisible={{ borderColor: "white" }}
@@ -133,7 +133,7 @@ export default function SignUp() {
                       <Alert
                         status="error"
                         fontSize={"0.7em"}
-                        borderRadius={"0"}
+                        borderRadius={"0.5em"}
                         h={"1em"}
                       >
                         <AlertIcon />
@@ -144,7 +144,7 @@ export default function SignUp() {
                       </Alert>
                     ) : null}
                   </Box>
-                  <Spacer m={".5em"} />
+                  <Spacer m={"0.5em"} />
                   <Box w={"100%"}>
                     <FormLabel color={"white"}>Last Name</FormLabel>
                     <Input
@@ -157,16 +157,15 @@ export default function SignUp() {
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       borderColor={"transparent"}
                       _hover={{ borderColor: "transparent" }}
-                      // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.lastname && errors.lastname ? (
                       <Alert
                         status="error"
                         fontSize={"0.7em"}
-                        borderRadius={"0"}
+                        borderRadius={"0.5em"}
                         h={"1em"}
                       >
                         <AlertIcon />
@@ -190,7 +189,7 @@ export default function SignUp() {
                     color={"black"}
                     bgColor={"white"}
                     focusBorderColor={"transparent"}
-                    borderRadius={"0"}
+                    borderRadius={"0.5em"}
                     borderColor={"transparent"}
                     _hover={{ borderColor: "transparent" }}
                   ></Input>
@@ -198,7 +197,7 @@ export default function SignUp() {
                     <Alert
                       status="error"
                       fontSize={"0.7em"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -208,7 +207,7 @@ export default function SignUp() {
                     <Alert
                       status="success"
                       fontSize={"0.7em"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -228,7 +227,7 @@ export default function SignUp() {
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       type={!show ? "password" : "text"}
                       borderColor={"transparent"}
                       _hover={{ borderColor: "transparent" }}
@@ -249,7 +248,7 @@ export default function SignUp() {
                     <Alert
                       status="error"
                       fontSize={"0.7em"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -259,7 +258,7 @@ export default function SignUp() {
                     <Alert
                       status="success"
                       fontSize={"0.7em"}
-                      borderRadius={"0.75"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -280,7 +279,7 @@ export default function SignUp() {
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       borderColor={"transparent"}
                       _hover={{ borderColor: "transparent" }}
                     ></Input>
@@ -300,7 +299,7 @@ export default function SignUp() {
                     <Alert
                       status="error"
                       fontSize={"0.7em"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
@@ -312,11 +311,11 @@ export default function SignUp() {
                     <Alert
                       status="success"
                       fontSize={"0.7em"}
-                      borderRadius={"0"}
+                      borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Password is Match!</AlertTitle>
+                      <AlertTitle>Password Match!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>
