@@ -212,7 +212,7 @@ export default function SignUp() {
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Email is Valid!</AlertTitle>
+                      <AlertTitle>Email Valid!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>
@@ -263,7 +263,7 @@ export default function SignUp() {
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Password is Valid!</AlertTitle>
+                      <AlertTitle>Password Valid!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>

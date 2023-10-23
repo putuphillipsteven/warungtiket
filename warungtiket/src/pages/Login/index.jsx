@@ -191,7 +191,7 @@ export default function SignIn() {
                     <Alert
                       status="success"
                       fontSize={"0.75em"}
-                      borderRadius={"0.5em"}
+                      borderRadius={"0"}
                       h={"1em"}
                     >
                       <AlertIcon />
