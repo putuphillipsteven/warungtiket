@@ -13,7 +13,7 @@ import { useState } from "react";
 import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs";
 
 function Navbar(props) {
-  const [isLogin, setisLogin] = useState(true);
+  const [isLogin, setisLogin] = useState(false);
 
   return (
     <Box position={"fixed"} zIndex={"2"} w={"full"}>
