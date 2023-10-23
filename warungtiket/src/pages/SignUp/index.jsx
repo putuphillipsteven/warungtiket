@@ -107,11 +107,6 @@ export default function SignUp() {
             </Link>
           </Center>
         </Box>
-        {/* <Box>
-          <Center>
-            <Text as={"b"}>SIGN UP</Text>
-          </Center>
-        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
@@ -130,8 +125,8 @@ export default function SignUp() {
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
                       borderRadius={"0"}
-                      // borderColor={"black"}
-                      // _hover={{ borderColor: "white" }}
+                      _hover={{ borderColor: "transparent" }}
+                      borderColor={"transparent"}
                       // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.firstname && errors.firstname ? (
@@ -163,8 +158,8 @@ export default function SignUp() {
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
                       borderRadius={"0"}
-                      // borderColor={"black"}
-                      // _hover={{ borderColor: "white" }}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                       // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.lastname && errors.lastname ? (
@@ -196,11 +191,8 @@ export default function SignUp() {
                     bgColor={"white"}
                     focusBorderColor={"transparent"}
                     borderRadius={"0"}
-                    // placeholder="Enter Your Email"
-                    // borderColor={"black"}
-                    // _placeholder={{ color: "black" }}
-                    // _hover={{ borderColor: "white" }}
-                    // _focusVisible={{ borderColor: "white" }}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {touched.email && errors.email ? (
                     <Alert
@@ -211,9 +203,6 @@ export default function SignUp() {
                     >
                       <AlertIcon />
                       <AlertDescription>{errors.email}</AlertDescription>
-                      {/* <AlertDescription>
-                        Please fill this field to register
-                      </AlertDescription> */}
                     </Alert>
                   ) : touched.email && !errors.email ? (
                     <Alert
@@ -241,15 +230,12 @@ export default function SignUp() {
                       focusBorderColor={"transparent"}
                       borderRadius={"0"}
                       type={!show ? "password" : "text"}
-                      // placeholder="Enter Your Password"
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
                     <InputRightElement w="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}
@@ -295,15 +281,12 @@ export default function SignUp() {
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
                       borderRadius={"0"}
-                      // placeholder="Confirm Your Password"
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
                     <InputRightElement width="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}

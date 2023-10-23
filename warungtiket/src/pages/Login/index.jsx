@@ -171,11 +171,8 @@ export default function SignIn() {
                     bgColor={"white"}
                     focusBorderColor={"transparent"}
                     borderRadius={"0"}
-                    // placeholder="Enter Your Email"
-                    // borderColor={"black"}
-                    // _placeholder={{ color: "black" }}
-                    // _hover={{ borderColor: "white" }}
-                    // _focusVisible={{ borderColor: "white" }}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {errors.email ? (
                     <Alert
@@ -216,14 +213,12 @@ export default function SignIn() {
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
                       borderRadius={"0"}
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
                     <InputRightElement w="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}
