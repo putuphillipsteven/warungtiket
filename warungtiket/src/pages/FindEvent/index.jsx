@@ -38,34 +38,16 @@ function FindEvent() {
           <Text as={"b"} fontSize={"3em"}>
             Acara Musik
           </Text>
-          <Carousel responsive={responsive}>
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-          </Carousel>
         </Box>
         <Box>
           <Text as={"b"} fontSize={"3em"}>
             Olahraga
           </Text>
-          <Carousel responsive={responsive}>
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-          </Carousel>
         </Box>
         <Box>
           <Text as={"b"} fontSize={"3em"}>
             Kesenian
           </Text>
-          <Carousel responsive={responsive}>
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-            <EventCard margin={"0em 1em"} />
-          </Carousel>
         </Box>
       </Box>
       {/* <UpcomingEvents /> */}

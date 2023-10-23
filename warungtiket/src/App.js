@@ -4,6 +4,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/Login";
 import CreateEvent from "./pages/CreateEvent";
 import FindEvent from "./pages/FindEvent";
+import TestRadio from "./pages/testRadio/index";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/findevent" element={<FindEvent />} />
       <Route path="/createevent" element={<CreateEvent />} />
+      <Route path="/testradio" element={<TestRadio />} />
     </Routes>
   );
 }
