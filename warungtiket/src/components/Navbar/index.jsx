@@ -25,7 +25,7 @@ function Navbar(props) {
         </Flex>
       </Box>
       <Box
-        bgColor={"#5D3891"}
+        bgColor={"#3876BF"}
         p={".5em 3.5em"}
         w={"full"}
         //   border="1px"
