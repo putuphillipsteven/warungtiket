@@ -94,6 +94,9 @@ function Navbar(props) {
                     )}
                   </Link>
                 </Text>
+                <Text as={"b"} color={"#F99417"}>
+                  <Link to={"/testradio"}>TestRadio</Link>
+                </Text>
               </HStack>
             </Box>
           </Flex>

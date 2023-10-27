@@ -26,19 +26,19 @@ export default function CreateEvent() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  // const register = async (fullName, email, password) => {
-  //   try {
-  //     await axios.post("http://localhost:3000/EO", {
-  //       fullName,
-  //       password,
-  //       email,
-  //     });
-  //     await alert("---Create Ticket Success---");
-  //     navigate("/");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const [selected, setSelected] = useState("input"); // Default value
+  const [price, setPrice] = useState(""); // Untuk menyimpan nilai harga
+
+  const handleChange2 = (value) => {
+    setSelected(value);
+
+    // Reset nilai harga ketika pilihan diubah
+    setPrice("");
+  };
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+  };
 
   const fD = async () => {
     try {
@@ -61,11 +61,8 @@ export default function CreateEvent() {
     provinsi,
     kota,
     address,
-    ticketCategory,
-    // harga1,
-    // harga2,
     price,
-    descriptionEvent
+    eventDescription
   ) => {
     try {
       await axios.post("http://localhost:3000/events", {
@@ -75,11 +72,8 @@ export default function CreateEvent() {
         provinsi,
         kota,
         address,
-        ticketCategory,
-        // harga1,
-        // harga2,
         price,
-        descriptionEvent,
+        eventDescription,
       });
       await alert("---Create Tiket Success");
       navigate("/");
@@ -98,11 +92,8 @@ export default function CreateEvent() {
       values.provinsi,
       values.kota,
       values.address,
-      values.ticketCategory,
-      // values.harga1,
-      // values.harga2,
       values.price,
-      values.descriptionEvent
+      values.eventDescription
     );
     await new Promise((resolve) => setTimeout(resolve, 1000));
   };
@@ -123,11 +114,8 @@ export default function CreateEvent() {
       provinsi: "",
       kota: "",
       address: "",
-      ticketCategory: "",
-      // harga1: "",
-      // harga2: "",
-      price: "",
-      descriptionEvent: "",
+      price: "0",
+      eventDescription: "",
     },
     // validationSchema: createSchema,
     onSubmit: (values, actions) => {
@@ -262,30 +250,54 @@ export default function CreateEvent() {
                     </Text>
                   ) : null}
                 </Box>
+
                 <Box>
-                  <FormLabel>Ticket Category</FormLabel>
-                  <Input
-                    placeholder="Berbayar/Gratis"
-                    id="ticketCategory"
-                    name="ticketCategory"
-                    type="text"
-                    onChange={handleChange}
-                    value={values.ticketCategory}
-                    onBlur={handleBlur}
-                  />
-                  {touched.ticketCategory && errors.ticketCategory ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.ticketCategory}
-                    </Text>
+                  <RadioGroup value={selected} onChange={handleChange2}>
+                    <Text>Ticket Category</Text>
+                    <Radio id="gratis" name="gratis" value="gratis">
+                      Gratis
+                    </Radio>
+                    <Radio id="berbayar" name="berbayar" value="berbayar">
+                      Berbayar
+                    </Radio>
+                  </RadioGroup>
+
+                  {selected === "gratis" ? (
+                    <Box>
+                      <Input 
+                      type="hidden" 
+                      value="0" 
+                      />
+                    </Box>
+                  ) : selected === "berbayar" ? (
+                    <Box>
+                      <Text>Price: </Text>
+                      <Input
+                        id="price"
+                        name="price"
+                        type="number"
+                        placeholder="Rp.0"
+                        value={values.price}
+                        onChange={handleChange}
+                      />
+                      {touched.price && errors.price ? (
+                        <Text fontSize={"0.75em"} color={"red"}>
+                          {errors.price}
+                        </Text>
+                      ) : null}
+                    </Box>
                   ) : null}
                 </Box>
+
                 {/* <Box>
                   <FormLabel>Ticket Category</FormLabel>
                   <RadioGroup>
                     <VStack align={"baseline"}>
                       <Radio
-                        value="harga1"
-                        isChecked={true}
+                        id="price"
+                        name="ticketcategory"
+                        type="ticketcategory"
+                        value="0"
                         onChange={handleClick}
                       >
                         Gratis
@@ -297,49 +309,44 @@ export default function CreateEvent() {
                       >
                         Berbayar
                       </Radio>
-                      {touched.berbayar && errors.berbayar ? (
-                        <Text fontSize={"0.75em"} color={"red"}>
-                          {errors.berbayar}
-                        </Text>
-                      ) : null}
                     </VStack>
                   </RadioGroup>
                 </Box> */}
-                {show ? (
+                {/* {show ? (
                   <Box>
                     <FormLabel>Price</FormLabel>
                     <Input
                       placeholder="Rp. "
                       id="price"
                       name="price"
-                      type="text"
+                      type="number"
                       onChange={handleChange}
                       value={values.price}
                       onBlur={handleBlur}
                     />
                     {touched.price && errors.price ? (
-                      <Text fontSize={"0.75em"} color={"red"}>
+                      <Text fontSize={"0.75em"} coloddr={"red"}>
                         {errors.price}
                       </Text>
                     ) : null}
                   </Box>
                 ) : (
                   ""
-                )}
+                )} */}
                 <Box>
                   <FormLabel>Event Description</FormLabel>
                   <Input
                     placeholder="..."
-                    id="descriptionEvent"
-                    name="descriptionEvent"
+                    id="eventDescription"
+                    name="eventDescription"
                     type="text"
                     onChange={handleChange}
-                    value={values.descriptionEvent}
+                    value={values.eventDescription}
                     onBlur={handleBlur}
                   ></Input>
-                  {touched.descriptionEvent && errors.descriptionEvent ? (
+                  {touched.eventDescription && errors.eventDescription ? (
                     <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.descriptionEvent}
+                      {errors.eventDescription}
                     </Text>
                   ) : null}
                 </Box>
