@@ -130,7 +130,7 @@ export default function SignIn() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
-      bgColor={"#5D3891"}
+      bgColor={"#3876BF"}
     >
       <VStack
         w={"50%"}
@@ -237,13 +237,16 @@ export default function SignIn() {
           </Box>
           <VStack mt={"1em"}>
             <Button
+            color={"white"}
+            borderRadius={"2em"}
               type="submit"
-              bgColor={"transparent"}
-              _hover={{ bgColor: "transparent" }}
-              variant="solid"
+              bgColor={"black"}
+              _hover={"none"}
+              variant={"solid"}
+              size={"md"}
               isDisabled={isSubmitting}
             >
-              <Image src={loginIcon} w={"30%"} />
+              <Text as={"b"}>LOGIN</Text>
             </Button>
             <Text
               fontSize={"0.75em"}
@@ -260,11 +263,14 @@ export default function SignIn() {
           </Text>
           <Link to={"/signup"}>
             <Button
-              bgColor={"transparent"}
-              _hover={{ bgColor: "transparent" }}
-              variant="solid"
+              bgColor={"black"}
+              _hover={"none"}
+              variant={"solid"}
+              borderRadius={"2em"}
+              color={"white"}
+              size={"md"}
             >
-              <Image src={registerIcon} w={"30%"} />
+              <Text as={"b"}>REGISTER</Text>
             </Button>
           </Link>
         </VStack>

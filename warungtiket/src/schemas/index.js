@@ -46,9 +46,9 @@ export const createSchema = yup.object().shape({
   kota: yup.string().required("input data"),
   address: yup.string().required("address is required"),
   ticketCategory: yup.string().required("categoryticket is required"),
-  // gratis: yup.string(0),
-  // berbayar: yup.string(0),
-  price: yup.number("").required("input price"),
-  descriptionEvent: yup.string().required("description is Required"),
+  gratis: yup.string(),
+  berbayar: yup.string(),
+  price: yup.number().required("input price"),
+  eventDescription: yup.string().required("description is Required"),
   password: yup.string().required("Password is Required"),
 });
