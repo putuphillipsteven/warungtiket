@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -19,8 +19,9 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  useToast,
 } from "@chakra-ui/react";
-import paint from "../../img/paint.svg";
+import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
@@ -31,6 +32,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const toast = useToast();
 
   const register = async (fullName, email, password) => {
     try {
@@ -39,22 +41,27 @@ export default function SignUp() {
         password,
         email,
       });
-      await alert("---SignUp Success---");
-      navigate("/login");
+      toast({
+        title: "Register Success",
+        duration: 3000,
+        isClosable: true,
+        status: "success",
+        position: "top",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (err) {
       console.log(err);
     }
   };
   const onSubmit = async (values, actions) => {
-    console.log(values);
-    console.log(actions);
     register(
       (values.fullName = `${values.firstname} ${values.lastname}`),
       values.email,
       values.password
     );
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
+    await new Promise(actions.resetForm());
   };
 
   const {
@@ -85,6 +92,7 @@ export default function SignUp() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
+      bgColor={"#3876BF"}
     >
       <VStack
         w={"50%"}
@@ -95,22 +103,17 @@ export default function SignUp() {
         <Box>
           <Center>
             <Link to={"/"}>
-              <Image src={paint} w={"400%"} />
+              <Image src={logo} w={"400%"} />
             </Link>
           </Center>
         </Box>
-        {/* <Box>
-          <Center>
-            <Text as={"b"}>SIGN UP</Text>
-          </Center>
-        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
               <Box>
                 <Flex>
                   <Box w={"100%"}>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel color={"white"}>First Name</FormLabel>
                     <Input
                       id="firstname"
                       name="firstname"
@@ -118,14 +121,18 @@ export default function SignUp() {
                       onChange={handleChange}
                       value={values.firstname}
                       onBlur={handleBlur}
-                      // borderColor={"black"}
-                      // _hover={{ borderColor: "white" }}
+                      color={"black"}
+                      bgColor={"white"}
+                      focusBorderColor={"transparent"}
+                      borderRadius={"0.5em"}
+                      _hover={{ borderColor: "transparent" }}
+                      borderColor={"transparent"}
                       // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.firstname && errors.firstname ? (
                       <Alert
                         status="error"
-                        fontSize={"0.75em"}
+                        fontSize={"0.7em"}
                         borderRadius={"0.5em"}
                         h={"1em"}
                       >
@@ -137,9 +144,9 @@ export default function SignUp() {
                       </Alert>
                     ) : null}
                   </Box>
-                  <Spacer m={".5em"} />
+                  <Spacer m={"0.5em"} />
                   <Box w={"100%"}>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel color={"white"}>Last Name</FormLabel>
                     <Input
                       id="lastname"
                       name="lastname"
@@ -147,14 +154,17 @@ export default function SignUp() {
                       onChange={handleChange}
                       value={values.lastname}
                       onBlur={handleBlur}
-                      // borderColor={"black"}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      color={"black"}
+                      bgColor={"white"}
+                      focusBorderColor={"transparent"}
+                      borderRadius={"0.5em"}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     />
                     {touched.lastname && errors.lastname ? (
                       <Alert
                         status="error"
-                        fontSize={"0.75em"}
+                        fontSize={"0.7em"}
                         borderRadius={"0.5em"}
                         h={"1em"}
                       >
@@ -168,7 +178,7 @@ export default function SignUp() {
                   </Box>
                 </Flex>
                 <Box mt={"20px"}>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel color={"white"}>Email</FormLabel>
                   <Input
                     id="email"
                     name="email"
@@ -176,39 +186,37 @@ export default function SignUp() {
                     onChange={handleChange}
                     value={values.email}
                     onBlur={handleBlur}
-                    // placeholder="Enter Your Email"
-                    // borderColor={"black"}
-                    // _placeholder={{ color: "black" }}
-                    // _hover={{ borderColor: "white" }}
-                    // _focusVisible={{ borderColor: "white" }}
+                    color={"black"}
+                    bgColor={"white"}
+                    focusBorderColor={"transparent"}
+                    borderRadius={"0.5em"}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {touched.email && errors.email ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
                       <AlertDescription>{errors.email}</AlertDescription>
-                      {/* <AlertDescription>
-                        Please fill this field to register
-                      </AlertDescription> */}
                     </Alert>
                   ) : touched.email && !errors.email ? (
                     <Alert
                       status="success"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Email is Valid!</AlertTitle>
+                      <AlertTitle>Email Valid!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel color={"white"}>Password</FormLabel>
                   <InputGroup>
                     <Input
                       id="password"
@@ -216,19 +224,21 @@ export default function SignUp() {
                       onChange={handleChange}
                       value={values.password}
                       onBlur={handleBlur}
-                      // placeholder="Enter Your Password"
+                      color={"black"}
+                      bgColor={"white"}
+                      focusBorderColor={"transparent"}
+                      borderRadius={"0.5em"}
                       type={!show ? "password" : "text"}
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
-                    <InputRightElement width="4em">
+                    <InputRightElement w="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}
+                        color={"black"}
                       >
                         {show ? <BiHide /> : <BiShowAlt />}
                       </Button>
@@ -237,7 +247,7 @@ export default function SignUp() {
                   {touched.password && errors.password ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
@@ -247,17 +257,17 @@ export default function SignUp() {
                   ) : touched.password && !errors.password ? (
                     <Alert
                       status="success"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Password is Valid!</AlertTitle>
+                      <AlertTitle>Password Valid!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel color={"white"}>Confirm Password</FormLabel>
                   <InputGroup>
                     <Input
                       id="confirmPassword"
@@ -266,18 +276,20 @@ export default function SignUp() {
                       onBlur={handleBlur}
                       value={values.confirmPassword}
                       type={show ? "text" : "password"}
-                      // placeholder="Confirm Your Password"
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      color={"black"}
+                      bgColor={"white"}
+                      focusBorderColor={"transparent"}
+                      borderRadius={"0.5em"}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
                     <InputRightElement width="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}
+                        color={"black"}
                       >
                         {show ? <BiHide /> : <BiShowAlt />}
                       </Button>
@@ -286,7 +298,7 @@ export default function SignUp() {
                   {touched.confirmPassword && errors.confirmPassword ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
@@ -298,43 +310,51 @@ export default function SignUp() {
                   ) : touched.confirmPassword && !errors.confirmPassword ? (
                     <Alert
                       status="success"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
-                      <AlertTitle>Password is Match!</AlertTitle>
+                      <AlertTitle>Password Match!</AlertTitle>
                     </Alert>
                   ) : null}
                 </Box>
               </Box>
             </FormControl>
           </Box>
-          <Box mt={"2em"}>
+          <Box mt={"1em"}>
             <Center>
               <Button
-                bgColor={"transparent"}
-                _hover={{ bgColor: "transparent" }}
-                variant="solid"
+              color={"white"}
+                bgColor={"black"}
+                borderRadius={"2em"}
+                size={"md"}
+                _hover={"none"}
+                variant={"solid"}
                 isDisabled={isSubmitting}
-                type="submit"
+                type={"submit"}
               >
-                <Image src={registerIcon} w={"50%"} />
+              <Text as={"b"}>REGISTER</Text>
               </Button>
             </Center>
           </Box>
         </form>
-        <VStack spacing={"1em"} mt={"1em"}>
-          <Text fontSize={"0.75em"}>Sudah Punya Akun?</Text>
-          <Button
-            type="submit"
-            bgColor={"transparent"}
-            _hover={{ bgColor: "transparent" }}
-            variant="solid"
-            isDisabled={isSubmitting}
-          >
-            <Image src={loginIcon} w={"50%"} />
-          </Button>
+        <VStack>
+          <Text fontSize={"0.75em"} color={"white"}>
+            Sudah Punya Akun?
+          </Text>
+          <Link to={"/login"}>
+            <Button
+            color={"white"}
+              bgColor={"black"}
+              _hover={"none"}
+              variant={"solid"}
+              borderRadius={"2em"}
+              size={"md"}
+            >
+              <Text as={"b"}>LOGIN</Text>
+            </Button>
+          </Link>
         </VStack>
       </VStack>
     </Box>

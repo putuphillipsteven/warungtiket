@@ -16,9 +16,9 @@ import {
   AlertIcon,
   AlertDescription,
   AlertTitle,
+  useToast,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.svg";
-import paint from "../../img/paint.svg";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
@@ -30,8 +30,9 @@ import axios from "axios";
 export default function SignIn() {
   const [accounts, setAccounts] = useState([]);
   const navigate = useNavigate();
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const toast = useToast();
   let newEmail = null;
   let indexUser = null;
   const fetchDataLogin = async () => {
@@ -71,19 +72,36 @@ export default function SignIn() {
       console.log(newEmail);
       console.log(indexUser);
       if (newEmail.password.includes(password)) {
+        toast({
+          title: "Login Success",
+          duration: 5000,
+          isClosable: true,
+          status: "success",
+          position: "top",
+        });
         navigate("/");
       } else {
-        alert("Password Salah");
+        toast({
+          title: "Password Salah",
+          duration: 5000,
+          isClosable: true,
+          status: "error",
+          position: "top",
+        });
       }
     } else {
-      alert("Email Tidak Terdaftar");
+      toast({
+        title: "Akun Belum Terdaftar",
+        duration: 5000,
+        isClosable: true,
+        status: "error",
+        position: "top",
+      });
     }
   };
 
   const onSubmit = async (values, actions) => {
     check(values.email, values.password);
-    console.log(values);
-    console.log(actions);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     actions.resetForm();
   };
@@ -112,6 +130,7 @@ export default function SignIn() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
+      bgColor={"#3876BF"}
     >
       <VStack
         w={"50%"}
@@ -122,15 +141,10 @@ export default function SignIn() {
         <Box>
           <Center>
             <Link to={"/"}>
-              <Image src={paint} w={"400%"} />
+              <Image src={logo} w={"100%"} />
             </Link>
           </Center>
         </Box>
-        {/* <Box>
-          <Center>
-            <Text as={"b"}>LOG IN</Text>
-          </Center>
-        </Box> */}
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
@@ -140,7 +154,7 @@ export default function SignIn() {
                   <Box w={"100%"}></Box>
                 </Flex>
                 <Box mt={"20px"}>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel color={"white"}>Email</FormLabel>
                   <Input
                     id="email"
                     name="email"
@@ -148,29 +162,27 @@ export default function SignIn() {
                     onChange={handleChange}
                     value={values.email}
                     onBlur={handleBlur}
-                    // placeholder="Enter Your Email"
-                    // borderColor={"black"}
-                    // _placeholder={{ color: "black" }}
-                    // _hover={{ borderColor: "white" }}
-                    // _focusVisible={{ borderColor: "white" }}
+                    color={"black"}
+                    bgColor={"white"}
+                    focusBorderColor={"transparent"}
+                    borderRadius={"0.5em"}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {errors.email ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
                       <AlertIcon />
                       <AlertDescription>{errors.email}</AlertDescription>
-                      {/* <AlertDescription>
-                        Please fill this field to register
-                      </AlertDescription> */}
                     </Alert>
                   ) : touched.email && !errors.email ? (
                     <Alert
                       status="success"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
@@ -180,7 +192,7 @@ export default function SignIn() {
                   ) : null}
                 </Box>
                 <Box mt={"20px"}>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel color={"white"}>Password</FormLabel>
                   <InputGroup>
                     <Input
                       id="password"
@@ -189,17 +201,20 @@ export default function SignIn() {
                       value={values.password}
                       onBlur={handleBlur}
                       type={!show ? "password" : "text"}
-                      // borderColor={"black"}
-                      // _placeholder={{ color: "black" }}
-                      // _hover={{ borderColor: "white" }}
-                      // _focusVisible={{ borderColor: "white" }}
+                      color={"black"}
+                      bgColor={"white"}
+                      focusBorderColor={"transparent"}
+                      borderRadius={"0.5em"}
+                      borderColor={"transparent"}
+                      _hover={{ borderColor: "transparent" }}
                     ></Input>
-                    <InputRightElement width="4em">
+                    <InputRightElement w="4em">
                       <Button
-                        size="xs"
+                        size="s"
                         onClick={handleClick}
                         bgColor={"transparent"}
                         _hover={{ bgColor: "transparent" }}
+                        color={"black"}
                       >
                         {show ? <BiHide /> : <BiShowAlt />}
                       </Button>
@@ -208,7 +223,7 @@ export default function SignIn() {
                   {touched.password && errors.password ? (
                     <Alert
                       status="error"
-                      fontSize={"0.75em"}
+                      fontSize={"0.7em"}
                       borderRadius={"0.5em"}
                       h={"1em"}
                     >
@@ -220,30 +235,42 @@ export default function SignIn() {
               </Box>
             </FormControl>
           </Box>
-          <VStack spacing={"2em"} mt={"2em"}>
+          <VStack mt={"1em"}>
             <Button
+            color={"white"}
+            borderRadius={"2em"}
               type="submit"
-              bgColor={"transparent"}
-              _hover={{ bgColor: "transparent" }}
-              variant="solid"
+              bgColor={"black"}
+              _hover={"none"}
+              variant={"solid"}
+              size={"md"}
               isDisabled={isSubmitting}
             >
-              <Image src={loginIcon} w={"50%"} />
+              <Text as={"b"}>LOGIN</Text>
             </Button>
-            <Text fontSize={"0.75em"} _hover={{ color: "blue" }}>
-              <Link>Lupa Password?</Link>
+            <Text
+              fontSize={"0.75em"}
+              _hover={{ color: "#F99417" }}
+              color={"white"}
+            >
+              <Link to={"/changepassword"}>Lupa Password?</Link>
             </Text>
           </VStack>
         </form>
-        <VStack spacing={"0.5em"}>
-          <Text fontSize={"0.75em"}>Belum Punya Akun?</Text>
+        <VStack mt={"1em"} spacing={"0.5em"}>
+          <Text fontSize={"0.75em"} color={"white"}>
+            Belum Punya Akun?
+          </Text>
           <Link to={"/signup"}>
             <Button
-              bgColor={"transparent"}
-              _hover={{ bgColor: "transparent" }}
-              variant="solid"
+              bgColor={"black"}
+              _hover={"none"}
+              variant={"solid"}
+              borderRadius={"2em"}
+              color={"white"}
+              size={"md"}
             >
-              <Image src={registerIcon} w={"50%"} />
+              <Text as={"b"}>REGISTER</Text>
             </Button>
           </Link>
         </VStack>
