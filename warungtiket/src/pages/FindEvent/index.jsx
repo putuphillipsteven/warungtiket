@@ -34,11 +34,10 @@ function FindEvent() {
     {
       title: "Event 4",
       category: "Olahraga",
-      location: "Makassar",
-      status: "Paid",
+      location: "Jakarta",
+      status: "Free",
     },
-    { title: "Event 5", category: "Seni", location: "Bandung", status: "Free" },
-    { title: "Event 6", category: "Seni", location: "Riau", status: "Paid" },
+
     // Tambahkan data event lainnya
   ];
 
@@ -74,20 +73,18 @@ function FindEvent() {
       <Navbar
         display={"none"}
         input={
-          <Box>
+          <Box w={"50%"}>
             <Input />
           </Box>
         }
       />
-      <Box p={"1em 2em"} pt={"6.5em"} display={"flex"}>
-        <Box>
+      <Box p={"1em 2em"} pt={"6.5em"} display={"flex"} >
+        <Box w={"30%"}>
           <VStack align={"stretch"}>
             <Box>
-              <Center>
                 <Text as={"b"} fontSize={"2xl"}>
                   Filter
                 </Text>
-              </Center>
             </Box>
             <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
             <Box>
@@ -154,26 +151,27 @@ function FindEvent() {
             </Box>
           </VStack>
         </Box>
-        <Spacer />
+        <Spacer m={"1em"} />
         <Box w={"full"} pt={"0 3.5em"}>
-          <Box p={"1em 1em"}>
-            <Center>
+          <Box>
               <Text as={"b"} fontSize={"2xl"}>
                 Event Music
               </Text>
-            </Center>
           </Box>
-          {filteredEvents.length > 0 ? (
-            <VStack align={"center"}>
-              <Box>
-                {filteredEvents.map((event) => (
+          <Box mt={".5em"} ml={".5em"}>
+            {events.length > 0 ? (
+              <Grid templateColumns={"repeat(4, 1fr)"} gap={".5em"}>
+                {events.map((event) => (
                   <Box
-                    w={"15em"}
+                    // w={"15em"}
+                    minH={"20em"}
                     bgColor={"lightgray"}
                     borderRadius={".5em"}
                     p={"1em 1em"}
+                    display={"flex"}
+                    flexDirection={"column"}
                   >
-                    <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
+                    <Box h={"10em"} borderRadius={".5em"} bgColor={"gray"}>
                       <Center>
                         <Text>image</Text>
                       </Center>
@@ -185,91 +183,13 @@ function FindEvent() {
                     <Text>Status: {event.status}</Text>
                   </Box>
                 ))}
-              </Box>
-            </VStack>
-          ) : (
-            <Text>Tidak ada event yang cocok dengan filter Anda.</Text>
-          )}
-          <Box>
-            <Grid templateColumns="repeat(5, 1fr)" gap={6}>
-              <Box
-                w={"15em"}
-                bgColor={"lightgray"}
-                borderRadius={".5em"}
-                p={"1em 1em"}
-              >
-                <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
-                  <Center>
-                    <Text>image</Text>
-                  </Center>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Text>Dewa-19</Text>
-                  <Text>Jogja</Text>
-                  <Text>23 10 2023 - 26 10 2023 </Text>
-                  <Text>Paid</Text>
-                </Box>
-              </Box>
-              {/* <Box
-                w={"15em"}
-                bgColor={"lightgray"}
-                borderRadius={".5em"}
-                p={"1em 1em"}
-              >
-                <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
-                  <Center>
-                    <Text>image</Text>
-                  </Center>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Text>Kangen Band</Text>
-                  <Text>Jakarta</Text>
-                  <Text>23 10 2023 - 26 10 2023 </Text>
-                  <Text>Gratis</Text>
-                </Box>
-              </Box> */}
-              {/* <Box
-                w={"15em"}
-                bgColor={"lightgray"}
-                borderRadius={".5em"}
-                p={"1em 1em"}
-              >
-                <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
-                  <Center>
-                    <Text>image</Text>
-                  </Center>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Text>Sheila On-7</Text>
-                  <Text>Makassar</Text>
-                  <Text>23 10 2023 - 26 10 2023 </Text>
-                  <Text>Paid</Text>
-                </Box>
-              </Box> */}
-              {/* <Box
-                w={"15em"}
-                bgColor={"lightgray"}
-                borderRadius={".5em"}
-                p={"1em 1em"}
-              >
-                <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
-                  <Center>
-                    <Text>image</Text>
-                  </Center>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Text>Alay Band</Text>
-                  <Text>Banjarmasin</Text>
-                  <Text>23 10 2023 - 26 10 2023 </Text>
-                  <Text>Free</Text>
-                </Box>
-              </Box> */}
-            </Grid>
+              </Grid>
+            ) : (
+              <Text>Tidak ada event yang cocok dengan filter Anda.</Text>
+            )}
           </Box>
+
+          <Box></Box>
         </Box>
       </Box>
       {/* <UpcomingEvents /> */}
