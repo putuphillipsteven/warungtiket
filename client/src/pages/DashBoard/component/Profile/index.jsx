@@ -6,8 +6,10 @@ import {
   Divider,
   IconButton,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 export default function Profile() {
+  const [show, setShow] = useState(true);
   return (
     <Box>
       <VStack align={"stretch"}>
