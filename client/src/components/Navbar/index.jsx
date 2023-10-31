@@ -11,10 +11,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../img/logo.svg";
 import { useState } from "react";
-import { BsPersonCircle, BsTicketPerforated } from "react-icons/bs";
+import { BsTicketPerforated } from "react-icons/bs";
+import { ProfileModal } from "../ProfileModal";
 
 function Navbar(props) {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(true);
   const navigate = useNavigate();
 
   return (
@@ -31,14 +32,10 @@ function Navbar(props) {
           </HStack>
         </Flex>
       </Box>
-      <Box
-        bgColor={"#3876BF"}
-        p={"1em 3.5em"}
-        w={"full"}
-      >
+      <Box bgColor={"#3876BF"} p={"1em 3.5em"} w={"full"}>
         <Box>
           <Flex alignItems={"center"}>
-            <Box w={"15%"}>
+            <Box w={"15em"}>
               <Link to={"/"}>
                 <Image src={logo} />
               </Link>
@@ -79,23 +76,9 @@ function Navbar(props) {
                   </Link>
                 </Text>
                 <Text as={"b"} color={"#F99417"}>
-                  <Link to={isLogin ? "/profile" : "/login"}>
-                    {isLogin ? (
-                      <IconButton
-                        fontSize={"1.5em"}
-                        color={"white"}
-                        bgColor={"transparent"}
-                        _hover={{ bgColor: "tranparent" }}
-                      >
-                        <BsPersonCircle />
-                      </IconButton>
-                    ) : (
-                      "LOGIN"
-                    )}
+                  <Link to={isLogin ? "" : "/login"}>
+                    {isLogin ? <ProfileModal /> : "LOGIN"}
                   </Link>
-                </Text>
-                <Text as={"b"} color={"#F99417"}>
-                  <Link to={"/testradio"}>TestRadio</Link>
                 </Text>
               </HStack>
             </Box>
@@ -148,7 +131,6 @@ function Navbar(props) {
                   _hover={"none"}
                   _active={"none"}
                   onClick={() => navigate("/signup")}
-
                 >
                   <Text as={"b"}>#KEBUDAYAAN</Text>
                 </Button>
@@ -161,7 +143,6 @@ function Navbar(props) {
                   _hover={"none"}
                   _active={"none"}
                   onClick={() => navigate("/signup")}
-
                 >
                   <Text as={"b"}>#KOMEDI</Text>
                 </Button>
