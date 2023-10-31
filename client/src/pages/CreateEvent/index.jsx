@@ -264,10 +264,7 @@ export default function CreateEvent() {
 
                   {selected === "gratis" ? (
                     <Box>
-                      <Input 
-                      type="hidden" 
-                      value="0" 
-                      />
+                      <Input type="hidden" value="0" />
                     </Box>
                   ) : selected === "berbayar" ? (
                     <Box>
@@ -353,12 +350,19 @@ export default function CreateEvent() {
               </Box>
             </FormControl>
           </Box>
-          <Box>
-            <Center>
-              <Button type={"submit"}>Create Ticket</Button>
-            </Center>
-          </Box>
         </form>
+        <Box>
+          <Center>
+            <Button
+              _hover={{ bgColor: "none" }}
+              _active={"none"}
+              bgColor={"#E1AA74"}
+              type={"submit"}
+            >
+              Create Ticket
+            </Button>
+          </Center>
+        </Box>
       </VStack>
     </Box>
   );

@@ -19,6 +19,7 @@ import EventCard from "../../components/UpcomingEvents/EventCard";
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Footer from "../../components/Footer";
 
 function FindEvent() {
   // Data event (ganti dengan data sebenarnya)
@@ -78,7 +79,8 @@ function FindEvent() {
       (categoryFilter === "" || event.category === categoryFilter) &&
       (locationFilter === "" || event.location === locationFilter) &&
       (statusFilter === "" || event.status === statusFilter) &&
-      (searchQuery === "" || event.category.toLowerCase().includes(searchQuery.toLowerCase()))
+      (searchQuery === "" ||
+        event.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   // const responsive = {
@@ -106,13 +108,13 @@ function FindEvent() {
           <Box w={"50%"}>
             <Input
               placeholder="Search Event"
-              value={searchQuery. statusFilter}
+              value={searchQuery.statusFilter}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </Box>
         }
       />
-      <Box p={"1em 2em"} pt={"6.5em"} display={"flex"}>
+      <Box p={"1em 5em"} mb={"3em"} display={"flex"}>
         <Box w={"30%"}>
           <VStack align={"stretch"}>
             <Box>
@@ -220,6 +222,7 @@ function FindEvent() {
         </Box>
       </Box>
       {/* <UpcomingEvents /> */}
+      <Footer />
     </Box>
   );
 }
