@@ -35,16 +35,14 @@ export const ProfileModal = () => {
             <BsPersonCircle
               size={"2em"}
               color={"white"}
-              onClick={() => {
-                updateState();
-              }}
+              onClick={updateState}
             />
           }
           _active={"none"}
         />
         <Box
           bgColor={"rgba(0, 0, 0, 0.5)"}
-          transpa
+          onClick={updateState}
           opacity={"1"}
           w={"100vw"}
           h={"100vh"}
@@ -87,7 +85,7 @@ export const ProfileModal = () => {
               />
               <VStack spacing={"0"}>
                 <Text>I Putu Phillip Steven</Text>
-                <Text>putu.phillip@gmail.com</Text>
+                <Text fontSize={".75em"}>putu.phillip@gmail.com</Text>
               </VStack>
               <Divider borderColor={"#192655"} borderWidth={"2px"} />
               <VStack>
