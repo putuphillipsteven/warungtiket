@@ -7,6 +7,7 @@ import FindEvent from "./pages/FindEvent";
 import TestRadio from "./pages/testRadio/index";
 import DashBoard from "./pages/DashBoard";
 import { ProfileModal } from "./components/ProfileModal";
+import EventList from "./features/events/EventList";
 
 function App() {
   return (

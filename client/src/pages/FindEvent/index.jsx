@@ -17,7 +17,6 @@ import {
 import Navbar from "../../components/Navbar";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import React, { useState } from "react";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "../../components/Footer";
 
@@ -83,23 +82,6 @@ function FindEvent() {
         event.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  // const responsive = {
-  //   desktop: {
-  //     breakpoint: { max: 3000, min: 1024 },
-  //     items: 3,
-  //     slidesToSlide: 3, // optional, default to 1.
-  //   },
-  //   tablet: {
-  //     breakpoint: { max: 1024, min: 464 },
-  //     items: 2,
-  //     slidesToSlide: 2, // optional, default to 1.
-  //   },
-  //   mobile: {
-  //     breakpoint: { max: 464, min: 0 },
-  //     items: 1,
-  //     slidesToSlide: 1, // optional, default to 1.
-  //   },
-  // };
   return (
     <Box>
       <Navbar
@@ -107,15 +89,18 @@ function FindEvent() {
         input={
           <Box w={"50%"}>
             <Input
-              placeholder="Search Event"
+              fontWeight={"bold"}
+              bgColor={"white"}
+              placeholder={"Search Event"}
+              _placeholder={{ fontWeight: "bold" }}
               value={searchQuery.statusFilter}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </Box>
         }
       />
-      <Box p={"1em 5em"} mb={"3em"} display={"flex"}>
-        <Box w={"30%"}>
+      <Box p={"1em 5em"} mt={"10em"} mb={"3em"} display={"flex"}>
+        <Box w={"30%"} position={"relative"}>
           <VStack align={"stretch"}>
             <Box>
               <Text as={"b"} fontSize={"2xl"}>
@@ -138,32 +123,7 @@ function FindEvent() {
                 <option value="Webinar">Webinar</option>
               </Select>
             </Box>
-            {/* <Box>
-              <Select
-                placeholder="Pilih Lokasi"
-                value={locationFilter}
-                onChange={(e) => setLocationFilter(e.target.value)}
-              >
-                <option value="">Semua Lokasi</option>
-                <option value="Jogja">Jogja</option>
-                <option value="Malang">Malang</option>
-                <option value="Jakarta">Jakarta</option>
-                <option value="Solo">Solo</option>
-                <option value="Bekasi">Bekasi</option>
-                <option value="Bandung">Bandung</option>
-              </Select>
-            </Box> */}
-            {/* <Box>
-              <Select
-                placeholder="Pilih Status"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option value="">Semua Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Free">Free</option>
-              </Select>
-            </Box> */}
+
             <Box>
               <Button
                 onClick={() => {
@@ -185,43 +145,40 @@ function FindEvent() {
             </Text>
           </Box>
           <Box mt={".5em"} ml={".5em"}>
-            {events.length > 0 ? (
-              <Grid templateColumns={"repeat(4, 1fr)"} gap={".5em"}>
-                {Events.map((event) => (
+            <Grid
+              templateColumns={"repeat(3, 1fr)"}
+              templateRows={"repeat(3, 1fr)"}
+              gap={".5em"}
+            >
+              {Events.map((event) => (
+                <Box
+                  bgColor={"lightgray"}
+                  borderRadius={".5em"}
+                  p={"1em 1em"}
+                  display={"flex"}
+                  flexDirection={"column"}
+                >
                   <Box
-                    // w={"15em"}
-                    minH={"20em"}
-                    bgColor={"lightgray"}
+                    key={event.title}
+                    h={"10em"}
                     borderRadius={".5em"}
-                    p={"1em 1em"}
-                    display={"flex"}
-                    flexDirection={"column"}
+                    bgColor={"gray"}
                   >
-                    <Box
-                      key={event.title}
-                      h={"10em"}
-                      borderRadius={".5em"}
-                      bgColor={"gray"}
-                    >
-                      <Center>
-                        <Text>image</Text>
-                      </Center>
-                    </Box>
-                    <Spacer />
-                    <Text>Kategori: {event.category}</Text>
-                    <Text>Lokasi: {event.location}</Text>
-                    <Text>Status: {event.status}</Text>
-                    <Text>Date: {event.date}</Text>
+                    <Center>
+                      <Text>image</Text>
+                    </Center>
                   </Box>
-                ))}
-              </Grid>
-            ) : (
-              <Text>Tidak ada event yang cocok dengan filter Anda.</Text>
-            )}
+                  <Spacer />
+                  <Text>Kategori: {event.category}</Text>
+                  <Text>Lokasi: {event.location}</Text>
+                  <Text>Status: {event.status}</Text>
+                  <Text>Date: {event.date}</Text>
+                </Box>
+              ))}
+            </Grid>
           </Box>
         </Box>
       </Box>
-      {/* <UpcomingEvents /> */}
       <Footer />
     </Box>
   );
