@@ -31,11 +31,7 @@ function Navbar(props) {
           </HStack>
         </Flex>
       </Box>
-      <Box
-        bgColor={"#3876BF"}
-        p={"1em 3.5em"}
-        w={"full"}
-      >
+      <Box bgColor={"#3876BF"} p={"1em 3.5em"} w={"full"}>
         <Box>
           <Flex alignItems={"center"}>
             <Box w={"15%"}>
@@ -148,7 +144,6 @@ function Navbar(props) {
                   _hover={"none"}
                   _active={"none"}
                   onClick={() => navigate("/signup")}
-
                 >
                   <Text as={"b"}>#KEBUDAYAAN</Text>
                 </Button>
@@ -161,7 +156,6 @@ function Navbar(props) {
                   _hover={"none"}
                   _active={"none"}
                   onClick={() => navigate("/signup")}
-
                 >
                   <Text as={"b"}>#KOMEDI</Text>
                 </Button>
