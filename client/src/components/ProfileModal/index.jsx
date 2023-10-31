@@ -21,13 +21,13 @@ import { AiOutlineClose } from "react-icons/ai";
 export const ProfileModal = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-  const handleClick = () => setShow(!show);
+  const updateState = () => setShow(!show);
   return (
     <Box>
       <Box position={"relative"}>
         <IconButton
           size={"3em"}
-          onClick={handleClick}
+          onClick={updateState}
           bgColor={"transparent"}
           _hover={"none"}
           icon={<BsPersonCircle size={"2em"} color={"white"} />}
@@ -65,7 +65,7 @@ export const ProfileModal = () => {
                 _hover={"none"}
                 icon={<AiOutlineClose size={"1em"} color={"black"} />}
                 _active={"none"}
-                onClick={handleClick}
+                onClick={updateState}
                 alignSelf={"flex-end"}
               />
 
