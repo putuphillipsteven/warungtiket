@@ -58,7 +58,13 @@ function FindEvent() {
           </Box>
         }
       />
-      <Box p={"1em 3.5em"} mt={"13em"} mb={"3em"} display={"flex"}>
+      <Box
+        p={"1em 3.5em"}
+        mt={"13em"}
+        mb={"3em"}
+        display={"flex"}
+        minHeight={"100vh"}
+      >
         <Box w={"30%"} position={"relative"}>
           <VStack align={"stretch"}>
             <Box>
