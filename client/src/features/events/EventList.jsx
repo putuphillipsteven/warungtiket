@@ -6,7 +6,6 @@ import Card from "../../components/Card";
 
 const EventList = () => {
   const events = useSelector((state) => state.events);
-  console.log(events);
   const renderedEvents = events.map((event) => (
     <Card
       title={event.title}
@@ -14,11 +13,12 @@ const EventList = () => {
       status={event.status}
       location={event.location}
       date={event.date}
+      path={event.id}
     />
   ));
 
   return (
-    <Box p={"1em 7em"}>
+    <Box p={"1em 3.5em"}>
       <VStack align={"stretch"}>
         <Heading as={"h2"} size={"md"}>
           Events

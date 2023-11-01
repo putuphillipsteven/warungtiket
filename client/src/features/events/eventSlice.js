@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
   {
+    id: 1,
     title: "Event 1",
     category: "Kuliner",
     location: "Jogja",
@@ -9,6 +10,7 @@ const initialState = [
     date: "01-01-2023",
   },
   {
+    id: 2,
     title: "Event 2",
     category: "Musik",
     location: "Malang",
@@ -16,6 +18,7 @@ const initialState = [
     date: "01-01-2023",
   },
   {
+    id: 3,
     title: "Event 3",
     category: "Olahraga",
     location: "Jakarta",
@@ -23,6 +26,7 @@ const initialState = [
     date: "01-01-2023",
   },
   {
+    id: 4,
     title: "Event 4",
     category: "Kebudayaan",
     location: "Solo",
@@ -30,6 +34,7 @@ const initialState = [
     date: "01-01-2023",
   },
   {
+    id: 5,
     title: "Event 5",
     category: "Komedi",
     location: "Bekasi",
@@ -37,6 +42,7 @@ const initialState = [
     date: "01-01-2023",
   },
   {
+    id: 6,
     title: "Event 6",
     category: "Webinar",
     location: "Bandung",

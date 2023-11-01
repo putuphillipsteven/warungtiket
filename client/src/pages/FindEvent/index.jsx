@@ -1,9 +1,6 @@
 import {
-  Center,
   Box,
   Grid,
-  Heading,
-  GridItem,
   Input,
   Text,
   Button,
@@ -12,68 +9,22 @@ import {
   Spacer,
   VStack,
   Divider,
-  HStack,
 } from "@chakra-ui/react";
 import Navbar from "../../components/Navbar";
-import EventCard from "../../components/UpcomingEvents/EventCard";
 import React, { useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "../../components/Footer";
+import { useSelector } from "react-redux";
+import Card from "../../components/Card";
 
 function FindEvent() {
-  // Data event (ganti dengan data sebenarnya)
-  const events = [
-    {
-      title: "Event 1",
-      category: "Kuliner",
-      location: "Jogja",
-      status: "Free",
-      date: "01-01-2023",
-    },
-    {
-      title: "Event 2",
-      category: "Musik",
-      location: "Malang",
-      status: "Paid",
-      date: "01-01-2023",
-    },
-    {
-      title: "Event 3",
-      category: "Olahraga",
-      location: "Jakarta",
-      status: "Free",
-      date: "01-01-2023",
-    },
-    {
-      title: "Event 4",
-      category: "Kebudayaan",
-      location: "Solo",
-      status: "Paid",
-      date: "01-01-2023",
-    },
-    {
-      title: "Event 5",
-      category: "Komedi",
-      location: "Bekasi",
-      status: "Free",
-      date: "01-01-2023",
-    },
-    {
-      title: "Event 6",
-      category: "Webinar",
-      location: "Bandung",
-      status: "Free",
-      date: "01-01-2023",
-    },
-
-    // Tambahkan data event lainnya
-  ];
+  const events1 = useSelector((state) => state.events);
 
   const [categoryFilter, setCategoryFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const Events = events.filter(
+  const Events = events1.filter(
     (event) =>
       (categoryFilter === "" || event.category === categoryFilter) &&
       (locationFilter === "" || event.location === locationFilter) &&
@@ -81,7 +32,15 @@ function FindEvent() {
       (searchQuery === "" ||
         event.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
+  const renderedEvents = Events.map((event) => (
+    <Card
+      title={event.title}
+      category={event.category}
+      status={event.status}
+      location={event.location}
+      date={event.date}
+    />
+  ));
   return (
     <Box>
       <Navbar
@@ -99,7 +58,7 @@ function FindEvent() {
           </Box>
         }
       />
-      <Box p={"1em 5em"} mt={"10em"} mb={"3em"} display={"flex"}>
+      <Box p={"1em 3.5em"} mt={"13em"} mb={"3em"} display={"flex"}>
         <Box w={"30%"} position={"relative"}>
           <VStack align={"stretch"}>
             <Box>
@@ -110,11 +69,10 @@ function FindEvent() {
             <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
             <Box>
               <Select
-                // placeholder="Kategori Event"
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
               >
-                {/* <option value="">Semua Kategori</option> */}
+                <option value="">Semua Kategori</option>
                 <option value="Kuliner">Kuliner</option>
                 <option value="Musik">Musik</option>
                 <option value="Olahraga">Olahraga</option>
@@ -150,31 +108,7 @@ function FindEvent() {
               templateRows={"repeat(3, 1fr)"}
               gap={".5em"}
             >
-              {Events.map((event) => (
-                <Box
-                  bgColor={"lightgray"}
-                  borderRadius={".5em"}
-                  p={"1em 1em"}
-                  display={"flex"}
-                  flexDirection={"column"}
-                >
-                  <Box
-                    key={event.title}
-                    h={"10em"}
-                    borderRadius={".5em"}
-                    bgColor={"gray"}
-                  >
-                    <Center>
-                      <Text>image</Text>
-                    </Center>
-                  </Box>
-                  <Spacer />
-                  <Text>Kategori: {event.category}</Text>
-                  <Text>Lokasi: {event.location}</Text>
-                  <Text>Status: {event.status}</Text>
-                  <Text>Date: {event.date}</Text>
-                </Box>
-              ))}
+              {renderedEvents}
             </Grid>
           </Box>
         </Box>
