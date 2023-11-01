@@ -23,8 +23,6 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import registerIcon from "../../img/register.svg";
-import loginIcon from "../../img/login.svg";
 import axios from "axios";
 
 export default function SignIn() {
@@ -237,13 +235,15 @@ export default function SignIn() {
           </Box>
           <VStack mt={"1em"}>
             <Button
-            color={"white"}
-            borderRadius={"2em"}
+              color={"white"}
+              borderRadius={"0.5em"}
+              _hover={{ color: "black", bgColor: "white" }}
+              _active={{ color: "#3876BF" }}
               type="submit"
               bgColor={"black"}
-              _hover={"none"}
               variant={"solid"}
-              size={"md"}
+              size={"lg"}
+              w={"10em"}
               isDisabled={isSubmitting}
             >
               <Text as={"b"}>LOGIN</Text>
@@ -257,13 +257,15 @@ export default function SignIn() {
           <Link to={"/signup"}>
             <Button
               bgColor={"black"}
-              _hover={"none"}
+              _hover={{ color: "black", bgColor: "white" }}
+              _active={{ color: "#3876BF" }}
               variant={"solid"}
-              borderRadius={"2em"}
+              borderRadius={"0.5em"}
               color={"white"}
-              size={"md"}
+              size={"lg"}
+              w={"10em"}
             >
-              <Text as={"b"}>REGISTER</Text>
+              <Text as={"b"}>SIGNUP</Text>
             </Button>
           </Link>
         </VStack>

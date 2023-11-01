@@ -25,8 +25,6 @@ import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import registerIcon from "../../img/register.svg";
-import loginIcon from "../../img/login.svg";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -127,7 +125,6 @@ export default function SignUp() {
                       borderRadius={"0.5em"}
                       _hover={{ borderColor: "transparent" }}
                       borderColor={"transparent"}
-                      // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.firstname && errors.firstname ? (
                       <Alert
@@ -325,16 +322,18 @@ export default function SignUp() {
           <Box mt={"1em"}>
             <Center>
               <Button
-              color={"white"}
+                color={"white"}
                 bgColor={"black"}
-                borderRadius={"2em"}
-                size={"md"}
-                _hover={"none"}
+                borderRadius={"0.5em"}
+                size={"lg"}
+                _hover={{ color: "black", bgColor: "white" }}
+                _active={{ color: "#3876BF" }}
                 variant={"solid"}
                 isDisabled={isSubmitting}
                 type={"submit"}
+                w={"10em"}
               >
-              <Text as={"b"}>REGISTER</Text>
+                <Text as={"b"}>SIGNUP</Text>
               </Button>
             </Center>
           </Box>
@@ -345,12 +344,14 @@ export default function SignUp() {
           </Text>
           <Link to={"/login"}>
             <Button
-            color={"white"}
+              color={"white"}
               bgColor={"black"}
-              _hover={"none"}
+              _hover={{ color: "black", bgColor: "white" }}
+              _active={{ color: "#3876BF" }}
               variant={"solid"}
-              borderRadius={"2em"}
-              size={"md"}
+              borderRadius={"0.5em"}
+              size={"lg"}
+              w={"10em"}
             >
               <Text as={"b"}>LOGIN</Text>
             </Button>
