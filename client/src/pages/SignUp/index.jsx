@@ -103,7 +103,7 @@ export default function SignUp() {
         <Box>
           <Center>
             <Link to={"/"}>
-              <Image src={logo} w={"400%"} />
+              <Image src={logo} w={"15em"} />
             </Link>
           </Center>
         </Box>

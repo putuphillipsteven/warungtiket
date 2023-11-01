@@ -141,7 +141,7 @@ export default function SignIn() {
         <Box>
           <Center>
             <Link to={"/"}>
-              <Image src={logo} w={"100%"} />
+              <Image src={logo} w={"15em"} />
             </Link>
           </Center>
         </Box>
@@ -248,13 +248,6 @@ export default function SignIn() {
             >
               <Text as={"b"}>LOGIN</Text>
             </Button>
-            <Text
-              fontSize={"0.75em"}
-              _hover={{ color: "#F99417" }}
-              color={"white"}
-            >
-              <Link to={"/changepassword"}>Lupa Password?</Link>
-            </Text>
           </VStack>
         </form>
         <VStack mt={"1em"} spacing={"0.5em"}>
