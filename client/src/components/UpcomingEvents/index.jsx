@@ -9,11 +9,11 @@ export default function UpcomingEvents() {
   console.log(events);
   const renderedEvents = events.map((event) => (
     <EventCard
-      title={event.title}
-      category={event.category}
-      status={event.status}
-      location={event.location}
+      eventName={event.eventName}
       date={event.date}
+      province={event.province}
+      address={event.address}
+      price={event.price == 0 ? "Free" : event.price}
     />
   ));
 

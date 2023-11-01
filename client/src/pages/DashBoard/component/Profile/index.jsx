@@ -8,13 +8,14 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
-export default function Profile() {
+export default function Profile(props) {
   const [show, setShow] = useState(true);
   return (
     <Box>
       <VStack align={"stretch"}>
         <HStack>
           <Box p={".25em .5em"}>
+            {props.profile}
             <Text as={"b"}>Profile Saya</Text>
           </Box>
         </HStack>

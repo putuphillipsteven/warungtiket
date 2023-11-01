@@ -1,18 +1,18 @@
-import { Box, Divider, Grid, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Grid, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Card from "../../components/Card";
 
 const EventList = () => {
   const events = useSelector((state) => state.events);
   const renderedEvents = events.map((event) => (
     <Card
-      title={event.title}
-      category={event.category}
-      status={event.status}
-      location={event.location}
+      eventName={event.eventName}
       date={event.date}
+      province={event.province}
+      address={event.address}
+      price={event.price == 0 ? "Free" : event.price}
+      description={event.eventDescription}
       path={event.id}
     />
   ));
@@ -23,7 +23,7 @@ const EventList = () => {
         <Heading as={"h2"} size={"md"}>
           Events
         </Heading>
-        <Grid templateColumns={"repeat(4, 1fr)"} gap={"1em"}>
+        <Grid templateColumns={"repeat(5, 1fr)"} gap={"1em"}>
           {renderedEvents}
         </Grid>
       </VStack>
