@@ -1,36 +1,31 @@
-import { Box, Center, Grid, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import EventCard from "./EventCard";
-import { BsFillCircleFill } from "react-icons/bs";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useSelector } from "react-redux";
 
 export default function UpcomingEvents() {
+  const events = useSelector((state) => state.events);
+  console.log(events);
+  const renderedEvents = events.map((event) => (
+    <EventCard
+      title={event.title}
+      category={event.category}
+      status={event.status}
+      location={event.location}
+      date={event.date}
+    />
+  ));
+
   return (
-    <Box p={"1.5em 3.5em "} pt={"10em"}>
+    <Box p={"1.5em 3.5em "}>
       <VStack align={"stretch"}>
         <Box>
           <Text as={"b"}>Event yang akan datang</Text>
         </Box>
-        {/* <Box> */}
-        {/* <Grid templateColumns={"repeat(4, 1fr)"} gap={"1em"}> */}
-        <Carousel axis={"horizontal"}>
-          <EventCard />
-          <EventCard />
-          <EventCard />
-          <EventCard />
+        <Carousel overflow={"hidden"} autoPlay={"true"} axis={"horizontal"}>
+          {renderedEvents}
         </Carousel>
-        {/* </Grid> */}
-        {/* </Box> */}
-        {/* <Box>
-          <Center>
-            <HStack>
-              <BsFillCircleFill fontSize={".75em"} />
-              <BsFillCircleFill fontSize={".75em"} />
-              <BsFillCircleFill fontSize={".75em"} />
-              <BsFillCircleFill fontSize={".75em"} />
-            </HStack>
-          </Center>
-        </Box> */}
       </VStack>
     </Box>
   );
