@@ -20,7 +20,7 @@ function Navbar(props) {
   const navigate = useNavigate();
 
   return (
-    <Box position={"fixed"} zIndex={"10"} w={"full"}>
+    <Box position={"fixed"} zIndex={"10"} w={"full"} top={"0"}>
       <Box bgColor={"#192655"} p={"0.25em 3.5em"}>
         <Flex flexDir={"row-reverse"}>
           <HStack spacing={"0.5em"}>

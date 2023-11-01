@@ -56,8 +56,8 @@ export const ProfileModal = () => {
           <Box
             w={"20em"}
             p={"1em 1em"}
-            mt={"9em"}
-            mr={"4em"}
+            mt={"10em"}
+            mr={"3em"}
             right={"0"}
             position={"absolute"}
             bgColor={"white"}

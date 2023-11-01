@@ -11,19 +11,21 @@ import {
 export default function EventCard(props) {
   return (
     <Box
+      overflow={"hidden"}
       bgColor={"gray"}
       h={"25em"}
       p={"2.5em"}
       borderRadius={".5em"}
       position={"relative"}
-      m={props.margin}
     >
       <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
         <Box>
           <Flex flexDir={"column"}>
-            <Text as={"b"}>Band Name</Text>
-            <Text fontSize={".75em"}>Event Location</Text>
-            <Text fontSize={".75em"}>Paid or free</Text>
+            <Text as={"b"}>{props.title}</Text>
+            <Text>{props.category}</Text>
+            <Text>{props.status}</Text>
+            <Text>{props.location}</Text>
+            <Text>{props.date}</Text>
           </Flex>
         </Box>
         <Spacer />
