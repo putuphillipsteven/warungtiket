@@ -129,7 +129,7 @@ function FindEvent() {
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
               >
-                {/* <option value="">Semua Kategori</option> */}
+                <option value="">Kategori</option>
                 <option value="Kuliner">Kuliner</option>
                 <option value="Musik">Musik</option>
                 <option value="Olahraga">Olahraga</option>

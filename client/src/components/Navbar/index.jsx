@@ -10,10 +10,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../img/logo.svg";
 import { useState } from "react";
 import { BsTicketPerforated } from "react-icons/bs";
 import { ProfileModal } from "../ProfileModal";
+import logo from "../../img/logo.svg";
 
 function Navbar(props) {
   const [isLogin, setisLogin] = useState(true);

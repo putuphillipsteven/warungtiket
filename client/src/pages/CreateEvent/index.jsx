@@ -13,11 +13,12 @@ import {
   Flex,
   Radio,
   RadioGroup,
+  Stack,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function CreateEvent() {
@@ -40,37 +41,21 @@ export default function CreateEvent() {
     setPrice(event.target.value);
   };
 
-  const fD = async () => {
-    try {
-      const responses = await axios.get("http://localhost:3000/events");
-      setData(responses.data);
-      console.log("----sks-----");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fD();
-  }, []);
-
   const createEvent = async (
-    nameEvent,
-    startDate,
-    endDate,
-    provinsi,
-    kota,
+    eventName,
+    date,
+    province,
+    city,
     address,
     price,
     eventDescription
   ) => {
     try {
-      await axios.post("http://localhost:3000/events", {
-        nameEvent,
-        startDate,
-        endDate,
-        provinsi,
-        kota,
+      await axios.post("http://localhost:8000/event", {
+        eventName,
+        date,
+        province,
+        city,
         address,
         price,
         eventDescription,
@@ -86,16 +71,15 @@ export default function CreateEvent() {
     console.log(values);
     console.log(actions);
     createEvent(
-      values.nameEvent,
-      values.startDate,
-      values.endDate,
-      values.provinsi,
-      values.kota,
+      values.eventName,
+      values.date,
+      values.province,
+      values.city,
       values.address,
       values.price,
       values.eventDescription
     );
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   const {
@@ -108,18 +92,17 @@ export default function CreateEvent() {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      nameEvent: "",
-      startDate: "",
-      endDate: "",
-      provinsi: "",
-      kota: "",
+      eventName: "",
+      date: "",
+      province: "",
+      city: "",
       address: "",
       price: "0",
       eventDescription: "",
     },
     // validationSchema: createSchema,
-    onSubmit: (values, actions) => {
-      onChangeSubmit(values);
+    onSubmit: async (values, actions) => {
+      await onChangeSubmit(values);
       actions.resetForm();
     },
   });
@@ -127,6 +110,7 @@ export default function CreateEvent() {
   return (
     <Box
       p={"1.5em 3.5em"}
+      bgColor={"#3876BF"}
       minH={"100vh"}
       display={"flex"}
       alignItems={"center"}
@@ -135,106 +119,98 @@ export default function CreateEvent() {
       <VStack w={"50%"} spacing={"1em"} align={"stretch"}>
         <Box>
           <Center>
-            <Image src={logo} w={"50%"} />
+            <Link to={"/"}>
+              <Image src={logo} w={"15em"} />
+            </Link>
           </Center>
         </Box>
         <Box>
           <Center>
-            <Text as={"b"}>CREATE EVENT</Text>
+            <Text color={"orange"} as={"b"}>
+              CREATE EVENT
+            </Text>
           </Center>
         </Box>
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
               <Box>
-                <FormLabel>Event Name</FormLabel>
+                <FormLabel color={"white"}>Event Name</FormLabel>
                 <Input
-                  placeholder="input here"
-                  id="nameEvent"
-                  name="nameEvent"
+                  placeholder="..."
+                  id="eventName"
+                  name="eventName"
                   type="text"
                   onChange={handleChange}
-                  value={values.nameEvent}
+                  value={values.eventName}
                   onBlur={handleBlur}
+                  bgColor={"white"}
                 ></Input>
-                {touched.nameEvent && errors.nameEvent ? (
+                {touched.eventName && errors.eventName ? (
                   <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.nameEvent}
+                    {errors.eventName}
                   </Text>
                 ) : null}
               </Box>
               <Box>
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel color={"white"}>Date</FormLabel>
                 <Input
-                  id="startDate"
-                  name="startDate"
-                  type="datetime-local"
+                  id="date"
+                  name="date"
+                  // type="datetime-local"
                   onChange={handleChange}
-                  value={values.startDate}
+                  value={values.date}
                   onBlur={handleBlur}
+                  bgColor={"white"}
                 />
-                {touched.startDate && errors.startDate ? (
+                {touched.date && errors.date ? (
                   <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.startDate}
-                  </Text>
-                ) : null}
-              </Box>
-              <Box>
-                <FormLabel>End Date</FormLabel>
-                <Input
-                  id="endDate"
-                  name="endDate"
-                  type="datetime-local"
-                  onChange={handleChange}
-                  value={values.endDate}
-                  onBlur={handleBlur}
-                />
-                {touched.endDate && errors.endDate ? (
-                  <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.endDate}
+                    {errors.date}
                   </Text>
                 ) : null}
               </Box>
               <Box>
                 <Flex>
                   <Box w={"100%"}>
-                    <FormLabel>Provinsi</FormLabel>
+                    <FormLabel color={"white"}>Province</FormLabel>
                     <Input
                       placeholder="..."
-                      id="provinsi"
-                      name="provinsi"
+                      id="province"
+                      name="province"
                       type="text"
                       onChange={handleChange}
-                      value={values.provinsi}
+                      value={values.province}
                       onBlur={handleBlur}
+                      bgColor={"white"}
                     />
-                    {touched.provinsi && errors.provinsi ? (
+                    {touched.province && errors.province ? (
                       <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.provinsi}
+                        {errors.province}
                       </Text>
                     ) : null}
                   </Box>
                   <Spacer m={".5em"} />
                   <Box w={"100%"}>
-                    <FormLabel>Kota</FormLabel>
+                    <FormLabel color={"white"}>City</FormLabel>
                     <Input
                       placeholder="..."
-                      id="kota"
-                      name="kota"
+                      id="city"
+                      name="city"
                       type="text"
                       onChange={handleChange}
-                      value={values.kota}
+                      value={values.city}
                       onBlur={handleBlur}
+                      bgColor={"white"}
                     />
-                    {touched.kota && errors.kota ? (
+                    {touched.city && errors.city ? (
                       <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.kota}
+                        {errors.city}
                       </Text>
                     ) : null}
                   </Box>
                 </Flex>
                 <Box>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel color={"white"}>Address</FormLabel>
                   <Input
                     placeholder="..."
                     id="address"
@@ -243,6 +219,7 @@ export default function CreateEvent() {
                     onChange={handleChange}
                     value={values.address}
                     onBlur={handleBlur}
+                    bgColor={"white"}
                   />
                   {touched.address && errors.address ? (
                     <Text fontSize={"0.75em"} color={"red"}>
@@ -253,13 +230,25 @@ export default function CreateEvent() {
 
                 <Box>
                   <RadioGroup value={selected} onChange={handleChange2}>
-                    <Text>Ticket Category</Text>
-                    <Radio id="gratis" name="gratis" value="gratis">
-                      Gratis
-                    </Radio>
-                    <Radio id="berbayar" name="berbayar" value="berbayar">
-                      Berbayar
-                    </Radio>
+                    <Text color={"white"}>Ticket Category</Text>
+                    <Stack spacing={"5"} direction="row">
+                      <Radio
+                        id="gratis"
+                        name="gratis"
+                        value="gratis"
+                        colorScheme="white"
+                      >
+                        Gratis
+                      </Radio>
+                      <Radio
+                        id="berbayar"
+                        name="berbayar"
+                        value="berbayar"
+                        colorScheme="white"
+                      >
+                        Berbayar
+                      </Radio>
+                    </Stack>
                   </RadioGroup>
 
                   {selected === "gratis" ? (
@@ -268,7 +257,7 @@ export default function CreateEvent() {
                     </Box>
                   ) : selected === "berbayar" ? (
                     <Box>
-                      <Text>Price: </Text>
+                      <Text color={"white"}>Price: </Text>
                       <Input
                         id="price"
                         name="price"
@@ -276,6 +265,8 @@ export default function CreateEvent() {
                         placeholder="Rp.0"
                         value={values.price}
                         onChange={handleChange}
+                        bgColor={"white"}
+                        color={"black"}
                       />
                       {touched.price && errors.price ? (
                         <Text fontSize={"0.75em"} color={"red"}>
@@ -285,53 +276,8 @@ export default function CreateEvent() {
                     </Box>
                   ) : null}
                 </Box>
-
-                {/* <Box>
-                  <FormLabel>Ticket Category</FormLabel>
-                  <RadioGroup>
-                    <VStack align={"baseline"}>
-                      <Radio
-                        id="price"
-                        name="ticketcategory"
-                        type="ticketcategory"
-                        value="0"
-                        onChange={handleClick}
-                      >
-                        Gratis
-                      </Radio>
-                      <Radio
-                        value="harga2"
-                        isChecked={show}
-                        onChange={handleClick}
-                      >
-                        Berbayar
-                      </Radio>
-                    </VStack>
-                  </RadioGroup>
-                </Box> */}
-                {/* {show ? (
-                  <Box>
-                    <FormLabel>Price</FormLabel>
-                    <Input
-                      placeholder="Rp. "
-                      id="price"
-                      name="price"
-                      type="number"
-                      onChange={handleChange}
-                      value={values.price}
-                      onBlur={handleBlur}
-                    />
-                    {touched.price && errors.price ? (
-                      <Text fontSize={"0.75em"} coloddr={"red"}>
-                        {errors.price}
-                      </Text>
-                    ) : null}
-                  </Box>
-                ) : (
-                  ""
-                )} */}
                 <Box>
-                  <FormLabel>Event Description</FormLabel>
+                  <FormLabel color={"white"}>Event Description</FormLabel>
                   <Input
                     placeholder="..."
                     id="eventDescription"
@@ -340,6 +286,7 @@ export default function CreateEvent() {
                     onChange={handleChange}
                     value={values.eventDescription}
                     onBlur={handleBlur}
+                    bgColor={"white"}
                   ></Input>
                   {touched.eventDescription && errors.eventDescription ? (
                     <Text fontSize={"0.75em"} color={"red"}>
@@ -350,19 +297,19 @@ export default function CreateEvent() {
               </Box>
             </FormControl>
           </Box>
+          <Box>
+            <Center>
+              <Button
+                _hover={{ bgColor: "none" }}
+                _active={"none"}
+                bgColor={"#E1AA74"}
+                type={"submit"}
+              >
+                Create Ticket
+              </Button>
+            </Center>
+          </Box>
         </form>
-        <Box>
-          <Center>
-            <Button
-              _hover={{ bgColor: "none" }}
-              _active={"none"}
-              bgColor={"#E1AA74"}
-              type={"submit"}
-            >
-              Create Ticket
-            </Button>
-          </Center>
-        </Box>
       </VStack>
     </Box>
   );
