@@ -8,7 +8,7 @@ export default function DashBoard() {
   return (
     <Box>
       <Navbar display={"none"} />
-      <Box p={"1em 3.5em"} mt={"13em"}>
+      <Box p={"1em 3.5em"} mt={"13em"} minHeight={"100vh"}>
         <Box display={"flex"} p={"1em 0"}>
           <Box w={"30%"}>
             <VStack align={"stretch"}>

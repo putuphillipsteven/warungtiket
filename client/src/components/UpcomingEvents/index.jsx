@@ -18,14 +18,24 @@ export default function UpcomingEvents() {
   ));
 
   return (
-    <Box p={"1.5em 3.5em "} pt={"12em"}>
-      <VStack align={"stretch"}>
-        <Box>
-          <Text as={"b"}>Event yang akan datang</Text>
+    <Box p={"1.5em 3.5em "}>
+      <VStack align={"flex-start"}>
+        <Box color={"white"}>
+          <Text
+            bgColor={"#192655"}
+            p={"1em 2em"}
+            borderRadius={"0.5em"}
+            w={"auto"}
+            fontWeight={"bold"}
+          >
+            Event Terdekat
+          </Text>
         </Box>
-        <Carousel overflow={"hidden"} autoPlay={"true"} axis={"horizontal"}>
-          {renderedEvents}
-        </Carousel>
+        <Box width={"100%"} overflow={"hidden"}>
+          <Carousel overflow={"hidden"} autoPlay={"true"} axis={"horizontal"}>
+            {renderedEvents}
+          </Carousel>
+        </Box>
       </VStack>
     </Box>
   );
