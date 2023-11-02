@@ -3,10 +3,10 @@ import EventCard from "./EventCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useSelector } from "react-redux";
+import { selectAllEvents } from "../../features/events/eventSlice";
 
 export default function UpcomingEvents() {
-  const events = useSelector((state) => state.events);
-  console.log(events);
+  const events = useSelector(selectAllEvents);
   const renderedEvents = events.map((event) => (
     <EventCard
       eventName={event.eventName}

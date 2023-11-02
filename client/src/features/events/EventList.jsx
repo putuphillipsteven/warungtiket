@@ -1,29 +1,31 @@
-import { Box, Grid, Text, VStack } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Box, Grid, Text, VStack, filter } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
 import toRupiah from "@develoka/angka-rupiah-js";
-import axios from "axios";
+import { fetchEvents, selectAllEvents } from "./eventSlice";
 
 const EventList = () => {
-  const [eventss, setEventss] = useState([]);
+  const dispatch = useDispatch();
 
-  const fetchEvent = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8000/event?province=Yogyakarta"
-      );
-      setEventss(response?.data?.data);
-    } catch (err) {
-      throw err;
-    }
-  };
+  const events = useSelector(selectAllEvents);
+
+  const eventsStatus = useSelector((state) => state.events.status);
 
   useEffect(() => {
-    fetchEvent();
-  }, []);
+    if (eventsStatus === "idle") {
+      dispatch(fetchEvents());
+    }
+  }, [eventsStatus, dispatch]);
 
-  const renderedEvents = eventss.map((event) => (
+  let filtered = events.filter((event) => {
+    return event.province == "Yogyakarta";
+  });
+
+  let date = new Date();
+  console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+
+  const renderedEvents = filtered.map((event) => (
     <Card
       eventName={event.eventName}
       date={event.date}

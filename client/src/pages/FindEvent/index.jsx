@@ -11,20 +11,23 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import Navbar from "../../components/Navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
+import axios from "axios";
+import toRupiah from "@develoka/angka-rupiah-js";
+import { selectAllEvents } from "../../features/events/eventSlice";
 
 function FindEvent() {
-  const events1 = useSelector((state) => state.events);
+  const events = useSelector(selectAllEvents);
 
   const [categoryFilter, setCategoryFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const Events = events1.filter(
+  const Events = events.filter(
     (event) =>
       (categoryFilter === "" || event.category === categoryFilter) &&
       (locationFilter === "" || event.location === locationFilter) &&
@@ -32,13 +35,15 @@ function FindEvent() {
       (searchQuery === "" ||
         event.category.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-  const renderedEvents = Events.map((event) => (
+
+  const renderedEvents = events.map((event) => (
     <Card
       eventName={event.eventName}
       date={event.date}
       province={event.province}
       address={event.address}
-      price={event.price == 0 ? "Free" : event.price}
+      price={event.price == 0 ? "Free" : toRupiah(event.price)}
+      description={event.eventDescription}
       path={event.id}
     />
   ));
