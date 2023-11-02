@@ -1,4 +1,12 @@
-import { Box, Center, Text, VStack, Flex, Spacer } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Center,
+  Text,
+  VStack,
+  Flex,
+  Spacer,
+} from "@chakra-ui/react";
 
 export default function EventCard(props) {
   return (

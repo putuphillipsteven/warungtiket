@@ -9,13 +9,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <Box
-      p={".5em 3.5em"}
-      bgColor={"#3876BF"}
-      w={"full"}
-      position={"relative"}
-      bottom={"0"}
-    >
+    <Box p={".5em 3.5em"} bgColor={"#3876BF"} w={"full"} bottom={"0"}>
       <VStack>
         <Box w={"20%"}>
           <Flex>

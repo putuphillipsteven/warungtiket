@@ -25,8 +25,6 @@ import logo from "../../img/logo.svg";
 import { useFormik } from "formik";
 import { basicSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
-import registerIcon from "../../img/register.svg";
-import loginIcon from "../../img/login.svg";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -34,10 +32,10 @@ export default function SignUp() {
   const handleClick = () => setShow(!show);
   const toast = useToast();
 
-  const register = async (fullName, email, password) => {
+  const register = async (username, email, password) => {
     try {
-      await axios.post("http://localhost:3000/users", {
-        fullName,
+      await axios.post("http://localhost:8000/auth/register", {
+        username,
         password,
         email,
       });
@@ -52,16 +50,22 @@ export default function SignUp() {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Email Already Exist",
+        duration: 3000,
+        isClosable: true,
+        status:"error",
+        position:"top"
+      })
     }
   };
   const onSubmit = async (values, actions) => {
-    register(
-      (values.fullName = `${values.firstname} ${values.lastname}`),
+    await register(
+      (values.username = `${values.firstname} ${values.lastname}`),
       values.email,
       values.password
     );
-    await new Promise(actions.resetForm());
+    actions.resetForm();
   };
 
   const {
@@ -103,7 +107,7 @@ export default function SignUp() {
         <Box>
           <Center>
             <Link to={"/"}>
-              <Image src={logo} w={"400%"} />
+              <Image src={logo} w={"15em"} />
             </Link>
           </Center>
         </Box>
@@ -127,7 +131,6 @@ export default function SignUp() {
                       borderRadius={"0.5em"}
                       _hover={{ borderColor: "transparent" }}
                       borderColor={"transparent"}
-                      // _focusVisible={{ borderColor: "white" }}
                     />
                     {touched.firstname && errors.firstname ? (
                       <Alert
@@ -325,16 +328,18 @@ export default function SignUp() {
           <Box mt={"1em"}>
             <Center>
               <Button
-              color={"white"}
+                color={"white"}
                 bgColor={"black"}
-                borderRadius={"2em"}
-                size={"md"}
-                _hover={"none"}
+                borderRadius={"0.5em"}
+                size={"lg"}
+                _hover={{ color: "black", bgColor: "white" }}
+                _active={{ color: "#3876BF" }}
                 variant={"solid"}
                 isDisabled={isSubmitting}
                 type={"submit"}
+                w={"10em"}
               >
-              <Text as={"b"}>REGISTER</Text>
+                <Text as={"b"}>SIGNUP</Text>
               </Button>
             </Center>
           </Box>
@@ -345,12 +350,14 @@ export default function SignUp() {
           </Text>
           <Link to={"/login"}>
             <Button
-            color={"white"}
+              color={"white"}
               bgColor={"black"}
-              _hover={"none"}
+              _hover={{ color: "black", bgColor: "white" }}
+              _active={{ color: "#3876BF" }}
               variant={"solid"}
-              borderRadius={"2em"}
-              size={"md"}
+              borderRadius={"0.5em"}
+              size={"lg"}
+              w={"10em"}
             >
               <Text as={"b"}>LOGIN</Text>
             </Button>
