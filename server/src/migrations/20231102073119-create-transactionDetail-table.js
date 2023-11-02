@@ -3,29 +3,25 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("transactions", {
+    await queryInterface.createTable("transactionDetails", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      totalQuantity: {
+      quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      totalPrice: {
+      price: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("transactions");
+    await queryInterface.dropTable("transactionDetails");
   },
 };
