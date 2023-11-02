@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   VStack,
@@ -11,7 +11,6 @@ import {
   InputGroup,
   InputRightElement,
   Center,
-  Flex,
   Alert,
   AlertIcon,
   AlertDescription,
@@ -23,85 +22,24 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../schemas";
 import { BiShowAlt, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/login/loginSlice";
 
 export default function SignIn() {
-  const [accounts, setAccounts] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  let newEmail = null;
-  let indexUser = null;
-  const fetchDataLogin = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setAccounts(response.data);
-      console.log(response);
-      console.log(`--Fetch Login Success--`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchDataLogin();
-  }, []);
-  const updateIsLogin = (index) => {
-    axios
-      .patch(`http://localhost:3000/users/${index}`, {
-        isLogin: "true",
-      })
-      .then((resp) => {
-        console.log(resp.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const allEmail = accounts.map((item) => item.email);
-
-  const check = (email, password) => {
-    if (allEmail.includes(email)) {
-      newEmail = accounts[allEmail.indexOf(email)];
-      indexUser = allEmail.indexOf(email) + 1;
-      updateIsLogin(indexUser);
-      console.log(newEmail);
-      console.log(indexUser);
-      if (newEmail.password.includes(password)) {
-        toast({
-          title: "Login Success",
-          duration: 5000,
-          isClosable: true,
-          status: "success",
-          position: "top",
-        });
-        navigate("/");
-      } else {
-        toast({
-          title: "Password Salah",
-          duration: 5000,
-          isClosable: true,
-          status: "error",
-          position: "top",
-        });
-      }
-    } else {
-      toast({
-        title: "Akun Belum Terdaftar",
-        duration: 5000,
-        isClosable: true,
-        status: "error",
-        position: "top",
-      });
-    }
-  };
-
   const onSubmit = async (values, actions) => {
-    check(values.email, values.password);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await dispatch(login(values.email, values.password));
+    toast({
+      title: "Login Success",
+      status: "success"
+    });
     actions.resetForm();
+    navigate("/");
+    
   };
 
   const {
@@ -136,6 +74,7 @@ export default function SignIn() {
         align={"stretch"}
         bgColor={"transparent"}
       >
+        <form onSubmit={handleSubmit}>
         <Box>
           <Center>
             <Link to={"/"}>
@@ -143,15 +82,11 @@ export default function SignIn() {
             </Link>
           </Center>
         </Box>
-        <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
               <Box>
-                <Flex>
-                  <Box w={"100%"}></Box>
-                  <Box w={"100%"}></Box>
-                </Flex>
-                <Box mt={"20px"}>
+                <VStack spacing={"1em"} align={"stretch"}>
+                <Box>
                   <FormLabel color={"white"}>Email</FormLabel>
                   <Input
                     id="email"
@@ -189,7 +124,7 @@ export default function SignIn() {
                     </Alert>
                   ) : null}
                 </Box>
-                <Box mt={"20px"}>
+                <Box>
                   <FormLabel color={"white"}>Password</FormLabel>
                   <InputGroup>
                     <Input
@@ -230,6 +165,7 @@ export default function SignIn() {
                     </Alert>
                   ) : null}
                 </Box>
+                </VStack>
               </Box>
             </FormControl>
           </Box>
@@ -240,24 +176,24 @@ export default function SignIn() {
               _hover={{ color: "black", bgColor: "white" }}
               _active={{ color: "#3876BF" }}
               type="submit"
-              bgColor={"black"}
+              bgColor={"#192655"}
               variant={"solid"}
               size={"lg"}
               w={"10em"}
               isDisabled={isSubmitting}
             >
-              <Text as={"b"}>LOGIN</Text>
+              <Text fontWeight={"bold"}>LOGIN</Text>
             </Button>
           </VStack>
         </form>
         <VStack mt={"1em"} spacing={"0.5em"}>
-          <Text fontSize={"0.75em"} color={"white"}>
+          <Text fontSize={"0.75em"} color={"#F5F5F5"}>
             Belum Punya Akun?
           </Text>
           <Link to={"/signup"}>
             <Button
-              bgColor={"black"}
-              _hover={{ color: "black", bgColor: "white" }}
+              bgColor={"#192655"}
+              _hover={{ color: "black", bgColor: "#F5F5F5" }}
               _active={{ color: "#3876BF" }}
               variant={"solid"}
               borderRadius={"0.5em"}
@@ -265,7 +201,7 @@ export default function SignIn() {
               size={"lg"}
               w={"10em"}
             >
-              <Text as={"b"}>SIGNUP</Text>
+              <Text fontWeight={"bold"}>SIGNUP</Text>
             </Button>
           </Link>
         </VStack>

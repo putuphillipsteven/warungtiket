@@ -35,9 +35,9 @@ function Navbar(props) {
       </Box>
       <Box bgColor={"#3876BF"} p={"1em 3.5em"} w={"full"}>
         <Box>
-          <VStack align={"stretch"} spacing={"1.5em"}>
+          <VStack align={"stretch"} spacing={"0.5em"}>
             <Flex alignItems={"center"}>
-              <Box w={"15em"}>
+              <Box w={"10em"}>
                 <Link to={"/"}>
                   <Image src={logo} />
                 </Link>
@@ -48,12 +48,12 @@ function Navbar(props) {
               <Box>
                 <HStack spacing={"1em"}>
                   <Link to={"/findevent"}>
-                    <Text display={props.display} color={"white"} as={"b"}>
+                    <Text display={props.display} color={"white"} fontWeight={"bold"}>
                       FIND EVENT
                     </Text>
                   </Link>
                   <Link to={"/createevent"}>
-                    <Text display={props.display} color={"white"} as={"b"}>
+                    <Text display={props.display} color={"white"} fontWeight={"bold"}>
                       CREATE EVENT
                     </Text>
                   </Link>
@@ -94,11 +94,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#KULINER</Text>
+                    <Text>#kuliner</Text>
                   </Button>
                   <Button
                     size={"xs"}
@@ -106,11 +106,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#MUSIK</Text>
+                    <Text>#musik</Text>
                   </Button>
                   <Button
                     size={"xs"}
@@ -118,11 +118,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#OLAHRAGA</Text>
+                    <Text>#olahraga</Text>
                   </Button>
                   <Button
                     size={"xs"}
@@ -130,11 +130,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#KEBUDAYAAN</Text>
+                    <Text>#kebudayaan</Text>
                   </Button>
                   <Button
                     size={"xs"}
@@ -142,11 +142,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#KOMEDI</Text>
+                    <Text>#komedi</Text>
                   </Button>
                   <Button
                     size={"xs"}
@@ -154,11 +154,11 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={"none"}
+                    _hover={{bgColor:"#F5F5F5", color:"black"}}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
-                    <Text as={"b"}>#WEBINAR</Text>
+                    <Text>#webinar</Text>
                   </Button>
                 </HStack>
               </Flex>

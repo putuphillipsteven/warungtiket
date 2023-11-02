@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 
 const initialState = {
@@ -36,30 +36,45 @@ export const loginSlice = createSlice({
     },
   },
 });
-
-export const keepLogin = () => {
+export const login = (email, password) => {
   return async (dispatch) => {
     try {
-        const token = localStorage.getItem("token");
-
-        if (token) {
-            const res =  await axios.get("http://localhost:8000/auth/keep-login", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            dispatch(setUser(res?.data?.data));
-            dispatch(keepLoginSuccess());
-        }
+      const res = await axios.post("http://localhost:8000/auth/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", res?.data?.data?.token);
+      dispatch(setUser(res?.data?.data?.user));
+      dispatch(loginSuccess());
     } catch (err) {
-        localStorage.removeItem("token");
-        alert(err?.response?.data);
+      alert(err?.message);
     }
   };
 };
 
-export const { loginSuccess, logOutSuccess, setUser, keepLoginSuccess } = 
-loginSlice.actions;
+export const keepLogin = () => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        const res = await axios.get("http://localhost:8000/auth/keep-login", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        dispatch(setUser(res?.data?.data));
+        dispatch(keepLoginSuccess());
+      }
+    } catch (err) {
+      localStorage.removeItem("token");
+      alert(err?.response?.data);
+    }
+  };
+};
+
+export const { loginSuccess, logOutSuccess, setUser, keepLoginSuccess } =
+  loginSlice.actions;
 
 export default loginSlice.reducer;
