@@ -2,7 +2,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const {
   registerQuery,
+<<<<<<< Updated upstream
   //  keepLoginQuery
+=======
+  // keepLoginQuery
+>>>>>>> Stashed changes
 } = require("../queries/authQuery");
 const { findUserQuery } = require("../queries/userQuery");
 
