@@ -32,10 +32,10 @@ export default function SignUp() {
   const handleClick = () => setShow(!show);
   const toast = useToast();
 
-  const register = async (fullName, email, password) => {
+  const register = async (username, email, password) => {
     try {
-      await axios.post("http://localhost:3000/users", {
-        fullName,
+      await axios.post("http://localhost:8000/auth/register", {
+        username,
         password,
         email,
       });
@@ -50,16 +50,22 @@ export default function SignUp() {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      console.log(err);
+      toast({
+        title: "Email Already Exist",
+        duration: 3000,
+        isClosable: true,
+        status:"error",
+        position:"top"
+      })
     }
   };
   const onSubmit = async (values, actions) => {
-    register(
-      (values.fullName = `${values.firstname} ${values.lastname}`),
+    await register(
+      (values.username = `${values.firstname} ${values.lastname}`),
       values.email,
       values.password
     );
-    await new Promise(actions.resetForm());
+    actions.resetForm();
   };
 
   const {

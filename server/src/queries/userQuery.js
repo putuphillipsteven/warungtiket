@@ -21,6 +21,7 @@ const findUserQuery = async ({ email = null, username = null }) => {
         },
       },
     });
+    console.log(res);
     return res;
   } catch (err) {
     throw err;
