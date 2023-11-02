@@ -3,6 +3,7 @@ import { Box, Divider, HStack, Spacer, Text, VStack } from "@chakra-ui/react";
 import Navbar from "../../components/Navbar";
 import Profile from "./component/Profile";
 import Footer from "../../components/Footer";
+import { Link } from "react-router-dom";
 
 export default function DashBoard(props) {
   return (
@@ -17,7 +18,9 @@ export default function DashBoard(props) {
               </Box>
               <Divider borderColor={"#192655"} borderWidth={"2px"} />
               <Box p={".25em .5em"}>
-                <Text>Event Saya</Text>
+                <Link to={"/my-event"}>
+                  <Text>Event Saya</Text>
+                </Link>
               </Box>
               <Box p={".25em .5em"} borderRadius={".5em"}>
                 <Text as={"b"}>PROFILE</Text>

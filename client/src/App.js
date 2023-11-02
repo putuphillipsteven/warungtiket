@@ -23,6 +23,11 @@ function App() {
       <Route path="/testradio" element={<TestRadio />} />
       <Route path="/dashboard" element={<DashBoard />} />
       <Route exact path="/event/:eventId" element={<SinglePostPage />} />
+      <Route
+        exact
+        path="/dashboard/:dashboardParams"
+        element={<SinglePostPage />}
+      />
     </Routes>
   );
 }

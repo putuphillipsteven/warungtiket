@@ -2,6 +2,7 @@ import { Box, Grid, Heading, VStack } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
+import toRupiah from "@develoka/angka-rupiah-js";
 
 const EventList = () => {
   const events = useSelector((state) => state.events);
@@ -11,7 +12,7 @@ const EventList = () => {
       date={event.date}
       province={event.province}
       address={event.address}
-      price={event.price == 0 ? "Free" : event.price}
+      price={event.price == 0 ? "Free" : toRupiah(event.price)}
       description={event.eventDescription}
       path={event.id}
     />

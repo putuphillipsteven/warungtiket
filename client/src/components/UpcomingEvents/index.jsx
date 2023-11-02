@@ -13,7 +13,6 @@ export default function UpcomingEvents() {
       date={event.date}
       province={event.province}
       address={event.address}
-      price={event.price == 0 ? "Free" : event.price}
     />
   ));
 
