@@ -29,6 +29,7 @@ const loginController = async (req, res) => {
       message: "Success",
       data: result,
     });
+    
   } catch (err) {
     console.log(err.message);
     return res.status(500).send(err.message);

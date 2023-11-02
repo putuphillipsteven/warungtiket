@@ -330,10 +330,10 @@ export default function SignUp() {
             <Center>
               <Button
                 color={"white"}
-                bgColor={"black"}
+                bgColor={"#192655"}
                 borderRadius={"0.5em"}
                 size={"lg"}
-                _hover={{ color: "black", bgColor: "white" }}
+                _hover={{ color: "black", bgColor: "#F5F5F5" }}
                 _active={{ color: "#3876BF" }}
                 variant={"solid"}
                 isDisabled={isSubmitting}
@@ -352,8 +352,8 @@ export default function SignUp() {
           <Link to={"/login"}>
             <Button
               color={"white"}
-              bgColor={"black"}
-              _hover={{ color: "black", bgColor: "white" }}
+              bgColor={"#192655"}
+              _hover={{ color: "black", bgColor: "#F5F5F5" }}
               _active={{ color: "#3876BF" }}
               variant={"solid"}
               borderRadius={"0.5em"}
