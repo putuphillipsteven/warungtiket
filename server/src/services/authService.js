@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { registerQuery, keepLoginQuery } = require("../queries/authQuery");
+const {
+  registerQuery,
+  //  keepLoginQuery
+} = require("../queries/authQuery");
 const { findUserQuery } = require("../queries/userQuery");
 
 const registerService = async (email, username, password) => {

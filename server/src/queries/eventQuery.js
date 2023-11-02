@@ -2,6 +2,24 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const event = db.event;
 
+const findEventsQuery = async (province = null) => {
+  try {
+    const filter = {};
+    if (province)
+      filter.where = {
+        province: {
+          [Op.like]: `%${province}%`,
+        },
+      };
+    const res = await event.findAll({
+      ...filter,
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const createEventQuery = async (
   eventName,
   date,
@@ -30,4 +48,5 @@ const createEventQuery = async (
 
 module.exports = {
   createEventQuery,
+  findEventsQuery,
 };
