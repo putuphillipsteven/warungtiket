@@ -12,28 +12,39 @@ import {
 
 function CreateTicket() {
   return (
-    <Box borderWidth="1px" borderRadius="md" p={4} boxShadow="md" bg="white">
+    <Box
+      bgColor={"#E8E2E2"}
+      borderWidth="1px"
+      borderRadius="md"
+      p={4}
+      boxShadow="md"
+    >
       <Stack spacing={2}>
         <Box>
           <Box>
-            <FormLabel color={"teal"}>Ticket Name</FormLabel>
-            <Input variant="flushed" placeholder="Flushed" />
+            <FormLabel>Ticket Name</FormLabel>
+            <Input variant="flushed" placeholder="Input Name" />
           </Box>
           <Box>
-            <FormLabel color={"teal"}>Ticket Quantity</FormLabel>
-            <Input variant="flushed" placeholder="Flushed" />
+            <FormLabel>Ticket Quantity</FormLabel>
+            <Input variant="flushed" placeholder="Input Quantity" />
           </Box>
           <Box>
-            <FormLabel color={"teal"}>Price</FormLabel>
-            <Input variant="flushed" placeholder="Flushed" />
+            <FormLabel>Price</FormLabel>
+            <Input variant="flushed" placeholder="Rp." />
           </Box>
           <Box>
-            <FormLabel color={"teal"}>Ticket Description</FormLabel>
-            <Input variant="flushed" placeholder="Flushed" />
+            <FormLabel>Ticket Description</FormLabel>
+            <Input variant="flushed" placeholder="Input Description" />
           </Box>
         </Box>
-        <Button colorScheme="teal" mt={4}>
-          Create Ticket
+        <Button
+          _hover={{ color: "black", bgColor: "#E1AA74" }}
+          _active={{ color: "#3876BF" }}
+          bgColor="#192655"
+          mt={4}
+        >
+          <Text textColor={"white"}>Create Ticket</Text>
         </Button>
       </Stack>
     </Box>
