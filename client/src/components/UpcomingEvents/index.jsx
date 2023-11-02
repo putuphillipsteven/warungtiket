@@ -18,7 +18,7 @@ export default function UpcomingEvents() {
   ));
 
   return (
-    <Box p={"1.5em 3.5em "}>
+    <Box p={"1.5em 3.5em "} pt={"12em"}>
       <VStack align={"stretch"}>
         <Box>
           <Text as={"b"}>Event yang akan datang</Text>
