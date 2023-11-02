@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const {
   registerQuery,
-  // keepLoginQuery
+  //  keepLoginQuery
 } = require("../queries/authQuery");
 const { findUserQuery } = require("../queries/userQuery");
 
