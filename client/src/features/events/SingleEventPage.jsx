@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Divider,
   Flex,
   HStack,
   Heading,
@@ -9,23 +8,24 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import useCounter from "./useCounter";
 import toRupiah from "@develoka/angka-rupiah-js";
 import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
+import { selectAllEvents } from "./eventSlice";
 
 const SinglePostPage = () => {
   const { eventId } = useParams();
-  const event = useSelector((state) =>
-    state.events.find((event) => event.id == eventId)
-  );
+  const events = useSelector(selectAllEvents);
+  const selectedEvent = events.find((event) => event.id == eventId);
   const [count, increment, decrement] = useCounter(1);
-  if (!event) {
+
+  if (!events) {
     return (
       <Box p={"1em 3.5em"}>
         <Heading as={"h2"} size={"md"}>
@@ -55,18 +55,20 @@ const SinglePostPage = () => {
                       borderRadius={".5em"}
                     >
                       <VStack align={"stretch"}>
-                        <Text fontWeight={"bold"}>{event.eventName}</Text>
+                        <Text fontWeight={"bold"}>
+                          {selectedEvent.eventName}
+                        </Text>
                         <HStack>
                           <BsCalendarMinus />
-                          <Text>{event.date}</Text>
+                          <Text>{selectedEvent.date}</Text>
                         </HStack>
                         <HStack>
                           <BsPinMap />
-                          <Text>{event.province}</Text>
+                          <Text>{selectedEvent.province}</Text>
                         </HStack>
                         <HStack>
                           <BsBuildings />
-                          <Text>{event.address}</Text>
+                          <Text>{selectedEvent.address}</Text>
                         </HStack>
                       </VStack>
                     </Box>
@@ -77,7 +79,7 @@ const SinglePostPage = () => {
                       borderRadius={".5em"}
                     >
                       <Text fontWeight={"bold"}>About This Event</Text>
-                      <Text>{event.eventDescription}</Text>
+                      <Text>{selectedEvent.eventDescription}</Text>
                     </Box>
                     <Box
                       w={"full"}
@@ -90,7 +92,9 @@ const SinglePostPage = () => {
                           <Text fontWeight={"bold"}>Ticket</Text>
                           <Text>Regular Standing</Text>
                           <Text>
-                            {event.price == 0 ? "Free" : toRupiah(event.price)}
+                            {selectedEvent.price == 0
+                              ? "Free"
+                              : toRupiah(selectedEvent.price)}
                           </Text>
                         </Box>
                         <Spacer />
@@ -134,7 +138,7 @@ const SinglePostPage = () => {
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
-                    <Text>{toRupiah(+event.price * count)}</Text>
+                    <Text>{toRupiah(+selectedEvent.price * count)}</Text>
                   </Box>
                   <Spacer />
                   <Box>

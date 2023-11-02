@@ -1,86 +1,44 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = [
-  {
-    id: 1,
-    eventName: "Pesta Pora 1",
-    date: "2023-10-11T14:53",
-    province: "Jawa Tengah",
-    city: "Canggu",
-    address: "Yogyakarta",
-    price: "0",
-    eventDescription: "Lorem ipsum",
-  },
-  {
-    id: 2,
-    eventName: "Pesta Pora 2",
-    date: "2023-10-11T14:53",
-    province: "Jambi",
-    city: "Jambi",
-    address: "GOR Kotabaru",
-    price: "50000",
-    eventDescription: "Lorem ipsum",
-  },
-  {
-    id: 3,
-    eventName: "Pesta Pora 3",
-    date: "2023-10-11T14:53",
-    province: "D.I.Yogyakarta",
-    city: "Sleman",
-    address: "Pacific Building",
-    price: "300000",
-    eventDescription: "Lorem ipsum",
-  },
-  {
-    id: 4,
-    eventName: "Pesta Pora 4",
-    date: "2023-10-11T14:53",
-    province: "Jawa Tengah",
-    city: "Solo",
-    address: "Rumah Sam",
-    price: "50000",
-    eventDescription: "Lorem ipsum",
-  },
-  {
-    id: 5,
-    eventName: "Pesta Pora 5",
-    date: "2023-10-11T14:53",
-    province: "Sulawesi Selatan",
-    city: "Makassar",
-    address: "Rumah Asrar",
-    price: "50000",
-    eventDescription: "Lorem ipsum",
-  },
-  {
-    id: 6,
-    eventName: "Pesta Pora 6",
-    date: "2023-10-11T14:53",
-    province: "Sumatra Barat",
-    city: "Padang",
-    address: "Stadion Haji Agus Salim",
-    price: "50000",
-    eventDescription: "Lorem ipsum",
-  },
-];
+const initialState = {
+  events: [],
+  status: "idle",
+  error: null,
+};
 
 const eventSlice = createSlice({
   name: "events",
   initialState,
-  reducers: {
-    eventUpdated(state, action) {
-      const { id, title, category, location, status, date } = action.payload;
-      const existingEvent = state.find((post) => post.id === id);
-      if (existingEvent) {
-        existingEvent.title = title;
-        existingEvent.category = category;
-        existingEvent.location = location;
-        existingEvent.status = status;
-        existingEvent.date = date;
-      }
-    },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchEvents.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchEvents.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // Add any fetched posts to the array
+        state.events = state.events.concat(action.payload);
+      })
+      .addCase(fetchEvents.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
-export const { eventUpdatedUpdated } = eventSlice.actions;
+export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
+  try {
+    const res = await axios.get("http://localhost:8000/event");
+    return res?.data?.data;
+  } catch (err) {
+    throw err;
+  }
+});
+
+export const {} = eventSlice.actions;
+
+export const selectAllEvents = (state) => state.events.events;
 
 export default eventSlice.reducer;
