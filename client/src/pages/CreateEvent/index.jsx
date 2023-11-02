@@ -20,6 +20,7 @@ import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import CreateTicket from "../CreateTicket";
 
 export default function CreateEvent() {
   const [show, setShow] = useState(true);
@@ -302,6 +303,9 @@ export default function CreateEvent() {
             </Center>
           </Box>
         </form>
+      <Box>
+        <CreateTicket />
+      </Box>
       </VStack>
     </Box>
   );
