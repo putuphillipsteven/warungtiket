@@ -5,10 +5,10 @@ const { body } = require("express-validator");
 
 const {
   createEventController,
-  findEventController,
+  findEventsController,
 } = require("../controllers/eventController");
 
-router.get("/", findEventController);
+router.get("/", findEventsController);
 router.post("/", createEventController);
 
 module.exports = router;

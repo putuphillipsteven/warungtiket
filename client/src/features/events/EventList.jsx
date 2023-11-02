@@ -10,7 +10,9 @@ const EventList = () => {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/event");
+      const response = await axios.get(
+        "http://localhost:8000/event?province=Yogyakarta"
+      );
       setEventss(response?.data?.data);
     } catch (err) {
       throw err;
@@ -44,7 +46,7 @@ const EventList = () => {
             w={"auto"}
             fontWeight={"bold"}
           >
-            Event Lainnya
+            Populer di Yogyakarta
           </Text>
         </Box>
         <Box width={"100%"}>

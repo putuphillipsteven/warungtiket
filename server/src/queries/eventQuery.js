@@ -2,16 +2,18 @@ const db = require("../models");
 const { Op } = require("sequelize");
 const event = db.event;
 
-const findEventQuery = async (eventName = null) => {
+const findEventsQuery = async (province = null) => {
   try {
     const filter = {};
-    if (eventName)
+    if (province)
       filter.where = {
-        eventName: {
-          [Op.like]: `%${eventName}%`,
+        province: {
+          [Op.like]: `%${province}%`,
         },
       };
-    const res = await event.findAll();
+    const res = await event.findAll({
+      ...filter,
+    });
     return res;
   } catch (err) {
     throw err;
@@ -46,5 +48,5 @@ const createEventQuery = async (
 
 module.exports = {
   createEventQuery,
-  findEventQuery,
+  findEventsQuery,
 };
