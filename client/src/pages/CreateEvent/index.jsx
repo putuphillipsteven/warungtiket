@@ -14,12 +14,15 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Textarea,
+  Heading
 } from "@chakra-ui/react";
 import logo from "../../img/logo.svg";
-import { useFormik } from "formik";
+import { Field, useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Upload from "./imgUpload"
 
 export default function CreateEvent() {
   const [show, setShow] = useState(true);
@@ -124,192 +127,168 @@ export default function CreateEvent() {
             </Link>
           </Center>
         </Box>
+        <Upload/>
         <Box>
-          <Center>
-            <Text color={"orange"} as={"b"}>
-              CREATE EVENT
-            </Text>
-          </Center>
-        </Box>
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>
-              <Box>
-                <FormLabel color={"white"}>Event Name</FormLabel>
-                <Input
-                  placeholder="..."
-                  id="eventName"
-                  name="eventName"
-                  type="text"
-                  onChange={handleChange}
-                  value={values.eventName}
-                  onBlur={handleBlur}
-                  bgColor={"white"}
-                ></Input>
-                {touched.eventName && errors.eventName ? (
-                  <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.eventName}
-                  </Text>
-                ) : null}
-              </Box>
-              <Box>
-                <FormLabel color={"white"}>Date</FormLabel>
-                <Input
-                  id="date"
-                  name="date"
-                  // type="datetime-local"
-                  onChange={handleChange}
-                  value={values.date}
-                  onBlur={handleBlur}
-                  bgColor={"white"}
-                />
-                {touched.date && errors.date ? (
-                  <Text fontSize={"0.75em"} color={"red"}>
-                    {errors.date}
-                  </Text>
-                ) : null}
-              </Box>
-              <Box>
-                <Flex>
-                  <Box w={"100%"}>
-                    <FormLabel color={"white"}>Province</FormLabel>
-                    <Input
-                      placeholder="..."
-                      id="province"
-                      name="province"
-                      type="text"
-                      onChange={handleChange}
-                      value={values.province}
-                      onBlur={handleBlur}
-                      bgColor={"white"}
-                    />
-                    {touched.province && errors.province ? (
-                      <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.province}
-                      </Text>
-                    ) : null}
-                  </Box>
-                  <Spacer m={".5em"} />
-                  <Box w={"100%"}>
-                    <FormLabel color={"white"}>City</FormLabel>
-                    <Input
-                      placeholder="..."
-                      id="city"
-                      name="city"
-                      type="text"
-                      onChange={handleChange}
-                      value={values.city}
-                      onBlur={handleBlur}
-                      bgColor={"white"}
-                    />
-                    {touched.city && errors.city ? (
-                      <Text fontSize={"0.75em"} color={"red"}>
-                        {errors.city}
-                      </Text>
-                    ) : null}
-                  </Box>
-                </Flex>
+              <VStack spacing={"1em"} align={"stretch"}>
                 <Box>
-                  <FormLabel color={"white"}>Address</FormLabel>
+                  <FormLabel color={"white"}>Event Name</FormLabel>
                   <Input
-                    placeholder="..."
-                    id="address"
-                    name="address"
+                    id="eventName"
+                    name="eventName"
                     type="text"
                     onChange={handleChange}
-                    value={values.address}
+                    value={values.eventName}
                     onBlur={handleBlur}
-                    bgColor={"white"}
-                  />
-                  {touched.address && errors.address ? (
+                    bgColor={"#F5F5F5"}
+                    focusBorderColor={"transparent"}
+                    borderRadius={"0.5em"}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
+                  ></Input>
+                  {touched.eventName && errors.eventName ? (
                     <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.address}
+                      {errors.eventName}
                     </Text>
                   ) : null}
                 </Box>
-
                 <Box>
-                  <RadioGroup value={selected} onChange={handleChange2}>
-                    <Text color={"white"}>Ticket Category</Text>
-                    <Stack spacing={"5"} direction="row">
-                      <Radio
-                        id="gratis"
-                        name="gratis"
-                        value="gratis"
-                        colorScheme="white"
-                      >
-                        Gratis
-                      </Radio>
-                      <Radio
-                        id="berbayar"
-                        name="berbayar"
-                        value="berbayar"
-                        colorScheme="white"
-                      >
-                        Berbayar
-                      </Radio>
-                    </Stack>
-                  </RadioGroup>
-
-                  {selected === "gratis" ? (
+                  <FormLabel color={"white"}>Date</FormLabel>
+                  <Input
+                    id="date"
+                    name="date"
+                    type="date"
+                    onChange={handleChange}
+                    value={values.date}
+                    onBlur={handleBlur}
+                    bgColor={"#F5F5F5"}
+                    focusBorderColor={"transparent"}
+                    borderRadius={"0.5em"}
+                    borderColor={"transparent"}
+                    _hover={{ borderColor: "transparent" }}
+                  />
+                  {touched.date && errors.date ? (
+                    <Text fontSize={"0.75em"} color={"red"}>
+                      {errors.date}
+                    </Text>
+                  ) : null}
+                </Box>
+                <Box>
+                  <VStack spacing={"1em"} align={"stretch"}>
+                    <Flex>
+                      <Box w={"100%"}>
+                        <FormLabel color={"white"}>Province</FormLabel>
+                        <Input
+                          id="province"
+                          name="province"
+                          type="text"
+                          onChange={handleChange}
+                          value={values.province}
+                          onBlur={handleBlur}
+                          bgColor={"#F5F5F5"}
+                          focusBorderColor={"transparent"}
+                          borderRadius={"0.5em"}
+                          borderColor={"transparent"}
+                          _hover={{ borderColor: "transparent" }}
+                        />
+                        {touched.province && errors.province ? (
+                          <Text fontSize={"0.75em"} color={"red"}>
+                            {errors.province}
+                          </Text>
+                        ) : null}
+                      </Box>
+                      <Spacer m={".5em"} />
+                      <Box w={"100%"}>
+                        <FormLabel color={"white"}>City</FormLabel>
+                        <Input
+                          id="city"
+                          name="city"
+                          type="text"
+                          onChange={handleChange}
+                          value={values.city}
+                          onBlur={handleBlur}
+                          bgColor={"#F5F5F5"}
+                          focusBorderColor={"transparent"}
+                          borderRadius={"0.5em"}
+                          borderColor={"transparent"}
+                          _hover={{ borderColor: "transparent" }}
+                        />
+                        {touched.city && errors.city ? (
+                          <Text fontSize={"0.75em"} color={"red"}>
+                            {errors.city}
+                          </Text>
+                        ) : null}
+                      </Box>
+                    </Flex>
                     <Box>
-                      <Input type="hidden" value="0" />
-                    </Box>
-                  ) : selected === "berbayar" ? (
-                    <Box>
-                      <Text color={"white"}>Price: </Text>
+                      <FormLabel color={"white"}>Address</FormLabel>
                       <Input
-                        id="price"
-                        name="price"
-                        type="number"
-                        placeholder="Rp.0"
-                        value={values.price}
+                        id="address"
+                        name="address"
+                        type="text"
                         onChange={handleChange}
-                        bgColor={"white"}
-                        color={"black"}
+                        value={values.address}
+                        onBlur={handleBlur}
+                        bgColor={"#F5F5F5"}
+                        focusBorderColor={"transparent"}
+                        borderRadius={"0.5em"}
+                        borderColor={"transparent"}
+                        _hover={{ borderColor: "transparent" }}
                       />
-                      {touched.price && errors.price ? (
+                      {touched.address && errors.address ? (
                         <Text fontSize={"0.75em"} color={"red"}>
-                          {errors.price}
+                          {errors.address}
                         </Text>
                       ) : null}
                     </Box>
-                  ) : null}
+                    <Box>
+                      <FormLabel color={"white"}>Event Description</FormLabel>
+                      <Textarea
+                        id="eventDescription"
+                        name="eventDescription"
+                        type="text"
+                        onChange={handleChange}
+                        value={values.eventDescription}
+                        onBlur={handleBlur}
+                        bgColor={"#F5F5F5"}
+                        focusBorderColor={"transparent"}
+                        borderRadius={"0.5em"}
+                        borderColor={"transparent"}
+                        _hover={{ borderColor: "transparent" }}
+                        size={"sm"}
+                        h={"10em"}
+                      ></Textarea>
+                      {touched.eventDescription && errors.eventDescription ? (
+                        <Text fontSize={"0.75em"} color={"red"}>
+                          {errors.eventDescription}
+                        </Text>
+                      ) : null}
+                    </Box>
+                  </VStack>
                 </Box>
-                <Box>
-                  <FormLabel color={"white"}>Event Description</FormLabel>
-                  <Input
-                    placeholder="..."
-                    id="eventDescription"
-                    name="eventDescription"
-                    type="text"
-                    onChange={handleChange}
-                    value={values.eventDescription}
-                    onBlur={handleBlur}
-                    bgColor={"white"}
-                  ></Input>
-                  {touched.eventDescription && errors.eventDescription ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
-                      {errors.eventDescription}
-                    </Text>
-                  ) : null}
-                </Box>
-              </Box>
+              </VStack>
             </FormControl>
           </Box>
-          <Box>
+          <Box mt={"1em"}>
             <Center>
               <Button
-                _hover={{ bgColor: "none" }}
+                fontWeight={"bold"}
+                color={"#F5F5F5"}
+                _hover={{ bgColor: "#F5F5F5", color: "black" }}
                 _active={"none"}
-                bgColor={"#E1AA74"}
+                bgColor={"#192655"}
                 type={"submit"}
+                size={"lg"}
+                w={"10em"}
               >
-                Create Ticket
+                CREATE EVENT
               </Button>
             </Center>
           </Box>
         </form>
+        </Box>
       </VStack>
     </Box>
   );
