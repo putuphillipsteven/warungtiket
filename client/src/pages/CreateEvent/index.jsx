@@ -32,7 +32,6 @@ export default function CreateEvent() {
 
   const handleChange2 = (value) => {
     setSelected(value);
-
     // Reset nilai harga ketika pilihan diubah
     setPrice("");
   };
@@ -51,7 +50,7 @@ export default function CreateEvent() {
     eventDescription
   ) => {
     try {
-      await axios.post("http://localhost:8000/event", {
+      await axios.post("http://localhost:8000/event/create", {
         eventName,
         date,
         province,
@@ -66,10 +65,7 @@ export default function CreateEvent() {
       console.log(err);
     }
   };
-
-  const onChangeSubmit = async (values, actions) => {
-    console.log(values);
-    console.log(actions);
+  const onSubmit = async (values, actions) => {
     createEvent(
       values.eventName,
       values.date,
@@ -79,9 +75,8 @@ export default function CreateEvent() {
       values.price,
       values.eventDescription
     );
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    actions.resetForm();
   };
-
   const {
     values,
     handleBlur,
@@ -101,10 +96,7 @@ export default function CreateEvent() {
       eventDescription: "",
     },
     // validationSchema: createSchema,
-    onSubmit: async (values, actions) => {
-      await onChangeSubmit(values);
-      actions.resetForm();
-    },
+    onSubmit,
   });
 
   return (
@@ -251,7 +243,6 @@ export default function CreateEvent() {
                       </Radio>
                     </Stack>
                   </RadioGroup>
-
                   {selected === "gratis" ? (
                     <Box>
                       <Input type="hidden" value="0" />

@@ -3,14 +3,8 @@ const router = express.Router();
 
 const { body } = require("express-validator");
 
+const { createEventController } = require("../controllers/eventController");
 
-const {
-  createEventController,
-} = require("../controllers/eventController");
-
-router.post(
-  "/",
-  createEventController
-);
+router.post("/create", createEventController);
 
 module.exports = router;
