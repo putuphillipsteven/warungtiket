@@ -31,6 +31,10 @@ const eventRouter = require("./routes/eventRouter");
 
 app.use("/event", eventRouter);
 
+const ticketRouter = require("./routes/ticketRoute");
+
+app.use("/ticket", ticketRouter);
+
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
 });

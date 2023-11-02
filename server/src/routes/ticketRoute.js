@@ -3,8 +3,8 @@ const router = express.Router();
 
 const { body } = require("express-validator");
 
-const { createEventController } = require("../controllers/eventController");
+const { createTicketController } = require("../controllers/ticketContoller");
 
-router.post("/create", createEventController);
+router.post("/create", createTicketController);
 
 module.exports = router;
