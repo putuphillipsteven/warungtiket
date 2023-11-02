@@ -34,11 +34,12 @@ function FindEvent() {
   );
   const renderedEvents = Events.map((event) => (
     <Card
-      title={event.title}
-      category={event.category}
-      status={event.status}
-      location={event.location}
+      eventName={event.eventName}
       date={event.date}
+      province={event.province}
+      address={event.address}
+      price={event.price == 0 ? "Free" : event.price}
+      path={event.id}
     />
   ));
   return (
@@ -58,7 +59,13 @@ function FindEvent() {
           </Box>
         }
       />
-      <Box p={"1em 3.5em"} mt={"13em"} mb={"3em"} display={"flex"}>
+      <Box
+        p={"1em 3.5em"}
+        mt={"13em"}
+        mb={"3em"}
+        display={"flex"}
+        minHeight={"100vh"}
+      >
         <Box w={"30%"} position={"relative"}>
           <VStack align={"stretch"}>
             <Box>
