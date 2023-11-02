@@ -35,22 +35,22 @@ const loginQuery = async (email) => {
   }
 };
 
-// const keepLoginQuery = async (id) => {
-//   try {
-//     const res = await user.findByPk(id, {
-//       attributes: {
-//         exclude: ["password"],
-//       },
-//     });
+const keepLoginQuery = async (id) => {
+  try {
+    const res = await user.findByPk(id, {
+      attributes: {
+        exclude: ["password"],
+      },
+    });
 
-//     return res;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
 module.exports = {
   registerQuery,
   loginQuery,
-  // keepLoginQuery,
+  keepLoginQuery,
 };
