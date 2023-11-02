@@ -27,6 +27,10 @@ const authRouter = require("./routes/authRoute");
 
 app.use("/auth", authRouter);
 
+const eventRouter = require("./routes/eventRouter");
+
+app.use("/event", eventRouter);
+
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
 });

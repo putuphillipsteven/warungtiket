@@ -40,12 +40,10 @@ export const loginSchema = yup.object().shape({
 
 export const createSchema = yup.object().shape({
   nameEvent: yup.string().required("input name"),
-  startDate: yup.date().required("input date"),
-  endDate: yup.date().required("input date"),
-  provinsi: yup.string().required("input data"),
-  kota: yup.string().required("input data"),
+  date: yup.date().required("input date"),
+  province: yup.string().required("input data"),
+  city: yup.string().required("input data"),
   address: yup.string().required("address is required"),
-  ticketCategory: yup.string().required("categoryticket is required"),
   gratis: yup.string(),
   berbayar: yup.string(),
   price: yup.number().required("input price"),

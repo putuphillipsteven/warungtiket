@@ -21,14 +21,20 @@ export default function UpcomingEvents() {
     <Box p={"1.5em 3.5em "}>
       <VStack align={"flex-start"}>
         <Box color={"white"}>
-          <Text bgColor={"#192655"} p={"1em 2em"} borderRadius={"0.5em"} w={"auto"} fontWeight={"bold"}>
+          <Text
+            bgColor={"#192655"}
+            p={"1em 2em"}
+            borderRadius={"0.5em"}
+            w={"auto"}
+            fontWeight={"bold"}
+          >
             Event Terdekat
           </Text>
         </Box>
         <Box width={"100%"} overflow={"hidden"}>
-        <Carousel overflow={"hidden"} autoPlay={"true"} axis={"horizontal"}>
-          {renderedEvents}
-        </Carousel>
+          <Carousel overflow={"hidden"} autoPlay={"true"} axis={"horizontal"}>
+            {renderedEvents}
+          </Carousel>
         </Box>
       </VStack>
     </Box>
