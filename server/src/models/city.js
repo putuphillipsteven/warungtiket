@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const user = sequelize.define(
+  const city = sequelize.define(
     "city",
     {
       id: {
