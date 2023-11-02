@@ -1,4 +1,20 @@
-const { createEventService } = require("../services/eventService");
+const {
+  createEventService,
+  findEventService,
+} = require("../services/eventService");
+
+const findEventController = async (req, res) => {
+  try {
+    const { eventName } = req.query;
+    const result = await findEventService({ eventName });
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
 
 const createEventController = async (req, res) => {
   try {
@@ -34,4 +50,5 @@ const createEventController = async (req, res) => {
 
 module.exports = {
   createEventController,
+  findEventController,
 };

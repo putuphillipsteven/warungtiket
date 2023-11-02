@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      transactionId: {
+        type: Sequelize.INTEGER,
+      },
     },
     {
       timestamps: false,

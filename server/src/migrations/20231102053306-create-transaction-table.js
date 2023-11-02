@@ -22,6 +22,15 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      referalId: {
+        type: Sequelize.INTEGER,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+      },
+      eventId: {
+        type: Sequelize.INTEGER,
+      },
     });
   },
 

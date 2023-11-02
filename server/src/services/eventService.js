@@ -1,4 +1,13 @@
-const { createEventQuery } = require("../queries/eventQuery");
+const { createEventQuery, findEventQuery } = require("../queries/eventQuery");
+
+const findEventService = async (eventName) => {
+  try {
+    const res = await findEventQuery(eventName);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
 const createEventService = async (
   id,
@@ -30,4 +39,5 @@ const createEventService = async (
 
 module.exports = {
   createEventService,
+  findEventService,
 };

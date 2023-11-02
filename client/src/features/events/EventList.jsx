@@ -1,20 +1,27 @@
-import {
-  Box,
-  Divider,
-  Grid,
-  Heading,
-  Text,
-  VStack,
-  Center,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Grid, Text, VStack } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
 import toRupiah from "@develoka/angka-rupiah-js";
+import axios from "axios";
 
 const EventList = () => {
-  const events = useSelector((state) => state.events);
-  const renderedEvents = events.map((event) => (
+  const [eventss, setEventss] = useState([]);
+
+  const fetchEvent = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/event");
+      setEventss(response?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    fetchEvent();
+  }, []);
+
+  const renderedEvents = eventss.map((event) => (
     <Card
       eventName={event.eventName}
       date={event.date}

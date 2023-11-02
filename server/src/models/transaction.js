@@ -20,6 +20,15 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      referalId: {
+        type: Sequelize.INTEGER,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+      },
+      eventId: {
+        type: Sequelize.INTEGER,
+      },
     },
     {
       timestamps: false,

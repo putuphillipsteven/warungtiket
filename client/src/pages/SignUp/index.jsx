@@ -32,6 +32,7 @@ export default function SignUp() {
   const handleClick = () => setShow(!show);
   const toast = useToast();
 
+
   const register = async (username, email, password) => {
     try {
       await axios.post("http://localhost:8000/auth/register", {
@@ -54,9 +55,9 @@ export default function SignUp() {
         title: "Email Already Exist",
         duration: 3000,
         isClosable: true,
-        status:"error",
-        position:"top"
-      })
+        status: "error",
+        position: "top",
+      });
     }
   };
   const onSubmit = async (values, actions) => {
