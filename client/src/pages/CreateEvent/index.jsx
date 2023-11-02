@@ -157,6 +157,7 @@ export default function CreateEvent() {
                 <Input
                   id="date"
                   name="date"
+                  type="text"
                   // type="datetime-local"
                   onChange={handleChange}
                   value={values.date}
