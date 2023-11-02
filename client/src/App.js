@@ -8,6 +8,8 @@ import TestRadio from "./pages/testRadio/index";
 import DashBoard from "./pages/DashBoard";
 import { ProfileModal } from "./components/ProfileModal";
 import SinglePostPage from "./features/events/SingleEventPage";
+import Navbar from "./components/Navbar";
+import { Box } from "@chakra-ui/react";
 
 function App() {
   return (
@@ -21,6 +23,11 @@ function App() {
       <Route path="/testradio" element={<TestRadio />} />
       <Route path="/dashboard" element={<DashBoard />} />
       <Route exact path="/event/:eventId" element={<SinglePostPage />} />
+      <Route
+        exact
+        path="/dashboard/:dashboardParams"
+        element={<SinglePostPage />}
+      />
     </Routes>
   );
 }

@@ -12,7 +12,7 @@ export default function EventCard(props) {
   return (
     <Box
       overflow={"hidden"}
-      bgColor={"gray"}
+      bgColor={"#F3F0CA"}
       h={"25em"}
       p={"2.5em"}
       borderRadius={".5em"}
@@ -21,11 +21,11 @@ export default function EventCard(props) {
       <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
         <Box>
           <Flex flexDir={"column"}>
-            <Text as={"b"}>{props.title}</Text>
-            <Text>{props.category}</Text>
-            <Text>{props.status}</Text>
-            <Text>{props.location}</Text>
+            <Text as={"b"}>{props.eventName}</Text>
             <Text>{props.date}</Text>
+            <Text>{props.province}</Text>
+            <Text>{props.address}</Text>
+            <Text>{props.price}</Text>
           </Flex>
         </Box>
         <Spacer />
