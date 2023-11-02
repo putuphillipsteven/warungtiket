@@ -60,7 +60,7 @@ export default function CreateEvent() {
         price,
         eventDescription,
       });
-      await alert("---Create Tiket Success");
+      await alert("Create Event Success");
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -303,9 +303,9 @@ export default function CreateEvent() {
             </Center>
           </Box>
         </form>
-      <Box>
-        <CreateTicket />
-      </Box>
+        <Box>
+          <CreateTicket />
+        </Box>
       </VStack>
     </Box>
   );
