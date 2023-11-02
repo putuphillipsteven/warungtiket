@@ -21,9 +21,7 @@ const EventList = () => {
   let filtered = events.filter((event) => {
     return event.province == "Yogyakarta";
   });
-
-  let date = new Date();
-  console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+  console.log(events);
 
   const renderedEvents = filtered.map((event) => (
     <Card
