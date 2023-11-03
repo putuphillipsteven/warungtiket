@@ -8,23 +8,38 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
-import useCounter from "./useCounter";
 import toRupiah from "@develoka/angka-rupiah-js";
 import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
+import { TicketList } from "./TicketList";
 
 const SinglePostPage = () => {
+  const [total, setTotal] = useState(0);
+  const [data, setData] = useState([]);
   const { eventId } = useParams();
   const events = useSelector(selectAllEvents);
-  const selectedEvent = events.find((event) => event.id == eventId);
-  const [count, increment, decrement] = useCounter(1);
-
+  const selectedEvent = events.find((event) => event.id === +eventId);
+  const tickets = selectedEvent.tickets;
+  console.log("data", data);
+  const renderedTickets = tickets.map((ticket, index) => (
+    <TicketList
+      key={index}
+      ticketId={ticket.id}
+      totalData={data}
+      setData={setData}
+      totalPrice={total}
+      setTotalPrice={setTotal}
+      ticketName={ticket.ticketName}
+      ticketPrice={ticket.ticketPrice}
+      ticketDescription={ticket.ticketDescription}
+    />
+  ));
+  console.log("renderedTickets", renderedTickets);
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -81,48 +96,8 @@ const SinglePostPage = () => {
                       <Text fontWeight={"bold"}>About This Event</Text>
                       <Text>{selectedEvent.eventDescription}</Text>
                     </Box>
-                    <Box
-                      w={"full"}
-                      p={".5em"}
-                      border={"3px solid lightgray"}
-                      borderRadius={".5em"}
-                    >
-                      <Flex>
-                        <Box>
-                          <Text fontWeight={"bold"}>Ticket</Text>
-                          <Text>Regular Standing</Text>
-                          <Text>
-                            {selectedEvent.price == 0
-                              ? "Free"
-                              : toRupiah(selectedEvent.price)}
-                          </Text>
-                        </Box>
-                        <Spacer />
-                        <Box alignSelf={"flex-end"}>
-                          <HStack>
-                            <Button
-                              size={"sm"}
-                              variant={"ghost"}
-                              _hover={"none"}
-                              onClick={
-                                count !== 1 && count !== 0 ? decrement : null
-                              }
-                            >
-                              <AiOutlineMinusCircle />
-                            </Button>
-                            <Text>{count}</Text>
-                            <Button
-                              size={"sm"}
-                              variant={"ghost"}
-                              _hover={"none"}
-                              _active={"none"}
-                              onClick={count !== 11 ? increment : null}
-                            >
-                              <AiOutlinePlusCircle />
-                            </Button>
-                          </HStack>
-                        </Box>
-                      </Flex>
+                    <Box w={"full"}>
+                      <VStack>{renderedTickets}</VStack>
                     </Box>
                   </VStack>
                 </Box>
@@ -138,7 +113,7 @@ const SinglePostPage = () => {
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
-                    <Text>{toRupiah(+selectedEvent.price * count)}</Text>
+                    <Text>{toRupiah(total)}</Text>
                   </Box>
                   <Spacer />
                   <Box>

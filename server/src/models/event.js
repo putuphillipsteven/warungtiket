@@ -2,12 +2,6 @@ module.exports = (sequelize, Sequelize) => {
   const event = sequelize.define(
     "event",
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -42,5 +36,10 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "events",
     }
   );
+
+  event.associate = (models) => {
+    event.hasMany(models.ticket, { foreignKey: "eventID" });
+  };
+
   return event;
 };
