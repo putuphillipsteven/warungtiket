@@ -13,22 +13,25 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
-import useCounter from "./useCounter";
 import toRupiah from "@develoka/angka-rupiah-js";
 import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 
 const SinglePostPage = () => {
-  const [item, setItem] = useState();
   const [total, setTotal] = useState(0);
+  const [data, setData] = useState([]);
   const { eventId } = useParams();
   const events = useSelector(selectAllEvents);
-  const selectedEvent = events.find((event) => event.id == eventId);
-  const [count, increment, decrement] = useCounter(1);
+  const selectedEvent = events.find((event) => event.id === +eventId);
   const tickets = selectedEvent.tickets;
-  const renderedTickets = tickets.map((ticket) => (
+  console.log("data", data);
+  const renderedTickets = tickets.map((ticket, index) => (
     <TicketList
+      key={index}
+      ticketId={ticket.id}
+      totalData={data}
+      setData={setData}
       totalPrice={total}
       setTotalPrice={setTotal}
       ticketName={ticket.ticketName}
@@ -36,8 +39,7 @@ const SinglePostPage = () => {
       ticketDescription={ticket.ticketDescription}
     />
   ));
-  let renderedPrice = tickets.map((ticket) => ticket.ticketPrice);
-  console.log(renderedPrice);
+  console.log("renderedTickets", renderedTickets);
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -111,7 +113,7 @@ const SinglePostPage = () => {
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
-                    <Text>{total}</Text>
+                    <Text>{toRupiah(total)}</Text>
                   </Box>
                   <Spacer />
                   <Box>
