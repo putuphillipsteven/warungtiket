@@ -38,8 +38,8 @@ const SinglePostPage = () => {
   return (
     <Box>
       <Navbar />
-      <Box p={"1em 5em"} mt={"13em"} mb={"3em"}>
-        <VStack align={"flex-start"}>
+      <Box p={"0 3.5em"} mt={"10em"} mb={"2em"}>
+        <VStack align={"flex-start"} spacing={"2em"}>
           <Box w={"full"}>
             <EventCard />
           </Box>
@@ -51,7 +51,7 @@ const SinglePostPage = () => {
                     <Box
                       w={"full"}
                       p={".5em"}
-                      border={"1px solid black"}
+                      border={"3px solid lightgray"}
                       borderRadius={".5em"}
                     >
                       <VStack align={"stretch"}>
@@ -75,7 +75,7 @@ const SinglePostPage = () => {
                     <Box
                       w={"full"}
                       p={".5em"}
-                      border={"1px solid black"}
+                      border={"3px solid lightgray"}
                       borderRadius={".5em"}
                     >
                       <Text fontWeight={"bold"}>About This Event</Text>
@@ -84,7 +84,7 @@ const SinglePostPage = () => {
                     <Box
                       w={"full"}
                       p={".5em"}
-                      border={"1px solid black"}
+                      border={"3px solid lightgray"}
                       borderRadius={".5em"}
                     >
                       <Flex>
@@ -132,7 +132,7 @@ const SinglePostPage = () => {
                 w={"40%"}
                 alignSelf={"flex-end"}
                 p={".5em"}
-                border={"1px solid black"}
+                border={"3px solid lightgray"}
                 borderRadius={".5em"}
               >
                 <Flex>
@@ -144,6 +144,10 @@ const SinglePostPage = () => {
                   <Box>
                     <Button
                       h={"100%"}
+                      bgColor={"#192655"}
+                      color={"white"}
+                      _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                      _active={"none"}
                       onClick={() => alert("Sabar, fitur belum ada")}
                     >
                       <Text>Payment</Text>

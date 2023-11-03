@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Box>
       <Navbar />
-      <Box mt={"12em"} minHeight={"100vh"}>
+      <Box mt={"10em"} mb={"2em"} minHeight={"100vh"}>
         <UpcomingEvents />
         <EventList />
       </Box>

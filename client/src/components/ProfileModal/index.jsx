@@ -1,22 +1,10 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Divider, IconButton, Text, VStack } from "@chakra-ui/react";
 import { BsPersonCircle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { logOutSuccess } from "../../features/login/loginSlice";
+import { useDispatch } from "react-redux";
 
 export const ProfileModal = () => {
   const [show, setShow] = useState(false);
@@ -24,6 +12,7 @@ export const ProfileModal = () => {
   const updateState = () => {
     setShow(!show);
   };
+  const dispatch = useDispatch();
   return (
     <Box>
       <Box position={"relative"}>
@@ -93,7 +82,7 @@ export const ProfileModal = () => {
                   <Text>Dashboard</Text>
                 </Link>
                 <Link>
-                  <Text>Logout</Text>
+                  <Text onClick={dispatch(logOutSuccess)}>Logout</Text>
                 </Link>
               </VStack>
             </VStack>

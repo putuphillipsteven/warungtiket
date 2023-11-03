@@ -9,8 +9,8 @@ export default function DashBoard(props) {
   return (
     <Box>
       <Navbar display={"none"} />
-      <Box p={"1em 3.5em"} mt={"13em"} minHeight={"100vh"}>
-        <Box display={"flex"} p={"1em 0"}>
+      <Box p={"0 3.5em"} mt={"10em"} mb={"2em"} minHeight={"100vh"}>
+        <Box display={"flex"}>
           <Box w={"30%"}>
             <VStack align={"stretch"}>
               <Box p={".25em .5em"} borderRadius={".5em"}>

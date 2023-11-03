@@ -29,30 +29,28 @@ const loginController = async (req, res) => {
       message: "Success",
       data: result,
     });
-    
   } catch (err) {
-    console.log(err.message);
     return res.status(500).send(err.message);
   }
 };
 
-// const keepLoginController = async (req, res) => {
-//   try {
-//     const { id } = req.user;
+const keepLoginController = async (req, res) => {
+  try {
+    const { id } = req.user;
 
-//     const result = await keepLoginService(id);
+    const result = await keepLoginService(id);
 
-//     return res.status(200).json({
-//       message: "Success",
-//       data: result,
-//     });
-//   } catch (err) {
-//     return res.status(500).send(err.message);
-//   }
-// };
+    return res.status(200).json({
+      message: "Success",
+      data: result,
+    });
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
 
 module.exports = {
   registerController,
   loginController,
-  // keepLoginController,
+  keepLoginController,
 };
