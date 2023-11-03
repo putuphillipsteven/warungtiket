@@ -13,20 +13,21 @@ export default function EventCard(props) {
     <Box
       overflow={"hidden"}
       bgColor={"#F3F0CA"}
-      h={"25em"}
+      h={"17em"}
       p={"2.5em"}
       borderRadius={".5em"}
       position={"relative"}
     >
       <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
         <Box>
-          <Flex flexDir={"column"}>
-            <Text as={"b"}>{props.eventName}</Text>
-            <Text>{props.date}</Text>
-            <Text>{props.province}</Text>
-            <Text>{props.address}</Text>
-            <Text>{props.price}</Text>
-          </Flex>
+          <VStack flexDir={"column"} lineHeight={".6"}>
+            <Text fontWeight={"bold"} fontSize={"1.2em"}>
+              {props.eventName}
+            </Text>
+            <Text fontSize={".75em"}>{props.date}</Text>
+            <Text fontSize={".75em"}>{props.province}</Text>
+            <Text fontSize={".75em"}>{props.address}</Text>
+          </VStack>
         </Box>
         <Spacer />
       </Flex>
