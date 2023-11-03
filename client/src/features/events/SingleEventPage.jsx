@@ -8,20 +8,20 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import useCounter from "./useCounter";
 import toRupiah from "@develoka/angka-rupiah-js";
 import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
-import { render } from "pug";
 
 const SinglePostPage = () => {
+  const [item, setItem] = useState();
+  const [total, setTotal] = useState(0);
   const { eventId } = useParams();
   const events = useSelector(selectAllEvents);
   const selectedEvent = events.find((event) => event.id == eventId);
@@ -29,12 +29,15 @@ const SinglePostPage = () => {
   const tickets = selectedEvent.tickets;
   const renderedTickets = tickets.map((ticket) => (
     <TicketList
+      totalPrice={total}
+      setTotalPrice={setTotal}
       ticketName={ticket.ticketName}
       ticketPrice={ticket.ticketPrice}
       ticketDescription={ticket.ticketDescription}
     />
   ));
-
+  let renderedPrice = tickets.map((ticket) => ticket.ticketPrice);
+  console.log(renderedPrice);
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -108,7 +111,7 @@ const SinglePostPage = () => {
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
-                    <Text>{toRupiah(+selectedEvent.price * count)}</Text>
+                    <Text>{total}</Text>
                   </Box>
                   <Spacer />
                   <Box>

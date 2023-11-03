@@ -7,6 +7,14 @@ import { useState } from "react";
 export const TicketList = (props) => {
   const [count, increment, decrement] = useCounter(1);
   const [total, setTotal] = useState(props.ticketPrice);
+
+  const handleClick = () => {
+    const totalPrice = total * count;
+    console.log("data", totalPrice);
+    props.setTotalPrice(props.totalPrice + totalPrice);
+    increment();
+  };
+
   return (
     <Box
       w={"full"}
@@ -40,7 +48,7 @@ export const TicketList = (props) => {
               variant={"ghost"}
               _hover={"none"}
               _active={"none"}
-              onClick={count !== 11 ? increment : null}
+              onClick={count !== 11 ? handleClick : null}
             >
               <AiOutlinePlusCircle />
             </Button>
