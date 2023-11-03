@@ -2,6 +2,15 @@ module.exports = (sequelize, Sequelize) => {
   const event = sequelize.define(
     "event",
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      image: {
+        type: Sequelize.STRING,
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -20,10 +29,6 @@ module.exports = (sequelize, Sequelize) => {
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      price: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       eventDescription: {

@@ -21,22 +21,22 @@ const findEventsQuery = async (province = null) => {
 };
 
 const createEventQuery = async (
+  image,
   eventName,
   date,
   province,
   city,
   address,
-  price,
   eventDescription
 ) => {
   try {
     const res = await event.create({
+      image,
       eventName,
       date,
       province,
       city,
       address,
-      price,
       eventDescription,
     });
 
