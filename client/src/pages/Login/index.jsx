@@ -32,14 +32,21 @@ export default function SignIn() {
   const handleClick = () => setShow(!show);
   const toast = useToast();
   const onSubmit = async (values, actions) => {
-    await dispatch(login(values.email, values.password));
-    toast({
-      title: "Login Success",
-      status: "success"
-    });
-    actions.resetForm();
-    navigate("/");
-    
+    try {
+      await dispatch(login(values.email, values.password));
+      toast({
+        title: "Login Success",
+        status: "success",
+      });
+      actions.resetForm();
+      navigate("/");
+    } catch (err) {
+      toast({
+        title: "Email or Username doesnt exist",
+        status: "error",
+      });
+      throw err;
+    }
   };
 
   const {
@@ -75,65 +82,26 @@ export default function SignIn() {
         bgColor={"transparent"}
       >
         <form onSubmit={handleSubmit}>
-        <Box>
-          <Center>
-            <Link to={"/"}>
-              <Image src={logo} w={"15em"} />
-            </Link>
-          </Center>
-        </Box>
+          <Box>
+            <Center>
+              <Link to={"/"}>
+                <Image src={logo} w={"15em"} />
+              </Link>
+            </Center>
+          </Box>
           <Box>
             <FormControl>
               <Box>
                 <VStack spacing={"1em"} align={"stretch"}>
-                <Box>
-                  <FormLabel color={"white"}>Email</FormLabel>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="text"
-                    onChange={handleChange}
-                    value={values.email}
-                    onBlur={handleBlur}
-                    color={"black"}
-                    bgColor={"white"}
-                    focusBorderColor={"transparent"}
-                    borderRadius={"0.5em"}
-                    borderColor={"transparent"}
-                    _hover={{ borderColor: "transparent" }}
-                  ></Input>
-                  {errors.email ? (
-                    <Alert
-                      status="error"
-                      fontSize={"0.7em"}
-                      borderRadius={"0.5em"}
-                      h={"1em"}
-                    >
-                      <AlertIcon />
-                      <AlertDescription>{errors.email}</AlertDescription>
-                    </Alert>
-                  ) : touched.email && !errors.email ? (
-                    <Alert
-                      status="success"
-                      fontSize={"0.7em"}
-                      borderRadius={"0.5em"}
-                      h={"1em"}
-                    >
-                      <AlertIcon />
-                      <AlertTitle>Email is Valid!</AlertTitle>
-                    </Alert>
-                  ) : null}
-                </Box>
-                <Box>
-                  <FormLabel color={"white"}>Password</FormLabel>
-                  <InputGroup>
+                  <Box>
+                    <FormLabel color={"white"}>Email</FormLabel>
                     <Input
-                      id="password"
-                      name="password"
+                      id="email"
+                      name="email"
+                      type="text"
                       onChange={handleChange}
-                      value={values.password}
+                      value={values.email}
                       onBlur={handleBlur}
-                      type={!show ? "password" : "text"}
                       color={"black"}
                       bgColor={"white"}
                       focusBorderColor={"transparent"}
@@ -141,30 +109,69 @@ export default function SignIn() {
                       borderColor={"transparent"}
                       _hover={{ borderColor: "transparent" }}
                     ></Input>
-                    <InputRightElement w="4em">
-                      <Button
-                        size="s"
-                        onClick={handleClick}
-                        bgColor={"transparent"}
-                        _hover={{ bgColor: "transparent" }}
-                        color={"black"}
+                    {errors.email ? (
+                      <Alert
+                        status="error"
+                        fontSize={"0.7em"}
+                        borderRadius={"0.5em"}
+                        h={"1em"}
                       >
-                        {show ? <BiHide /> : <BiShowAlt />}
-                      </Button>
-                    </InputRightElement>
-                  </InputGroup>
-                  {touched.password && errors.password ? (
-                    <Alert
-                      status="error"
-                      fontSize={"0.7em"}
-                      borderRadius={"0.5em"}
-                      h={"1em"}
-                    >
-                      <AlertIcon />
-                      {errors.password}
-                    </Alert>
-                  ) : null}
-                </Box>
+                        <AlertIcon />
+                        <AlertDescription>{errors.email}</AlertDescription>
+                      </Alert>
+                    ) : touched.email && !errors.email ? (
+                      <Alert
+                        status="success"
+                        fontSize={"0.7em"}
+                        borderRadius={"0.5em"}
+                        h={"1em"}
+                      >
+                        <AlertIcon />
+                        <AlertTitle>Email is Valid!</AlertTitle>
+                      </Alert>
+                    ) : null}
+                  </Box>
+                  <Box>
+                    <FormLabel color={"white"}>Password</FormLabel>
+                    <InputGroup>
+                      <Input
+                        id="password"
+                        name="password"
+                        onChange={handleChange}
+                        value={values.password}
+                        onBlur={handleBlur}
+                        type={!show ? "password" : "text"}
+                        color={"black"}
+                        bgColor={"white"}
+                        focusBorderColor={"transparent"}
+                        borderRadius={"0.5em"}
+                        borderColor={"transparent"}
+                        _hover={{ borderColor: "transparent" }}
+                      ></Input>
+                      <InputRightElement w="4em">
+                        <Button
+                          size="s"
+                          onClick={handleClick}
+                          bgColor={"transparent"}
+                          _hover={{ bgColor: "transparent" }}
+                          color={"black"}
+                        >
+                          {show ? <BiHide /> : <BiShowAlt />}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {touched.password && errors.password ? (
+                      <Alert
+                        status="error"
+                        fontSize={"0.7em"}
+                        borderRadius={"0.5em"}
+                        h={"1em"}
+                      >
+                        <AlertIcon />
+                        {errors.password}
+                      </Alert>
+                    ) : null}
+                  </Box>
                 </VStack>
               </Box>
             </FormControl>

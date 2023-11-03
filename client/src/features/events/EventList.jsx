@@ -21,7 +21,6 @@ const EventList = () => {
   let filtered = events.filter((event) => {
     return event.province == "Yogyakarta";
   });
-  console.log(events);
 
   const renderedEvents = filtered.map((event) => (
     <Card
@@ -36,12 +35,12 @@ const EventList = () => {
   ));
 
   return (
-    <Box p={"1em 3.5em"}>
+    <Box p={"0 3.5em"}>
       <VStack align={"flex-start"}>
         <Box color={"white"}>
           <Text
             bgColor={"#192655"}
-            p={"1em 2em"}
+            p={".5em 1em"}
             borderRadius={"0.5em"}
             w={"auto"}
             fontWeight={"bold"}
@@ -50,7 +49,7 @@ const EventList = () => {
           </Text>
         </Box>
         <Box width={"100%"}>
-          <Grid templateColumns={"repeat(4, 1fr)"} gap={"1em"}>
+          <Grid templateColumns={"repeat(6, 1fr)"} gap={"1em"}>
             {renderedEvents}
           </Grid>
         </Box>
