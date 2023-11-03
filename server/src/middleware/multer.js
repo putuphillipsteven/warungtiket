@@ -43,7 +43,7 @@ const uploadEventFile = multer({
   storage: eventStorage,
   fileFilter,
   limits,
-}).single("image");
+}).single("img");
 
 // const uploadAvatarFile = multer({
 //   storage: avatarStorage,
