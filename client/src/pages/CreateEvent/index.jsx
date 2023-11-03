@@ -122,8 +122,8 @@ export default function CreateEvent() {
           </Center>
         </Box>
         <Center>
-          <Text as="b" color={"white"}>
-            Form Create Event
+          <Text as="b">
+            FORM CREATE EVENT
           </Text>
         </Center>
         <Upload />

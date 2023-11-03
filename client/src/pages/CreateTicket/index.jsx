@@ -95,15 +95,14 @@ function CreateTicket() {
       >
         <VStack align={"stretch"} spacing={2}>
           <Box
-            alignSelf={"center"}
-            p={".5em 1em"}
-            bgColor={"#192655"}
-            borderRadius={".5em"}
-            
+            // alignSelf={"center"}
+            // p={".5em 1em"}
+            // bgColor={"#192655"}
+            // borderRadius={".5em"}
           >
             <Center>
-              <Text fontSize={".75em"} fontWeight={"bold"} color={"white"}>
-                Form Create Ticket
+              <Text fontSize={"1em"} fontWeight={"bold"}>
+                FORM CREATE TICKET
               </Text>
             </Center>
           </Box>
@@ -214,7 +213,6 @@ function CreateTicket() {
         </VStack>
         <Center>
           <Button
-            // colorScheme="blue"
             type="submit"
             size="md"
             height="40px"
@@ -227,6 +225,31 @@ function CreateTicket() {
             mt={4}
           >
             SUBMIT TICKET
+          </Button>
+        </Center>
+      </Box>
+      <Box
+        mt={"1em"}
+        bgColor={"white"}
+        borderWidth="1px"
+        borderRadius="md"
+        p={4}
+        boxShadow="md"
+      >
+        <Center>
+          <Button
+            type="submit"
+            size="md"
+            height="40px"
+            width="200px"
+            fontWeight={"bold"}
+            color={"#F5F5F5"}
+            _hover={{ bgColor: "#F5F5F5", color: "black" }}
+            _active={"none"}
+            bgColor={"#192655"}
+            // mt={4}
+          >
+            Tambah Tiket
           </Button>
         </Center>
       </Box>
