@@ -10,24 +10,22 @@ const findEventsService = async (province) => {
 };
 
 const createEventService = async (
-  id,
+  image,
   eventName,
   date,
   province,
   city,
   address,
-  price,
   eventDescription
 ) => {
   try {
     const res = await createEventQuery(
-      id,
+      image,
       eventName,
       date,
       province,
       city,
       address,
-      price,
       eventDescription
     );
 

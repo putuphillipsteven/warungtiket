@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 8000;
 const app = new express();
 
 app.use(bodyParser.json());
-
 app.use(
   cors({
     origin: [
@@ -24,17 +23,16 @@ app.use(
   })
 );
 const authRouter = require("./routes/authRoute");
-
 app.use("/auth", authRouter);
 
 const eventRouter = require("./routes/eventRouter");
-
 app.use("/event", eventRouter);
 
 const ticketRouter = require("./routes/ticketRoute");
-
 app.use("/ticket", ticketRouter);
 
+const userRouter = require("./routes/userRoute");
+app.use("/user", userRouter);
 const transactionRouter = require("./routes/transactionRoute");
 app.use("/transaction", transactionRouter);
 

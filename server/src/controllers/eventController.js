@@ -8,7 +8,7 @@ const findEventsController = async (req, res) => {
     const { province } = req.query;
     const result = await findEventsService(province);
     return res.status(200).json({
-      message: "success find",
+      message: "Success Find",
       data: result,
     });
   } catch (err) {
@@ -19,23 +19,23 @@ const findEventsController = async (req, res) => {
 const createEventController = async (req, res) => {
   try {
     const {
+      image,
       eventName,
       date,
       province,
       city,
       address,
-      price,
       eventDescription,
     } = req.body;
     console.log(req.body);
     // const { id } = req.user;
     const result = await createEventService(
+      image,
       eventName,
       date,
       province,
       city,
       address,
-      price,
       eventDescription
     );
 

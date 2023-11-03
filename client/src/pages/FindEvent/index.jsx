@@ -16,7 +16,6 @@ import "react-multi-carousel/lib/styles.css";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
-import axios from "axios";
 import toRupiah from "@develoka/angka-rupiah-js";
 import { selectAllEvents } from "../../features/events/eventSlice";
 
