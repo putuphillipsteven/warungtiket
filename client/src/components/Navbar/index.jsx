@@ -10,15 +10,14 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { BsTicketPerforated } from "react-icons/bs";
 import { ProfileModal } from "../ProfileModal";
 import logo from "../../img/logo.svg";
+import { useSelector } from "react-redux";
 
 function Navbar(props) {
-  const [isLogin, setisLogin] = useState(true);
+  const isLogin = useSelector((state) => state.login.isLogin);
   const navigate = useNavigate();
-
   return (
     <Box position={"fixed"} zIndex={"10"} w={"full"} top={"0"}>
       <Box bgColor={"#192655"} p={"0.25em 3.5em"}>
@@ -48,18 +47,26 @@ function Navbar(props) {
               <Box>
                 <HStack spacing={"1em"}>
                   <Link to={"/findevent"}>
-                    <Text display={props.display} color={"white"} fontWeight={"bold"}>
+                    <Text
+                      display={props.display}
+                      color={"white"}
+                      fontWeight={"bold"}
+                    >
                       FIND EVENT
                     </Text>
                   </Link>
                   <Link to={"/createevent"}>
-                    <Text display={props.display} color={"white"} fontWeight={"bold"}>
+                    <Text
+                      display={props.display}
+                      color={"white"}
+                      fontWeight={"bold"}
+                    >
                       CREATE EVENT
                     </Text>
                   </Link>
                   <Text
                     as={"b"}
-                    color={"#F99417"}
+                    color={"white"}
                     display={isLogin ? "none" : "block"}
                   >
                     <Link to={isLogin ? "/cart" : "/signup"}>
@@ -77,7 +84,7 @@ function Navbar(props) {
                       )}
                     </Link>
                   </Text>
-                  <Text as={"b"} color={"#F99417"}>
+                  <Text as={"b"} color={"white"}>
                     <Link to={isLogin ? "" : "/login"}>
                       {isLogin ? <ProfileModal /> : "LOGIN"}
                     </Link>
@@ -94,7 +101,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
@@ -106,7 +113,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
@@ -118,7 +125,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
@@ -130,7 +137,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
@@ -142,7 +149,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >
@@ -154,7 +161,7 @@ function Navbar(props) {
                     borderRadius={"0.5em"}
                     bgColor={"#192655"}
                     color={"white"}
-                    _hover={{bgColor:"#F5F5F5", color:"black"}}
+                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
                     _active={"none"}
                     onClick={() => navigate("/signup")}
                   >

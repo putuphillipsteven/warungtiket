@@ -1,27 +1,36 @@
-import { Box, Center, Flex, Spacer, Text, VStack } from "@chakra-ui/react";
+import { Box, Center, Divider, Spacer, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import toRupiah from "@develoka/angka-rupiah-js";
 
 export default function Card(props) {
   return (
     <Link to={`/event/${props.path}`}>
-      <Box w={"100%"} bgColor={"#F3F0CA"} borderRadius={".5em"} p={"1em 1em"}>
-        <Box h={"10em"} borderRadius={".5em"} bgColor={"gray"}>
+      <Box
+        w={"100%"}
+        border={"3px solid lightgray"}
+        borderRadius={".5em"}
+        p={"1em 1em"}
+      >
+        <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
           <Center>
             <Text>IMG</Text>
           </Center>
         </Box>
         <Spacer m={"2em"} />
         <Box>
-          <Flex flexDir={"column"}>
-            <Box>
-              <Text fontWeight={"bold"}>{props.eventName}</Text>
-              <Text>{props.date}</Text>
-              <Text>{props.province}</Text>
-              <Text>{props.address}</Text>
-              <Text>{props.price}</Text>
-            </Box>
-          </Flex>
+          <Box>
+            <VStack align={"stretch"}>
+              <VStack align={"flex-start"}>
+                <Text fontWeight={"bold"}>{props.eventName}</Text>
+                <Text color={"gray"}>{props.date}</Text>
+                <Text>{props.price}</Text>
+                <Text>{props.province}</Text>
+              </VStack>
+              <Divider borderWidth={"2px"} />
+              <VStack align={"flex-start"}>
+                <Text fontWeight={"bold"}>Warung Tiket</Text>
+              </VStack>
+            </VStack>
+          </Box>
         </Box>
       </Box>
     </Link>

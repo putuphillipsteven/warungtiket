@@ -47,7 +47,7 @@ export const login = (email, password) => {
       dispatch(setUser(res?.data?.data?.user));
       dispatch(loginSuccess());
     } catch (err) {
-      alert(err?.message);
+      throw err;
     }
   };
 };

@@ -65,9 +65,9 @@ function FindEvent() {
         }
       />
       <Box
-        p={"1em 3.5em"}
-        mt={"13em"}
-        mb={"3em"}
+        p={"0 3.5em"}
+        mt={"10em"}
+        mb={"2em"}
         display={"flex"}
         minHeight={"100vh"}
       >
@@ -116,7 +116,7 @@ function FindEvent() {
           </Box>
           <Box mt={".5em"} ml={".5em"}>
             <Grid
-              templateColumns={"repeat(3, 1fr)"}
+              templateColumns={"repeat(4, 1fr)"}
               templateRows={"repeat(3, 1fr)"}
               gap={".5em"}
             >

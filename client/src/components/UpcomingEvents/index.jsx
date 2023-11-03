@@ -17,12 +17,12 @@ export default function UpcomingEvents() {
   ));
 
   return (
-    <Box p={"1.5em 3.5em "}>
+    <Box p={"0 3.5em "}>
       <VStack align={"flex-start"}>
         <Box color={"white"}>
           <Text
             bgColor={"#192655"}
-            p={"1em 2em"}
+            p={".5em 1em"}
             borderRadius={"0.5em"}
             w={"auto"}
             fontWeight={"bold"}
