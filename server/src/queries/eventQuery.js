@@ -1,7 +1,6 @@
 const db = require("../models");
 const { Op } = require("sequelize");
 const event = db.event;
-
 const findEventsQuery = async (province = null) => {
   try {
     const filter = {};
@@ -12,6 +11,7 @@ const findEventsQuery = async (province = null) => {
         },
       };
     const res = await event.findAll({
+      include: [db.ticket],
       ...filter,
     });
     return res;

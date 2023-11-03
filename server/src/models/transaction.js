@@ -19,6 +19,7 @@ module.exports = (sequelize, Sequelize) => {
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       referalId: {
         type: Sequelize.INTEGER,
@@ -35,5 +36,9 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "transactions",
     }
   );
+  transaction.associate = (models) => {
+    transaction.belongsTo(models.user, { foreignKey: "userId" });
+  };
+
   return transaction;
 };

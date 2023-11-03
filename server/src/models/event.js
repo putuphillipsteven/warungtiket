@@ -41,5 +41,10 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "events",
     }
   );
+
+  event.associate = (models) => {
+    event.hasMany(models.ticket, { foreignKey: "eventID" });
+  };
+
   return event;
 };

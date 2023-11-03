@@ -33,6 +33,8 @@ app.use("/ticket", ticketRouter);
 
 const userRouter = require("./routes/userRoute");
 app.use("/user", userRouter);
+const transactionRouter = require("./routes/transactionRoute");
+app.use("/transaction", transactionRouter);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
