@@ -111,6 +111,7 @@ export default function CreateEvent() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
+      border={"1px"}
     >
       <VStack w={"50%"} spacing={"1em"} align={"stretch"}>
         <Box>
@@ -120,6 +121,11 @@ export default function CreateEvent() {
             </Link>
           </Center>
         </Box>
+        <Center>
+          <Text as="b" color={"white"}>
+            Form Create Event
+          </Text>
+        </Center>
         <Upload />
         <form onSubmit={handleSubmit}>
           <Box>
@@ -266,14 +272,15 @@ export default function CreateEvent() {
           <Box mt={"1em"}>
             <Center>
               <Button
+                type={"submit"}
+                size="md"
+                height="40px"
+                width="200px"
                 fontWeight={"bold"}
                 color={"#F5F5F5"}
                 _hover={{ bgColor: "#F5F5F5", color: "black" }}
                 _active={"none"}
                 bgColor={"#192655"}
-                type={"submit"}
-                size={"lg"}
-                w={"10em"}
               >
                 CREATE EVENT
               </Button>

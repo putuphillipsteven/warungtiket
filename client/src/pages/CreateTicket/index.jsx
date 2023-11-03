@@ -10,6 +10,9 @@ import {
   Radio,
   Flex,
   Center,
+  Spacer,
+  VStack,
+  HStack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -83,19 +86,35 @@ function CreateTicket() {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box
-        bgColor={"#E8E2E2"}
+        mt={".5em"}
+        bgColor={"white"}
         borderWidth="1px"
         borderRadius="md"
         p={4}
         boxShadow="md"
       >
-        <Stack spacing={2}>
+        <VStack align={"stretch"} spacing={2}>
+          <Box
+            alignSelf={"center"}
+            p={".5em 1em"}
+            bgColor={"#192655"}
+            borderRadius={".5em"}
+            
+          >
+            <Center>
+              <Text fontSize={".75em"} fontWeight={"bold"} color={"white"}>
+                Form Create Ticket
+              </Text>
+            </Center>
+          </Box>
           <Box>
             <FormLabel>Ticket Name</FormLabel>
             <Input
               variant="flushed"
               placeholder="Input Name"
               name="ticketName"
+              focusBorderColor={"none"}
+              borderColor={"gray"}
               value={formik.values.ticketName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -113,6 +132,8 @@ function CreateTicket() {
               variant="flushed"
               placeholder="Input Quantity"
               name="ticketQuantity"
+              focusBorderColor={"none"}
+              borderColor={"gray"}
               value={formik.values.ticketQuantity}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -125,25 +146,26 @@ function CreateTicket() {
           </Box>
           <Box>
             <RadioGroup value={selected} onChange={handleChange2}>
-              <Text color={"white"}>Ticket Category</Text>
-              <Stack spacing={"5"} direction="row">
+              <FormLabel>Ticket Category</FormLabel>
+              <HStack spacing={"5"}>
                 <Radio
                   id="gratis"
                   name="gratis"
                   value="gratis"
-                  colorScheme="white"
+                  colorScheme="blue"
                 >
                   Gratis
                 </Radio>
                 <Radio
+                  outline="red"
                   id="berbayar"
                   name="berbayar"
                   value="berbayar"
-                  colorScheme="white"
+                  colorScheme="blue"
                 >
                   Berbayar
                 </Radio>
-              </Stack>
+              </HStack>
             </RadioGroup>
             {selected === "gratis" ? (
               <Box>
@@ -151,7 +173,7 @@ function CreateTicket() {
               </Box>
             ) : selected === "berbayar" ? (
               <Box>
-                <Text color={"white"}>Price: </Text>
+                <FormLabel>Price</FormLabel>
                 <Input
                   id="ticketPrice"
                   name="ticketPrice"
@@ -176,6 +198,8 @@ function CreateTicket() {
               variant="flushed"
               placeholder="Input Description"
               name="ticketDescription"
+              focusBorderColor={"none"}
+              borderColor={"gray"}
               value={formik.values.ticketDescription}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -187,24 +211,22 @@ function CreateTicket() {
               </Text>
             ) : null}
           </Box>
-        </Stack>
+        </VStack>
         <Center>
           <Button
-            colorScheme="blue"
+            // colorScheme="blue"
             type="submit"
             size="md"
             height="40px"
             width="200px"
-            // border="2px"
-            // borderColor="black"
-            // _hover={{ color: "black", bgColor: "#E1AA74" }}
-            // _active={{ color: "red" }}
-            // bgColor="#192655"
+            fontWeight={"bold"}
+            color={"#F5F5F5"}
+            _hover={{ bgColor: "#F5F5F5", color: "black" }}
+            _active={"none"}
+            bgColor={"#192655"}
             mt={4}
           >
-            <Text as={"b"} textColor={"white"}>
-              Create Ticket
-            </Text>
+            SUBMIT TICKET
           </Button>
         </Center>
       </Box>
@@ -213,58 +235,3 @@ function CreateTicket() {
 }
 
 export default CreateTicket;
-
-// import React from "react";
-// import {
-//   Box,
-//   Badge,
-//   Button,
-//   Text,
-//   Stack,
-//   FormLabel,
-//   Input,
-//   Flex,
-// } from "@chakra-ui/react";
-
-// function CreateTicket() {
-//   return (
-//     <Box
-//       bgColor={"#E8E2E2"}
-//       borderWidth="1px"
-//       borderRadius="md"
-//       p={4}
-//       boxShadow="md"
-//     >
-//       <Stack spacing={2}>
-//         <Box>
-//           <Box>
-//             <FormLabel>Ticket Name</FormLabel>
-//             <Input variant="flushed" placeholder="Input Name" />
-//           </Box>
-//           <Box>
-//             <FormLabel>Ticket Quantity</FormLabel>
-//             <Input variant="flushed" placeholder="Input Quantity" />
-//           </Box>
-//           <Box>
-//             <FormLabel>Price</FormLabel>
-//             <Input variant="flushed" placeholder="Rp." />
-//           </Box>
-//           <Box>
-//             <FormLabel>Ticket Description</FormLabel>
-//             <Input variant="flushed" placeholder="Input Description" />
-//           </Box>
-//         </Box>
-//         <Button
-//           _hover={{ color: "black", bgColor: "#E1AA74" }}
-//           _active={{ color: "red" }}
-//           bgColor="#192655"
-//           mt={4}
-//         >
-//           <Text textColor={"white"}>Create Ticket</Text>
-//         </Button>
-//       </Stack>
-//     </Box>
-//   );
-// }
-
-// export default CreateTicket;
