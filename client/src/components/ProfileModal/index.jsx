@@ -1,4 +1,11 @@
-import { Box, Divider, IconButton, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Text,
+  VStack,
+  useToast,
+} from "@chakra-ui/react";
 import { BsPersonCircle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -8,7 +15,25 @@ import { useDispatch } from "react-redux";
 
 export const ProfileModal = () => {
   const [show, setShow] = useState(false);
+
+  const toast = useToast();
   const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      await dispatch(logOutSuccess());
+      toast({
+        title: "Logout Success",
+        status: "success",
+      });
+      navigate("/");
+    } catch (err) {
+      toast({
+        title: "Maaf coba logout dikemudian tahun",
+        status: "error",
+      });
+    }
+  };
   const updateState = () => {
     setShow(!show);
   };
@@ -38,7 +63,6 @@ export const ProfileModal = () => {
           position={"fixed"}
           top={"0"}
           left={"0"}
-          p={"1em 5em "}
           display={show ? "block" : "none"}
           zIndex={"10"}
         >
@@ -46,7 +70,7 @@ export const ProfileModal = () => {
             w={"20em"}
             p={"1em 1em"}
             mt={"10em"}
-            mr={"3em"}
+            mr={"4.5em"}
             right={"0"}
             position={"absolute"}
             bgColor={"white"}
@@ -82,7 +106,7 @@ export const ProfileModal = () => {
                   <Text>Dashboard</Text>
                 </Link>
                 <Link>
-                  <Text onClick={dispatch(logOutSuccess)}>Logout</Text>
+                  <Text onClick={logout}>Logout</Text>
                 </Link>
               </VStack>
             </VStack>
