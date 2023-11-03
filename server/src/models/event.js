@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -26,10 +30,6 @@ module.exports = (sequelize, Sequelize) => {
       },
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      price: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       eventDescription: {

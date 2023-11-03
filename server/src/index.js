@@ -6,8 +6,8 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
 
-const db = require("./models");
-db.sequelize.sync({ alter: true });
+// const db = require("./models");
+// db.sequelize.sync({ alter: true });
 
 const PORT = process.env.PORT || 8000;
 
@@ -34,6 +34,10 @@ app.use("/event", eventRouter);
 const ticketRouter = require("./routes/ticketRoute");
 
 app.use("/ticket", ticketRouter);
+
+const userRouter = require("./routes/userRoute");
+
+app.use("/user", userRouter);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
