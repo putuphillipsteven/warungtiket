@@ -28,7 +28,7 @@ const EventList = () => {
       date={event.date}
       province={event.province}
       address={event.address}
-      price={event.price == 0 ? "Free" : toRupiah(event.price)}
+      price={event.price == 0 ? "Free" : event.price}
       description={event.eventDescription}
       path={event.id}
     />

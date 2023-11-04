@@ -11,26 +11,22 @@ import {
   Center,
   Spacer,
   Flex,
-  Radio,
-  RadioGroup,
-  Stack,
   Textarea,
-  Heading,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.svg";
-import { Field, useFormik } from "formik";
+import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CreateTicket from "../CreateTicket";
 import Upload from "./imgUpload";
+import useCounter from "../../features/events/useCounter";
 
 export default function CreateEvent() {
+  const [showEvent, setShowEvent] = useState(false);
   const [show, setShow] = useState(true);
-  const handleClick = () => setShow(!show);
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  const [count, increment, decrement] = useCounter(0); // add ticket
   const [selected, setSelected] = useState("input"); // Default value
   const [price, setPrice] = useState(""); // Untuk menyimpan nilai harga
 
@@ -43,6 +39,22 @@ export default function CreateEvent() {
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
+
+  // add ticket
+  const renderedTicket = () => {
+    let arr = [];
+    for (let i = 0; i < count; i++) {
+      arr.push(<CreateTicket />);
+    }
+    return arr;
+  };
+
+  // add ticket
+  let coba = renderedTicket();
+  const renderedCoba = coba.map((element) => {
+    return <>{element}</>;
+  });
+  console.log("coba", coba);
 
   const createEvent = async (
     eventName,
@@ -64,7 +76,6 @@ export default function CreateEvent() {
         eventDescription,
       });
       await alert("Create Event Success");
-      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -79,7 +90,7 @@ export default function CreateEvent() {
       values.price,
       values.eventDescription
     );
-    actions.resetForm();
+    // actions.resetForm();
   };
   const {
     values,
@@ -111,6 +122,7 @@ export default function CreateEvent() {
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
+      border={"1px"}
     >
       <VStack w={"50%"} spacing={"1em"} align={"stretch"}>
         <Box>
@@ -120,6 +132,9 @@ export default function CreateEvent() {
             </Link>
           </Center>
         </Box>
+        <Center>
+          <Text as="b">FORM CREATE EVENT</Text>
+        </Center>
         <Upload />
         <form onSubmit={handleSubmit}>
           <Box>
@@ -266,23 +281,58 @@ export default function CreateEvent() {
           <Box mt={"1em"}>
             <Center>
               <Button
+                type={"submit"}
+                size="md"
+                height="40px"
+                width="200px"
                 fontWeight={"bold"}
                 color={"#F5F5F5"}
                 _hover={{ bgColor: "#F5F5F5", color: "black" }}
                 _active={"none"}
                 bgColor={"#192655"}
-                type={"submit"}
-                size={"lg"}
-                w={"10em"}
+                onClick={() => setShowEvent(true)}
               >
                 CREATE EVENT
               </Button>
             </Center>
           </Box>
         </form>
-        <Box>
-          <CreateTicket />
-        </Box>
+        <Box>{renderedCoba}</Box>
+        {showEvent ? (
+          <Box>
+            <Flex>
+              <Button
+                type={"submit"}
+                size="md"
+                height="40px"
+                width="200px"
+                fontWeight={"bold"}
+                color={"#F5F5F5"}
+                _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                _active={"none"}
+                bgColor={"#192655"}
+                onClick={increment}
+              >
+                Add Ticket
+              </Button>
+              <Spacer margin={".3em"} />
+              <Button
+                type={"submit"}
+                size="md"
+                height="40px"
+                width="200px"
+                fontWeight={"bold"}
+                color={"#F5F5F5"}
+                _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                _active={"none"}
+                bgColor={"#192655"}
+                onClick={decrement}
+              >
+                Substract Ticket
+              </Button>
+            </Flex>
+          </Box>
+        ) : null}
       </VStack>
     </Box>
   );

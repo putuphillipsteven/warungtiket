@@ -10,6 +10,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       eventName: {
         type: Sequelize.STRING,
       },
@@ -19,11 +22,11 @@ module.exports = {
       city: {
         type: Sequelize.STRING,
       },
-      address: {
+      province: {
         type: Sequelize.STRING,
       },
-      price: {
-        type: Sequelize.INTEGER,
+      address: {
+        type: Sequelize.STRING,
       },
       eventDescription: {
         type: Sequelize.STRING,

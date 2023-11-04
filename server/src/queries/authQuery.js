@@ -28,7 +28,6 @@ const loginQuery = async (email) => {
         email,
       },
     });
-
     return res;
   } catch (err) {
     throw err;

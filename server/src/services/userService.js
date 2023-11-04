@@ -1,4 +1,4 @@
-const { findAllUserQuery } = require("../queries/userQueries");
+const { findAllUserQuery } = require("../queries/userQuery");
 
 const findAllUserService = async () => {
   try {

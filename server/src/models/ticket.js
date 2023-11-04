@@ -2,12 +2,6 @@ module.exports = (sequelize, Sequelize) => {
   const ticket = sequelize.define(
     "ticket",
     {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
       ticketName: {
         type: Sequelize.STRING,
       },
@@ -29,5 +23,9 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "tickets",
     }
   );
+  ticket.associate = (models) => {
+    ticket.belongsTo(models.event, { foreignKey: "eventID" });
+  };
+
   return ticket;
 };

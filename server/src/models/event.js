@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -28,10 +31,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       eventDescription: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -42,5 +41,10 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "events",
     }
   );
+
+  event.associate = (models) => {
+    event.hasMany(models.ticket, { foreignKey: "eventID" });
+  };
+
   return event;
 };
