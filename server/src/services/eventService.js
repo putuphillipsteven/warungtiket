@@ -10,7 +10,7 @@ const findEventsService = async (province) => {
 };
 
 const createEventService = async (
-  image,
+  // image,
   eventName,
   date,
   province,
@@ -20,7 +20,7 @@ const createEventService = async (
 ) => {
   try {
     const res = await createEventQuery(
-      image,
+      // image,
       eventName,
       date,
       province,
