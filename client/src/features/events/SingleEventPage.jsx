@@ -39,7 +39,6 @@ const SinglePostPage = () => {
       ticketDescription={ticket.ticketDescription}
     />
   ));
-  console.log("renderedTickets", renderedTickets);
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>

@@ -12,12 +12,12 @@ export const TicketList = (props) => {
     increment();
     props.setTotalPrice(props.totalPrice + price);
     console.log("count", count);
-    props.setData((current) => [...current, [props.ticketId, count2]]);
+    props.setData((current) => [[...current], [props.ticketId, count2]]);
   };
   const kurang = () => {
     decrement();
     props.setTotalPrice(props.totalPrice - price);
-    props.setData((current) => [...current, [props.ticketId, count2]]);
+    props.setData((current) => [[...current], [props.ticketId, count2]]);
   };
   return (
     <Box
