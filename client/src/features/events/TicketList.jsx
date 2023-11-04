@@ -1,24 +1,36 @@
-import { Box, Button, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import {
+  AiOutlineMinusCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import toRupiah from "@develoka/angka-rupiah-js";
 import useCounter from "./useCounter";
+import { useEffect } from "react";
 
 export const TicketList = (props) => {
-  const [count, increment, decrement] = useCounter(0);
-  const [count2] = useCounter(1);
+  const [count, increment, decrement] =
+    useCounter(0);
 
   const price = props.ticketPrice;
+
   const tambah = () => {
     increment();
     props.setTotalPrice(props.totalPrice + price);
-    console.log("count", count);
-    props.setData((current) => [[...current], [props.ticketId, count2]]);
+    props.handleTambah(props.id);
   };
   const kurang = () => {
     decrement();
     props.setTotalPrice(props.totalPrice - price);
-    props.setData((current) => [[...current], [props.ticketId, count2]]);
+    props.handleKurang(props.id);
   };
+
   return (
     <Box
       w={"full"}
@@ -28,9 +40,13 @@ export const TicketList = (props) => {
     >
       <Flex>
         <Box>
-          <Text fontWeight={"bold"}>{props.ticketName}</Text>
+          <Text fontWeight={"bold"}>
+            {props.ticketName}
+          </Text>
           <Text>
-            {props.ticketPrice === 0 ? "Free" : toRupiah(props.ticketPrice)}
+            {props.ticketPrice === 0
+              ? "Free"
+              : toRupiah(props.ticketPrice)}
           </Text>
           <Text>{props.ticketDescription}</Text>
         </Box>
@@ -41,7 +57,9 @@ export const TicketList = (props) => {
               size={"sm"}
               variant={"ghost"}
               _hover={"none"}
-              onClick={count !== 0 ? kurang : null}
+              onClick={
+                count !== 0 ? kurang : null
+              }
             >
               <AiOutlineMinusCircle />
             </Button>
@@ -51,7 +69,9 @@ export const TicketList = (props) => {
               variant={"ghost"}
               _hover={"none"}
               _active={"none"}
-              onClick={count !== 11 ? tambah : null}
+              onClick={
+                count !== 11 ? tambah : null
+              }
             >
               <AiOutlinePlusCircle />
             </Button>

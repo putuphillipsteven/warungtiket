@@ -14,31 +14,44 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import toRupiah from "@develoka/angka-rupiah-js";
-import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
+import {
+  BsBuildings,
+  BsCalendarMinus,
+  BsPinMap,
+} from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
+import { OrderedTicket } from "./OrderedTicket";
 
 const SinglePostPage = () => {
   const [total, setTotal] = useState(0);
-  const [data, setData] = useState([]);
   const { eventId } = useParams();
   const events = useSelector(selectAllEvents);
-  const selectedEvent = events.find((event) => event.id === +eventId);
+  const selectedEvent = events.find(
+    (event) => event.id === +eventId
+  );
   const tickets = selectedEvent.tickets;
-  console.log("data", data);
-  const renderedTickets = tickets.map((ticket, index) => (
-    <TicketList
-      key={index}
-      ticketId={ticket.id}
-      totalData={data}
-      setData={setData}
-      totalPrice={total}
-      setTotalPrice={setTotal}
-      ticketName={ticket.ticketName}
-      ticketPrice={ticket.ticketPrice}
-      ticketDescription={ticket.ticketDescription}
-    />
-  ));
+
+  const newTickets = tickets.map((ticket) => {
+    return {
+      id: ticket.id,
+      ticketName: ticket.ticketName,
+      ticketPrice: +ticket.ticketPrice,
+      qty: 0,
+      totalPrice: 0,
+    };
+  });
+  const [data, setData] = useState([
+    ...newTickets,
+  ]);
+  let filtered = data.filter((datum) => {
+    return datum.qty !== 0;
+  });
+  const renderOrderedTickets = filtered.map(
+    (datum, index) => (
+      <OrderedTicket key={index} {...datum} />
+    )
+  );
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -48,12 +61,63 @@ const SinglePostPage = () => {
       </Box>
     );
   }
+  const handleTambah = (id) => {
+    setData(
+      data.map((datum) => {
+        if (datum.id === id) {
+          return {
+            ...datum,
+            qty: datum.qty + 1,
+            totalPrice:
+              +datum.totalPrice +
+              +datum.ticketPrice,
+          };
+        } else {
+          return datum;
+        }
+      })
+    );
+  };
 
+  const handleKurang = (id) => {
+    setData(
+      data.map((datum) => {
+        if (datum.id === id) {
+          return {
+            ...datum,
+            qty: datum.qty - 1,
+            totalPrice:
+              +datum.totalPrice -
+              +datum.ticketPrice,
+          };
+        } else {
+          return datum;
+        }
+      })
+    );
+  };
+
+  const renderedTickets = tickets.map(
+    (ticket, index) => (
+      <TicketList
+        key={index}
+        totalPrice={total}
+        setTotalPrice={setTotal}
+        setData={setData}
+        handleKurang={handleKurang}
+        handleTambah={handleTambah}
+        {...ticket}
+      />
+    )
+  );
   return (
     <Box>
       <Navbar />
       <Box p={"0 3.5em"} mt={"10em"} mb={"2em"}>
-        <VStack align={"flex-start"} spacing={"2em"}>
+        <VStack
+          align={"flex-start"}
+          spacing={"2em"}
+        >
           <Box w={"full"}>
             <EventCard />
           </Box>
@@ -65,38 +129,62 @@ const SinglePostPage = () => {
                     <Box
                       w={"full"}
                       p={".5em"}
-                      border={"3px solid lightgray"}
+                      border={
+                        "3px solid lightgray"
+                      }
                       borderRadius={".5em"}
                     >
                       <VStack align={"stretch"}>
                         <Text fontWeight={"bold"}>
-                          {selectedEvent.eventName}
+                          {
+                            selectedEvent.eventName
+                          }
                         </Text>
                         <HStack>
                           <BsCalendarMinus />
-                          <Text>{selectedEvent.date}</Text>
+                          <Text>
+                            {selectedEvent.date}
+                          </Text>
                         </HStack>
                         <HStack>
                           <BsPinMap />
-                          <Text>{selectedEvent.province}</Text>
+                          <Text>
+                            {
+                              selectedEvent.province
+                            }
+                          </Text>
                         </HStack>
                         <HStack>
                           <BsBuildings />
-                          <Text>{selectedEvent.address}</Text>
+                          <Text>
+                            {
+                              selectedEvent.address
+                            }
+                          </Text>
                         </HStack>
                       </VStack>
                     </Box>
                     <Box
                       w={"full"}
                       p={".5em"}
-                      border={"3px solid lightgray"}
+                      border={
+                        "3px solid lightgray"
+                      }
                       borderRadius={".5em"}
                     >
-                      <Text fontWeight={"bold"}>About This Event</Text>
-                      <Text>{selectedEvent.eventDescription}</Text>
+                      <Text fontWeight={"bold"}>
+                        About This Event
+                      </Text>
+                      <Text>
+                        {
+                          selectedEvent.eventDescription
+                        }
+                      </Text>
                     </Box>
                     <Box w={"full"}>
-                      <VStack>{renderedTickets}</VStack>
+                      <VStack>
+                        {renderedTickets}
+                      </VStack>
                     </Box>
                   </VStack>
                 </Box>
@@ -109,9 +197,19 @@ const SinglePostPage = () => {
                 border={"3px solid lightgray"}
                 borderRadius={".5em"}
               >
+                <Text fontWeight={"bold"}>
+                  Ordered Ticket
+                </Text>
+                <Box>
+                  {renderOrderedTickets}
+                  {/* <OrderedTicket /> */}
+                </Box>
+
                 <Flex>
                   <Box>
-                    <Text fontWeight={"bold"}>Total</Text>
+                    <Text fontWeight={"bold"}>
+                      Total
+                    </Text>
                     <Text>{toRupiah(total)}</Text>
                   </Box>
                   <Spacer />
@@ -120,9 +218,16 @@ const SinglePostPage = () => {
                       h={"100%"}
                       bgColor={"#192655"}
                       color={"white"}
-                      _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                      _hover={{
+                        bgColor: "#F5F5F5",
+                        color: "black",
+                      }}
                       _active={"none"}
-                      onClick={() => alert("Sabar, fitur belum ada")}
+                      onClick={() =>
+                        alert(
+                          "Sabar, fitur belum ada"
+                        )
+                      }
                     >
                       <Text>Payment</Text>
                     </Button>
