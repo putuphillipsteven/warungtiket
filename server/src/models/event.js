@@ -8,9 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      image: {
-        type: Sequelize.STRING,
-      },
+      // image: {
+      //   type: Sequelize.STRING,
+      // },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
