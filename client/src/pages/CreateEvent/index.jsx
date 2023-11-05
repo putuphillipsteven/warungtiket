@@ -62,7 +62,6 @@ export default function CreateEvent() {
     province,
     city,
     address,
-    price,
     eventDescription
   ) => {
     try {
@@ -72,7 +71,6 @@ export default function CreateEvent() {
         province,
         city,
         address,
-        price,
         eventDescription,
       });
       await alert("Create Event Success");
@@ -87,10 +85,9 @@ export default function CreateEvent() {
       values.province,
       values.city,
       values.address,
-      values.price,
       values.eventDescription
     );
-    // actions.resetForm();
+    actions.resetForm();
   };
   const {
     values,
@@ -107,7 +104,6 @@ export default function CreateEvent() {
       province: "",
       city: "",
       address: "",
-      price: "0",
       eventDescription: "",
     },
     // validationSchema: createSchema,

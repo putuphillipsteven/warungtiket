@@ -8,9 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      // image: {
-      //   type: Sequelize.STRING,
-      // },
+      image: {
+        type: Sequelize.STRING,
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -35,6 +35,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+      },
     },
     {
       timestamps: false,
@@ -43,7 +46,10 @@ module.exports = (sequelize, Sequelize) => {
   );
 
   event.associate = (models) => {
-    event.hasMany(models.ticket, { foreignKey: "eventID" });
+    event.hasMany(models.ticket, { foreignKey: "eventID" }),
+      event.belongsTo(models.user, {
+        foreignKey: "userId",
+      });
   };
 
   return event;

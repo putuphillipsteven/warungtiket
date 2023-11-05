@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const user = sequelize.define(
+  const referral = sequelize.define(
     "referral",
     {
       id: {
@@ -18,7 +18,10 @@ module.exports = (sequelize, Sequelize) => {
       },
       eventId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
       },
     },
     {
@@ -26,5 +29,10 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "referral",
     }
   );
-  return user;
+  referral.associate = (models) => {
+    referral.belongsTo(models.user, {
+      foreignKey: "userId",
+    });
+  };
+  return referral;
 };
