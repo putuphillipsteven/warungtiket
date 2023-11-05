@@ -5,12 +5,14 @@ const {
 const createTransactionDetailService = async (
   quantity,
   price,
+  totalPrice,
   transactionId
 ) => {
   try {
     const res = await createTransactionDetailsQuery(
       quantity,
       price,
+      totalPrice,
       transactionId
     );
     return res;

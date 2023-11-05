@@ -25,10 +25,13 @@ import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
 const referralCodes = require("referral-codes");
 const SinglePostPage = () => {
+  // Total price
   const [total, setTotal] = useState(0);
+  // Params for pagination
   const { eventId } = useParams();
+  // Select  login redux
   const user = useSelector((state) => state.login.user);
-  console.log("user", user);
+  // Make referral codes
   let reffCode = referralCodes.generate({
     prefix: "WRT-",
     postfix: "-SAP",
@@ -37,15 +40,15 @@ const SinglePostPage = () => {
       .toUpperCase(),
     length: 3,
   });
+  // Select event redux
   const events = useSelector(selectAllEvents);
-
+  // Select page
   const selectedEvent = events.find(
     (event) => event.id === +eventId
   );
-  console.log(selectedEvent);
-
+  // Select tickets that event has
   const tickets = selectedEvent.tickets;
-
+  // Render ticket cart
   const newTickets = tickets.map((ticket) => {
     return {
       id: ticket.id,
@@ -55,45 +58,22 @@ const SinglePostPage = () => {
       totalPrice: 0,
     };
   });
-
+  // Cart local states
   const [carts, setCarts] = useState([...newTickets]);
-
+  // Add ticket to cart when qty !0
   let filteredCarts = carts.filter((cart) => {
     return cart.qty !== 0;
   });
+  // Mapping cart and pass the props
   const cartsFilter = filteredCarts.map((cart, index) => (
     <OrderedTicket key={index} {...cart} />
   ));
 
-  const payment = async (
-    status,
-    referralCode,
-    userId,
-    eventId
-  ) => {
-    try {
-      console.log("payment", {
-        status,
-        referralCode,
-        userId,
-        eventId,
-      });
-      await axios.post(
-        "http://localhost:8000/transaction",
-        {
-          status,
-          referralCode,
-          userId,
-          eventId,
-        }
-      );
+  // Shoot database
+  const [transactionId, setTransactionId] = useState(0);
 
-      await alert("Transaction Success");
-    } catch (err) {
-      throw err;
-    }
-  };
-
+  console.log("transactionId", transactionId);
+  // Handle qty for rendered tickets
   const handleTambah = (id) => {
     setCarts(
       carts.map((cart) => {
@@ -110,7 +90,7 @@ const SinglePostPage = () => {
       })
     );
   };
-
+  // Handle qty for rendered tickets
   const handleKurang = (id) => {
     setCarts(
       carts.map((cart) => {
@@ -127,7 +107,7 @@ const SinglePostPage = () => {
       })
     );
   };
-
+  // Mapping rendered tickets that event have
   const renderedTickets = tickets.map((ticket, index) => (
     <TicketList
       key={index}
@@ -139,7 +119,7 @@ const SinglePostPage = () => {
       {...ticket}
     />
   ));
-
+  // Condition if events not found
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -149,7 +129,55 @@ const SinglePostPage = () => {
       </Box>
     );
   }
-  console.log("tickets", tickets);
+  console.log("carts", carts);
+  let filterKeranjang = carts.filter((cart) => {
+    return cart.qty !== 0;
+  });
+  console.log("filterKeranjang", filterKeranjang);
+  const tembakTransactionDetails = async () => {
+    try {
+      filterKeranjang.map(async (keranjang) => {
+        console.log("keranjang", keranjang);
+        await axios.post(
+          "http://localhost:8000/transactionDetails/create",
+          {
+            quantity: keranjang.qty,
+            price: keranjang.ticketPrice,
+            totalPrice: keranjang.totalPrice,
+            transactionId: transactionId,
+          }
+        );
+      });
+      await alert("Transaction Detail Success");
+    } catch (err) {
+      throw err;
+    }
+  };
+  const payment = async (
+    status,
+    referralCode,
+    userId,
+    eventId
+  ) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/transaction",
+        {
+          status,
+          referralCode,
+          userId,
+          eventId,
+        }
+      );
+      await alert("Transaction Success");
+      setTransactionId(res?.data?.data?.id);
+      console.log("transactionId", transactionId);
+
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };
   return (
     <Box>
       <Navbar />
@@ -242,14 +270,15 @@ const SinglePostPage = () => {
                         color: "black",
                       }}
                       _active={"none"}
-                      onClick={() =>
-                        payment(
+                      onClick={async () => {
+                        await payment(
                           false,
                           reffCode[0],
                           user.id,
                           selectedEvent.id
-                        )
-                      }
+                        );
+                        tembakTransactionDetails();
+                      }}
                     >
                       <Text>Payment</Text>
                     </Button>

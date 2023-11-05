@@ -7,10 +7,12 @@ const createTransactionDetailsController = async (
   res
 ) => {
   try {
-    const { quantity, price, transactionId } = req.body;
+    const { quantity, price, totalPrice, transactionId } =
+      req.body;
     const result = await createTransactionDetailService(
       quantity,
       price,
+      totalPrice,
       transactionId
     );
     return res.status(200).json({

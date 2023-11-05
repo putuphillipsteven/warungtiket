@@ -16,6 +16,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      totalPrice: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       transactionId: {
         type: Sequelize.INTEGER,
       },
