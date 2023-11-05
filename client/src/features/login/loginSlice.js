@@ -16,7 +16,8 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { id, email, username } = action.payload;
+      const { id, email, username } =
+        action.payload;
 
       state.user = {
         id,
@@ -39,11 +40,17 @@ export const loginSlice = createSlice({
 export const login = (email, password) => {
   return async (dispatch) => {
     try {
-      const res = await axios.post("http://localhost:8000/auth/login", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", res?.data?.data?.token);
+      const res = await axios.post(
+        "http://localhost:8000/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+      localStorage.setItem(
+        "token",
+        res?.data?.data?.token
+      );
       dispatch(setUser(res?.data?.data?.user));
       dispatch(loginSuccess());
     } catch (err) {
@@ -58,11 +65,14 @@ export const keepLogin = () => {
       const token = localStorage.getItem("token");
 
       if (token) {
-        const res = await axios.get("http://localhost:8000/auth/keep-login", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          "http://localhost:8000/auth/keep-login",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         dispatch(setUser(res?.data?.data));
         dispatch(keepLoginSuccess());
@@ -74,7 +84,11 @@ export const keepLogin = () => {
   };
 };
 
-export const { loginSuccess, logOutSuccess, setUser, keepLoginSuccess } =
-  loginSlice.actions;
+export const {
+  loginSuccess,
+  logOutSuccess,
+  setUser,
+  keepLoginSuccess,
+} = loginSlice.actions;
 
 export default loginSlice.reducer;

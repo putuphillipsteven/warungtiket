@@ -20,7 +20,10 @@ module.exports = {
       },
       eventId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
       },
     });
   },

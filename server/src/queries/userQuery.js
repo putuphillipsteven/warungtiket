@@ -1,17 +1,22 @@
 const db = require("../models");
-const { Op } = require("sequelize");
+const { Op, and } = require("sequelize");
 const user = db.user;
 
 const findAllUserQuery = async () => {
   try {
-    const res = await user.findAll();
+    const res = await user.findAll({
+      include: [db.transaction, db.event],
+    });
     return res;
   } catch (err) {
     throw err;
   }
 };
 
-const findUserQuery = async ({ email = null, username = null }) => {
+const findUserQuery = async ({
+  email = null,
+  username = null,
+}) => {
   try {
     const res = await user.findOne({
       where: {

@@ -14,32 +14,132 @@ import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import toRupiah from "@develoka/angka-rupiah-js";
-import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
+import axios from "axios";
+import {
+  BsBuildings,
+  BsCalendarMinus,
+  BsPinMap,
+} from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
-
+import { OrderedTicket } from "./OrderedTicket";
+const referralCodes = require("referral-codes");
 const SinglePostPage = () => {
   const [total, setTotal] = useState(0);
-  const [data, setData] = useState([]);
   const { eventId } = useParams();
+  const user = useSelector((state) => state.login.user);
+  console.log("user", user);
+  let reffCode = referralCodes.generate({
+    prefix: "WRT-",
+    postfix: "-SAP",
+    charset: referralCodes
+      .charset("alphabetic")
+      .toUpperCase(),
+    length: 3,
+  });
   const events = useSelector(selectAllEvents);
-  const selectedEvent = events.find((event) => event.id === +eventId);
+
+  const selectedEvent = events.find(
+    (event) => event.id === +eventId
+  );
+  console.log(selectedEvent);
+
   const tickets = selectedEvent.tickets;
-  console.log("data", data);
+
+  const newTickets = tickets.map((ticket) => {
+    return {
+      id: ticket.id,
+      ticketName: ticket.ticketName,
+      ticketPrice: +ticket.ticketPrice,
+      qty: 0,
+      totalPrice: 0,
+    };
+  });
+
+  const [carts, setCarts] = useState([...newTickets]);
+
+  let filteredCarts = carts.filter((cart) => {
+    return cart.qty !== 0;
+  });
+  const cartsFilter = filteredCarts.map((cart, index) => (
+    <OrderedTicket key={index} {...cart} />
+  ));
+
+  const payment = async (
+    status,
+    referralCode,
+    userId,
+    eventId
+  ) => {
+    try {
+      console.log("payment", {
+        status,
+        referralCode,
+        userId,
+        eventId,
+      });
+      await axios.post(
+        "http://localhost:8000/transaction",
+        {
+          status,
+          referralCode,
+          userId,
+          eventId,
+        }
+      );
+
+      await alert("Transaction Success");
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleTambah = (id) => {
+    setCarts(
+      carts.map((cart) => {
+        if (cart.id === id) {
+          return {
+            ...cart,
+            qty: cart.qty + 1,
+            totalPrice:
+              +cart.totalPrice + +cart.ticketPrice,
+          };
+        } else {
+          return cart;
+        }
+      })
+    );
+  };
+
+  const handleKurang = (id) => {
+    setCarts(
+      carts.map((cart) => {
+        if (cart.id === id) {
+          return {
+            ...cart,
+            qty: cart.qty - 1,
+            totalPrice:
+              +cart.totalPrice - +cart.ticketPrice,
+          };
+        } else {
+          return cart;
+        }
+      })
+    );
+  };
+
   const renderedTickets = tickets.map((ticket, index) => (
     <TicketList
       key={index}
-      ticketId={ticket.id}
-      totalData={data}
-      setData={setData}
       totalPrice={total}
       setTotalPrice={setTotal}
-      ticketName={ticket.ticketName}
-      ticketPrice={ticket.ticketPrice}
-      ticketDescription={ticket.ticketDescription}
+      setCarts={setCarts}
+      handleKurang={handleKurang}
+      handleTambah={handleTambah}
+      {...ticket}
     />
   ));
-  console.log("renderedTickets", renderedTickets);
+
   if (!events) {
     return (
       <Box p={"1em 3.5em"}>
@@ -49,7 +149,7 @@ const SinglePostPage = () => {
       </Box>
     );
   }
-
+  console.log("tickets", tickets);
   return (
     <Box>
       <Navbar />
@@ -79,11 +179,15 @@ const SinglePostPage = () => {
                         </HStack>
                         <HStack>
                           <BsPinMap />
-                          <Text>{selectedEvent.province}</Text>
+                          <Text>
+                            {selectedEvent.province}
+                          </Text>
                         </HStack>
                         <HStack>
                           <BsBuildings />
-                          <Text>{selectedEvent.address}</Text>
+                          <Text>
+                            {selectedEvent.address}
+                          </Text>
                         </HStack>
                       </VStack>
                     </Box>
@@ -93,8 +197,12 @@ const SinglePostPage = () => {
                       border={"3px solid lightgray"}
                       borderRadius={".5em"}
                     >
-                      <Text fontWeight={"bold"}>About This Event</Text>
-                      <Text>{selectedEvent.eventDescription}</Text>
+                      <Text fontWeight={"bold"}>
+                        About This Event
+                      </Text>
+                      <Text>
+                        {selectedEvent.eventDescription}
+                      </Text>
                     </Box>
                     <Box w={"full"}>
                       <VStack>{renderedTickets}</VStack>
@@ -110,6 +218,14 @@ const SinglePostPage = () => {
                 border={"3px solid lightgray"}
                 borderRadius={".5em"}
               >
+                <Text fontWeight={"bold"}>
+                  Ordered Ticket
+                </Text>
+                <Box>
+                  {cartsFilter}
+                  {/* <OrderedTicket /> */}
+                </Box>
+
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
@@ -121,9 +237,19 @@ const SinglePostPage = () => {
                       h={"100%"}
                       bgColor={"#192655"}
                       color={"white"}
-                      _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                      _hover={{
+                        bgColor: "#F5F5F5",
+                        color: "black",
+                      }}
                       _active={"none"}
-                      onClick={() => alert("Sabar, fitur belum ada")}
+                      onClick={() =>
+                        payment(
+                          false,
+                          reffCode[0],
+                          user.id,
+                          selectedEvent.id
+                        )
+                      }
                     >
                       <Text>Payment</Text>
                     </Button>
