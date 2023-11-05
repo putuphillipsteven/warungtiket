@@ -78,6 +78,7 @@ export default function CreateEvent() {
     }
   };
   const onSubmit = async (values, actions) => {
+    console.log(values)
     createEvent(
       values.eventName,
       values.date,
