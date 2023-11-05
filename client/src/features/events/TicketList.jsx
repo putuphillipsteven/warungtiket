@@ -12,11 +12,9 @@ import {
 } from "react-icons/ai";
 import toRupiah from "@develoka/angka-rupiah-js";
 import useCounter from "./useCounter";
-import { useEffect } from "react";
 
 export const TicketList = (props) => {
-  const [count, increment, decrement] =
-    useCounter(0);
+  const [count, increment, decrement] = useCounter(0);
 
   const price = props.ticketPrice;
 
@@ -57,9 +55,7 @@ export const TicketList = (props) => {
               size={"sm"}
               variant={"ghost"}
               _hover={"none"}
-              onClick={
-                count !== 0 ? kurang : null
-              }
+              onClick={count !== 0 ? kurang : null}
             >
               <AiOutlineMinusCircle />
             </Button>
@@ -69,9 +65,7 @@ export const TicketList = (props) => {
               variant={"ghost"}
               _hover={"none"}
               _active={"none"}
-              onClick={
-                count !== 11 ? tambah : null
-              }
+              onClick={count !== 11 ? tambah : null}
             >
               <AiOutlinePlusCircle />
             </Button>

@@ -1,19 +1,27 @@
-const { createTransactionQuery } = require("../queries/transactionQuery");
+const {
+  createTransactionQuery,
+  findTransactionQUery,
+} = require("../queries/transactionQuery");
+
+const findTransactionService = async () => {
+  try {
+    const res = await findTransactionQUery();
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
 
 const createTransactionService = async (
-  totalPrice,
   status,
-  totalQuantity,
-  referalId,
+  referralCode,
   userId,
   eventId
 ) => {
   try {
     const res = await createTransactionQuery(
-      totalPrice,
       status,
-      totalQuantity,
-      referalId,
+      referralCode,
       userId,
       eventId
     );
@@ -25,4 +33,5 @@ const createTransactionService = async (
 
 module.exports = {
   createTransactionService,
+  findTransactionService,
 };

@@ -1,15 +1,26 @@
-const { createTransactionService } = require("../services/transactionService");
+const {
+  createTransactionService,
+  findTransactionService,
+} = require("../services/transactionService");
 
+const findTransactionController = async (req, res) => {
+  try {
+    const result = await findTransactionService();
+    return res.status(200).json({
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    throw err;
+  }
+};
 const createTransactionController = async (req, res) => {
   try {
-    const { totalPrice, status, totalQuantity, referalId, userId, eventId } =
+    const { status, referralCode, userId, eventId } =
       req.body;
-    console.log(req.body);
     const result = await createTransactionService(
-      totalPrice,
       status,
-      totalQuantity,
-      referalId,
+      referralCode,
       userId,
       eventId
     );
@@ -24,4 +35,5 @@ const createTransactionController = async (req, res) => {
 
 module.exports = {
   createTransactionController,
+  findTransactionController,
 };
