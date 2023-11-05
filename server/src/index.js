@@ -37,6 +37,9 @@ app.use("/user", userRouter);
 const transactionRouter = require("./routes/transactionRoute");
 app.use("/transaction", transactionRouter);
 
+const transactionDetailsRouter = require("./routes/transactionDetailsRoute");
+app.use("/transactionDetails", transactionDetailsRouter);
+
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
 });

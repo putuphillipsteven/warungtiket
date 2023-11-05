@@ -1,24 +1,34 @@
-import { Box, Button, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import {
+  AiOutlineMinusCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 import toRupiah from "@develoka/angka-rupiah-js";
 import useCounter from "./useCounter";
 
 export const TicketList = (props) => {
   const [count, increment, decrement] = useCounter(0);
-  const [count2] = useCounter(1);
 
   const price = props.ticketPrice;
+
   const tambah = () => {
     increment();
     props.setTotalPrice(props.totalPrice + price);
-    console.log("count", count);
-    props.setData((current) => [...current, [props.ticketId, count2]]);
+    props.handleTambah(props.id);
   };
   const kurang = () => {
     decrement();
     props.setTotalPrice(props.totalPrice - price);
-    props.setData((current) => [...current, [props.ticketId, count2]]);
+    props.handleKurang(props.id);
   };
+
   return (
     <Box
       w={"full"}
@@ -28,9 +38,13 @@ export const TicketList = (props) => {
     >
       <Flex>
         <Box>
-          <Text fontWeight={"bold"}>{props.ticketName}</Text>
+          <Text fontWeight={"bold"}>
+            {props.ticketName}
+          </Text>
           <Text>
-            {props.ticketPrice === 0 ? "Free" : toRupiah(props.ticketPrice)}
+            {props.ticketPrice === 0
+              ? "Free"
+              : toRupiah(props.ticketPrice)}
           </Text>
           <Text>{props.ticketDescription}</Text>
         </Box>

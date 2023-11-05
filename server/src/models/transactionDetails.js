@@ -25,5 +25,11 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "transactionDetails",
     }
   );
+  transactionDetail.associate = (models) => {
+    transactionDetail.belongsTo(models.transaction, {
+      foreignKey: "transactionId",
+    });
+  };
+
   return transactionDetail;
 };
