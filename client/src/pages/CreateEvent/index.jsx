@@ -54,12 +54,11 @@ export default function CreateEvent() {
   const renderedCoba = coba.map((element) => {
     return <>{element}</>;
   });
-  console.log("coba", coba);
 
   const createEvent = async (
     eventName,
     date,
-    province,
+    province, 
     city,
     address,
     eventDescription
