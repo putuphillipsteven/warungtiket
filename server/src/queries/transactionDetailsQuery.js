@@ -5,12 +5,14 @@ const transactionDetails = db.transactionDetails;
 const createTransactionDetailsQuery = async (
   quantity,
   price,
+  totalPrice,
   transactionId
 ) => {
   try {
     const res = await transactionDetails.create({
       quantity,
       price,
+      totalPrice,
       transactionId,
     });
     return res;
