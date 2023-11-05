@@ -69,7 +69,9 @@ const SinglePostPage = () => {
     <OrderedTicket key={index} {...cart} />
   ));
 
-  // Shoot database
+  // step 1 
+  // set local set utk transaction id/event id
+  // Shoot transaction id
   const [transactionId, setTransactionId] = useState(0);
 
   console.log("transactionId", transactionId);
@@ -153,6 +155,8 @@ const SinglePostPage = () => {
       throw err;
     }
   };
+  // step 2
+  // tembak transaction/event
   const payment = async (
     status,
     referralCode,

@@ -23,12 +23,19 @@ import Upload from "./imgUpload";
 import useCounter from "../../features/events/useCounter";
 
 export default function CreateEvent() {
+  // setShowEvent fungsinya untuk menampilkan ketika form event belum diisi
+  // form tiket tdk akan muncul, namun ketika  form event
+  // telah diisi secara otomatis akan menampilkan form input tket
   const [showEvent, setShowEvent] = useState(false);
-  const [show, setShow] = useState(true);
-  const navigate = useNavigate();
-  const [count, increment, decrement] = useCounter(0); // add ticket
-  const [selected, setSelected] = useState("input"); // Default value
-  const [price, setPrice] = useState(""); // Untuk menyimpan nilai harga
+  // const [show, setShow] = useState(true);
+  // const navigate = useNavigate();
+
+  // add form ticket
+  const [count, increment, decrement] = useCounter(0);
+  // Default value
+  const [selected, setSelected] = useState("input");
+  // Untuk menyimpan nilai harga
+  const [price, setPrice] = useState("");
 
   const handleChange2 = (value) => {
     setSelected(value);
@@ -40,7 +47,7 @@ export default function CreateEvent() {
     setPrice(event.target.value);
   };
 
-  // add ticket
+  // add form ticket
   const renderedTicket = () => {
     let arr = [];
     for (let i = 0; i < count; i++) {
@@ -49,7 +56,7 @@ export default function CreateEvent() {
     return arr;
   };
 
-  // add ticket
+  // add form ticket
   let coba = renderedTicket();
   const renderedCoba = coba.map((element) => {
     return <>{element}</>;
@@ -58,7 +65,7 @@ export default function CreateEvent() {
   const createEvent = async (
     eventName,
     date,
-    province, 
+    province,
     city,
     address,
     eventDescription
@@ -78,7 +85,7 @@ export default function CreateEvent() {
     }
   };
   const onSubmit = async (values, actions) => {
-    console.log(values)
+    console.log(values);
     createEvent(
       values.eventName,
       values.date,
