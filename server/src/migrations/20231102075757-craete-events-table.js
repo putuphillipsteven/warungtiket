@@ -31,6 +31,9 @@ module.exports = {
       eventDescription: {
         type: Sequelize.STRING,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+      },
     });
   },
 

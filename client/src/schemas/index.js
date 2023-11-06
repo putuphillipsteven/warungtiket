@@ -38,14 +38,11 @@ export const loginSchema = yup.object().shape({
   password: yup.string().required("Password is Required"),
 });
 
-export const createSchema = yup.object().shape({
-  nameEvent: yup.string().required("input name"),
+export const createEventSchema = yup.object().shape({
+  eventName: yup.string().required("input name"),
   date: yup.date().required("input date"),
   province: yup.string().required("input data"),
   city: yup.string().required("input data"),
   address: yup.string().required("address is required"),
-  gratis: yup.string(),
-  berbayar: yup.string(),
   eventDescription: yup.string().required("description is Required"),
-  password: yup.string().required("Password is Required"),
 });

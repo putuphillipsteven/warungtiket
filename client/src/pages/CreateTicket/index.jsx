@@ -15,7 +15,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import toRupiah from "@develoka/angka-rupiah-js";
 function CreateTicket(props) {
   const [showTicket, setShowTicket] = useState(true);
   const [selected, setSelected] = useState("input"); // Default value
@@ -74,7 +74,7 @@ function CreateTicket(props) {
       ticketPrice: "0",
       ticketDescription: "",
     },
-    // validationSchema,
+    validationSchema,
     onSubmit,
   });
 
@@ -174,10 +174,10 @@ function CreateTicket(props) {
                     <Input
                       id="ticketPrice"
                       name="ticketPrice"
-                      type="number"
+                      type="text"
                       variant="flushed"
                       placeholder="Rp."
-                      value={formik.values.ticketPrice}
+                      value={`Rp ${(formik.values.ticketPrice)}`}
                       onChange={formik.handleChange}
                       bgColor={"white"}
                       focusBorderColor={"none"}
