@@ -24,7 +24,7 @@ function Navbar(props) {
         <Flex flexDir={"row-reverse"}>
           <HStack spacing={"0.5em"}>
             <Text fontSize={".75em"} color={"white"}>
-              <Link>About WarungTiket</Link>
+              <Link to={"/about-us"}>About WarungTiket</Link>
             </Text>
             <Text fontSize={".75em"} color={"white"}>
               <Link>Help Center</Link>
