@@ -16,11 +16,18 @@ const createReferralQuery = async (referralCode, isUse, eventId, userId) => {
   }
 };
 
-const findReferralQuery = async ({ referralCode = null }) => {
+const findReferralQuery = async (referralCode = null) => {
   try {
-    const res = await referral.findOne({
+    const filter = {};
+    if (referralCode)
+      filter.where = {
+        referralCode: {
+          [Op.like]: `%${referralCode}%`,
+        },
+      };
+    const res = await referral.findAll({
       where: {
-        referralCode,
+        ...filter,
       },
     });
     return res;

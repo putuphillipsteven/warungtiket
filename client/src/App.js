@@ -5,6 +5,7 @@ import SignIn from "./pages/Login";
 import CreateEvent from "./pages/CreateEvent";
 import FindEvent from "./pages/FindEvent";
 import DashBoard from "./pages/DashBoard";
+import About from "./pages/About";
 import { ProfileModal } from "./components/ProfileModal";
 import SinglePostPage from "./features/events/SingleEventPage";
 import Auth from "./components/Auth";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/findevent" element={<FindEvent />} />
         <Route path="/createevent" element={<CreateEvent />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/about-us" element={<About />} />
         <Route exact path="/event/:eventId" element={<SinglePostPage />} />
         <Route
           exact
