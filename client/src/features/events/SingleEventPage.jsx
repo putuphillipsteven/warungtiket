@@ -24,13 +24,17 @@ import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
 const referralCodes = require("referral-codes");
+// The page
 const SinglePostPage = () => {
   // Total price
   const [total, setTotal] = useState(0);
+
   // Params for pagination
   const { eventId } = useParams();
+
   // Select  login redux
   const user = useSelector((state) => state.login.user);
+
   // Make referral codes
   let reffCode = referralCodes.generate({
     prefix: "WRT-",
@@ -40,14 +44,18 @@ const SinglePostPage = () => {
       .toUpperCase(),
     length: 3,
   });
+
   // Select event redux
   const events = useSelector(selectAllEvents);
+
   // Select page
   const selectedEvent = events.find(
     (event) => event.id === +eventId
   );
-  // Select tickets that event has
+
+  // Select tickets that event had
   const tickets = selectedEvent.tickets;
+
   // Render ticket cart
   const newTickets = tickets.map((ticket) => {
     return {
@@ -58,19 +66,23 @@ const SinglePostPage = () => {
       totalPrice: 0,
     };
   });
+
   // Cart local states
   const [carts, setCarts] = useState([...newTickets]);
+
   // Add ticket to cart when qty !0
   let filteredCarts = carts.filter((cart) => {
     return cart.qty !== 0;
   });
+
   // Mapping cart and pass the props
   const cartsFilter = filteredCarts.map((cart, index) => (
     <OrderedTicket key={index} {...cart} />
   ));
 
-  // Shoot database
+  // Store transaction id that has been created
   const [transactionId, setTransactionId] = useState(0);
+
   // Handle qty for rendered tickets
   const handleTambah = (id) => {
     setCarts(
@@ -88,6 +100,7 @@ const SinglePostPage = () => {
       })
     );
   };
+
   // Handle qty for rendered tickets
   const handleKurang = (id) => {
     setCarts(
@@ -105,6 +118,7 @@ const SinglePostPage = () => {
       })
     );
   };
+
   // Mapping rendered tickets that event have
   const renderedTickets = tickets.map((ticket, index) => (
     <TicketList
@@ -117,6 +131,7 @@ const SinglePostPage = () => {
       {...ticket}
     />
   ));
+
   // Condition if events not found
   if (!events) {
     return (
@@ -131,6 +146,7 @@ const SinglePostPage = () => {
     return cart.qty !== 0;
   });
 
+  // Payment function
   const payment = async (
     status,
     referralCode,
@@ -162,6 +178,7 @@ const SinglePostPage = () => {
     }
   };
 
+  // Transaction detail function
   const tembakTransactionDetails = async (
     transactionId
   ) => {
@@ -183,6 +200,7 @@ const SinglePostPage = () => {
     }
   };
 
+  // Referral Function
   const tembakReferral = async (
     referralCode,
     isUse,
@@ -276,7 +294,6 @@ const SinglePostPage = () => {
                   Ordered Ticket
                 </Text>
                 <Box>{cartsFilter}</Box>
-
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
