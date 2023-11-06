@@ -10,21 +10,18 @@ import {
 import Navbar from "../../components/Navbar";
 import Profile from "./component/Profile";
 import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import EventSaya from "./component/EventSaya";
 
 export default function DashBoard(props) {
+  const { page } = useParams();
   const [user, setUser] = useState([]);
 
   const loggedInUser = useSelector(
     (state) => state.login.user
   );
-
-  const selectedUser = user.find(
-    (user) => user.id === +loggedInUser.id
-  );
-  console.log("selecteduser", selectedUser);
 
   const fetchUser = async (req, res) => {
     try {
@@ -41,6 +38,31 @@ export default function DashBoard(props) {
     fetchUser();
   }, []);
 
+  const selectedUser = user.find(
+    (user) => user.id === +loggedInUser.id
+  );
+  console.log(
+    "selecteduser",
+    selectedUser?.transactions?.map((transaction) => {
+      console.log("id", transaction.eventId);
+    })
+  );
+  const buyedEvent = () => {
+    let newArr = [];
+    selectedUser?.transactions?.map((transaction) =>
+      newArr.push(transaction.eventId)
+    );
+    return newArr;
+  };
+  const events = useSelector(
+    (state) => state?.events?.events
+  );
+  const buyedEvents = buyedEvent();
+  console.log(events);
+  const filteredEvents = events.filter((el) =>
+    buyedEvents.includes(el.userId)
+  );
+  console.log("filteredEvents", filteredEvents);
   return (
     <Box>
       <Navbar display={"none"} />
@@ -73,21 +95,19 @@ export default function DashBoard(props) {
                 borderWidth={"2px"}
               />
               <Box p={".25em .5em"}>
-                {props.input}
                 <Text>Profile</Text>
-              </Box>
-
-              <Box p={".25em .5em"}>
-                <Text>Daftar Pemesan</Text>
-              </Box>
-              <Box p={".25em .5em"}>
-                <Text>Password</Text>
               </Box>
             </VStack>
           </Box>
           <Spacer m={"1em"} />
           <Box w={"full"}>
-            <Profile display={props.display} />
+            <VStack align={"stretch"}>
+              <Profile
+                email={selectedUser?.email}
+                username={selectedUser?.username}
+              />
+              <EventSaya events={filteredEvents} />
+            </VStack>
           </Box>
         </Box>
       </Box>

@@ -47,7 +47,7 @@ export default function Profile(props) {
               borderColor={"#192655"}
               borderWidth={"2px"}
             />
-            <Text>I Putu Phillip Steven</Text>
+            <Text>{props.username}</Text>
             <Box>
               <Text as={"b"}>Email</Text>
             </Box>
@@ -55,31 +55,7 @@ export default function Profile(props) {
               borderColor={"#192655"}
               borderWidth={"2px"}
             />
-            <Text>putu.phillip@gmail.com</Text>
-            <Box>
-              <Text as={"b"}>Nomor Handphone</Text>
-            </Box>
-            <Divider
-              borderColor={"#192655"}
-              borderWidth={"2px"}
-            />
-            <Text>081213465888</Text>
-            <Box>
-              <Text as={"b"}>Alamat</Text>
-            </Box>
-            <Divider
-              borderColor={"#192655"}
-              borderWidth={"2px"}
-            />
-            <Text>Jambi</Text>
-            <Box>
-              <Text as={"b"}>No Rek</Text>
-            </Box>
-            <Divider
-              borderColor={"#192655"}
-              borderWidth={"2px"}
-            />
-            <Text>---</Text>
+            <Text>{props.email}</Text>
           </VStack>
         </Box>
       </VStack>
