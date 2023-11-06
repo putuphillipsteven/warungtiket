@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      point: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      }
     });
   },
 
