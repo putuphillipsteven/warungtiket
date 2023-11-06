@@ -22,13 +22,13 @@ export default function About() {
         <Box overflow={"hidden"} h={"50vh"}>
           <Image src={about} w={"100%"} position={"relative"} top={"-60px"} />
         </Box>
-        <Box p={"1em 3.5em"}>
-          <Heading size={"lg"} fontWeight={"semibold"}>
+        <Box p={"1.5em 3.5em"}>
+          <Heading size={"md"} fontWeight={"semibold"}>
             TENTANG KAMI
           </Heading>
         </Box>
         <Divider />
-        <Box p={"1em 5em"}>
+        <Box p={"4em 5em"}>
           <Text>
             Warungtiket adalah platform yang memiliki Ticketing Management
             Service (TMS) teknologi unggul dalam mendukung seluruh penyelenggara
@@ -36,7 +36,7 @@ export default function About() {
             laporan analisa event di akhir acara. Beberapa teknologi yang kami
             sediakan siap untuk memfasilitasi penyelenggara event dalam setiap
             tahap persiapan yang meliputi:
-            <UnorderedList p={"1.5em 1.5em"}>
+            <UnorderedList p={"1.5em 1.5em"} spacing={"0.5em"}>
               <ListItem>
                 Distributor tiket terlengkap yang telah bekerja sama dengan
                 LOKET untuk menjual tiket Anda.
