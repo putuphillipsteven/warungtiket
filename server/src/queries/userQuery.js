@@ -5,7 +5,7 @@ const user = db.user;
 const findAllUserQuery = async () => {
   try {
     const res = await user.findAll({
-      include: [db.transaction, db.event],
+      include: [db.transaction, db.event, db.referral],
     });
     return res;
   } catch (err) {

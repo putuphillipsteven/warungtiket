@@ -6,8 +6,8 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
 
-const db = require("./models");
-db.sequelize.sync({ alter: true });
+// const db = require("./models");
+// db.sequelize.sync({ alter: true });
 
 const PORT = process.env.PORT || 8000;
 
@@ -39,6 +39,9 @@ app.use("/transaction", transactionRouter);
 
 const transactionDetailsRouter = require("./routes/transactionDetailsRoute");
 app.use("/transactionDetails", transactionDetailsRouter);
+
+const referralRouter = require("./routes/referralRoute");
+app.use("/referral", referralRouter);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
