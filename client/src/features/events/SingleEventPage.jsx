@@ -4,6 +4,7 @@ import {
   Flex,
   HStack,
   Heading,
+  Input,
   Spacer,
   Text,
   VStack,
@@ -286,6 +287,10 @@ const SinglePostPage = () => {
                   Ordered Ticket
                 </Text>
                 <Box>{cartsFilter}</Box>
+                <Box>
+                  <Text>Referral Code</Text>
+                  <Input />
+                </Box>
                 <Flex>
                   <Box>
                     <Text fontWeight={"bold"}>Total</Text>
