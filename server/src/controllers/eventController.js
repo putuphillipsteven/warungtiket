@@ -18,8 +18,15 @@ const findEventsController = async (req, res) => {
 
 const createEventController = async (req, res) => {
   try {
-    const { eventName, date, province, city, address, eventDescription } =
-      req.body;
+    const {
+      eventName,
+      date,
+      province,
+      city,
+      address,
+      eventDescription,
+      userId,
+    } = req.body;
     // const { id } = req.user;
     const result = await createEventService(
       req.file?.filename,
@@ -28,7 +35,8 @@ const createEventController = async (req, res) => {
       province,
       city,
       address,
-      eventDescription
+      eventDescription,
+      userId
     );
 
     return res.status(200).json({

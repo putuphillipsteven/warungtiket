@@ -28,6 +28,9 @@ app.use("/auth", authRouter);
 const eventRouter = require("./routes/eventRouter");
 app.use("/event", eventRouter);
 
+const cityRouter = require("./routes/cityRoute");
+app.use("/city", cityRouter);
+
 const ticketRouter = require("./routes/ticketRoute");
 app.use("/ticket", ticketRouter);
 
@@ -41,6 +44,7 @@ const transactionDetailsRouter = require("./routes/transactionDetailsRoute");
 app.use("/transactionDetails", transactionDetailsRouter);
 
 const referralRouter = require("./routes/referralRoute");
+const city = require("./models/city");
 app.use("/referral", referralRouter);
 
 const provinceRouter = require("./routes/provincesRoute")

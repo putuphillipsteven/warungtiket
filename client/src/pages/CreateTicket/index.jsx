@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toRupiah from "@develoka/angka-rupiah-js";
 
 function CreateTicket(props) {
   const [showTicket, setShowTicket] = useState(true);
@@ -74,7 +75,7 @@ function CreateTicket(props) {
       ticketPrice: "0",
       ticketDescription: "",
     },
-    // validationSchema,
+    validationSchema,
     onSubmit,
   });
 
@@ -171,17 +172,22 @@ function CreateTicket(props) {
                 ) : selected === "berbayar" ? (
                   <Box>
                     <FormLabel>Price</FormLabel>
-                    <Input
-                      id="ticketPrice"
-                      name="ticketPrice"
-                      type="number"
-                      variant="flushed"
-                      placeholder="Rp."
-                      value={formik.values.ticketPrice}
-                      onChange={formik.handleChange}
-                      bgColor={"white"}
-                      focusBorderColor={"none"}
-                    />
+                    <Box>
+                      <Text position={"relative"} top={"0"}>
+                        <Input
+                          id="ticketPrice"
+                          name="ticketPrice"
+                          type="number"
+                          variant="flushed"
+                          placeholder="Rp."
+                          value={formik.values.ticketPrice}
+                          onChange={formik.handleChange}
+                          bgColor={"white"}
+                          focusBorderColor={"none"}
+                        />
+                        {toRupiah(formik.values.ticketPrice)}
+                      </Text>
+                    </Box>
                     {formik.touched.ticketPrice && formik.errors.ticketPrice ? (
                       <Text fontSize={"0.75em"} color={"red"}>
                         {formik.errors.ticketPrice}

@@ -15,12 +15,13 @@ import {
 } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
 import { useFormik } from "formik";
-import { createSchema } from "../../schemas";
+import { createEventSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CreateTicket from "../CreateTicket";
 import Upload from "./imgUpload";
 import useCounter from "../../features/events/useCounter";
+import { useSelector } from "react-redux";
 
 export default function CreateEvent() {
   const [file, setFile] = useState();
@@ -30,13 +31,12 @@ export default function CreateEvent() {
   // form tiket tdk akan muncul, namun ketika  form event
   // telah diisi secara otomatis akan menampilkan form input tket
   const [showEvent, setShowEvent] = useState(false);
-  // const [show, setShow] = useState(true);
-  // const navigate = useNavigate();
+
+  // get data from redux
+  const user = useSelector((state) => state.login.user);
 
   // add form ticket
   const [count, increment, decrement] = useCounter(0);
-  // Default value
-  // const [selected, setSelected] = useState("input");
 
   // add form ticket
   const renderedTicket = () => {
@@ -48,8 +48,8 @@ export default function CreateEvent() {
   };
 
   // add form ticket
-  let coba = renderedTicket();
-  const renderedCoba = coba.map((element) => {
+  let addTicket = renderedTicket();
+  const renderedaddTicket = addTicket.map((element) => {
     return <>{element}</>;
   });
 
@@ -59,7 +59,8 @@ export default function CreateEvent() {
     province,
     city,
     address,
-    eventDescription
+    eventDescription,
+    userId
   ) => {
     try {
       const formData = new FormData();
@@ -70,6 +71,7 @@ export default function CreateEvent() {
       formData.append("city", city);
       formData.append("address", address);
       formData.append("eventDescription", eventDescription);
+      formData.append("userId", userId);
       console.log("formData", formData);
       const res = await axios.post(
         "http://localhost:8000/event/create",
@@ -89,7 +91,8 @@ export default function CreateEvent() {
       values.province,
       values.city,
       values.address,
-      values.eventDescription
+      values.eventDescription,
+      user.id
     );
     // actions.resetForm();
   };
@@ -110,34 +113,9 @@ export default function CreateEvent() {
       address: "",
       eventDescription: "",
     },
-    // validationSchema: createSchema,
+    validationSchema: createEventSchema,
     onSubmit,
   });
-
-  // const event = async (
-  //   eventName,
-  //   date,
-  //   province,
-  //   city,
-  //   address,
-  //   eventDescription
-  // ) => {
-  //   try {
-  //     const res = await axios.post(
-  //       "http://localhost:8000/transaction",
-  //       {
-  //         eventName,
-  //         date,
-  //         province,
-  //         city,
-  //         address,
-  //         eventDescription
-  //       }
-  //     );
-  //     await alert("Event Success");
-  //     set
-  //   }
-  // }
 
   return (
     <Box
@@ -316,13 +294,14 @@ export default function CreateEvent() {
                 _active={"none"}
                 bgColor={"#192655"}
                 onClick={() => setShowEvent(true)}
+                isDisabled={isSubmitting}
               >
                 CREATE EVENT
               </Button>
             </Center>
           </Box>
         </form>
-        <Box>{renderedCoba}</Box>
+        <Box>{renderedaddTicket}</Box>
         {showEvent ? (
           <Box>
             <Flex>

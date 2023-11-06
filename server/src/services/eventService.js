@@ -16,7 +16,8 @@ const createEventService = async (
   province,
   city,
   address,
-  eventDescription
+  eventDescription,
+  userId
 ) => {
   try {
     const res = await createEventQuery(
@@ -26,7 +27,8 @@ const createEventService = async (
       province,
       city,
       address,
-      eventDescription
+      eventDescription,
+      userId
     );
 
     return res;
