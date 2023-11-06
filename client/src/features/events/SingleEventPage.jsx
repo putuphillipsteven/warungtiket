@@ -16,11 +16,7 @@ import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import toRupiah from "@develoka/angka-rupiah-js";
 import axios from "axios";
-import {
-  BsBuildings,
-  BsCalendarMinus,
-  BsPinMap,
-} from "react-icons/bs";
+import { BsBuildings, BsCalendarMinus, BsPinMap } from "react-icons/bs";
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
@@ -44,9 +40,7 @@ const SinglePostPage = () => {
   let reffCode = referralCodes.generate({
     prefix: "WRT-",
     postfix: "-SAP",
-    charset: referralCodes
-      .charset("alphabetic")
-      .toUpperCase(),
+    charset: referralCodes.charset("alphabetic").toUpperCase(),
     length: 3,
   });
 
@@ -54,9 +48,7 @@ const SinglePostPage = () => {
   const events = useSelector(selectAllEvents);
 
   // Select page
-  const selectedEvent = events.find(
-    (event) => event.id === +eventId
-  );
+  const selectedEvent = events.find((event) => event.id === +eventId);
 
   // Select tickets that event had
   const tickets = selectedEvent.tickets;
@@ -85,6 +77,12 @@ const SinglePostPage = () => {
     <OrderedTicket key={index} {...cart} />
   ));
 
+  // step 1
+  // set local set utk transaction id/event id
+  // Shoot transaction id
+  // const [transactionId, setTransactionId] = useState(0);
+
+  console.log("transactionId", transactionId);
   // Handle qty for rendered tickets
   const handleTambah = (id) => {
     setCarts(
@@ -93,8 +91,7 @@ const SinglePostPage = () => {
           return {
             ...cart,
             qty: cart.qty + 1,
-            totalPrice:
-              +cart.totalPrice + +cart.ticketPrice,
+            totalPrice: +cart.totalPrice + +cart.ticketPrice,
           };
         } else {
           return cart;
@@ -111,8 +108,7 @@ const SinglePostPage = () => {
           return {
             ...cart,
             qty: cart.qty - 1,
-            totalPrice:
-              +cart.totalPrice - +cart.ticketPrice,
+            totalPrice: +cart.totalPrice - +cart.ticketPrice,
           };
         } else {
           return cart;
@@ -147,23 +143,19 @@ const SinglePostPage = () => {
   let filterKeranjang = carts.filter((cart) => {
     return cart.qty !== 0;
   });
+  console.log("filterKeranjang", filterKeranjang);
+
+  // step 2
+  // tembak transaction/event
   // Payment function
-  const payment = async (
-    status,
-    referralCode,
-    userId,
-    eventId
-  ) => {
+  const payment = async (status, referralCode, userId, eventId) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/transaction",
-        {
-          status,
-          referralCode,
-          userId,
-          eventId,
-        }
-      );
+      const res = await axios.post("http://localhost:8000/transaction", {
+        status,
+        referralCode,
+        userId,
+        eventId,
+      });
       setTransactionId();
       console.log("id dalam", res.data.data.id);
       await tembakTransactionDetails(res?.data?.data?.id);
@@ -193,22 +185,14 @@ const SinglePostPage = () => {
   };
 
   // Referral Function
-  const tembakReferral = async (
-    referralCode,
-    isUse,
-    eventId,
-    userId
-  ) => {
+  const tembakReferral = async (referralCode, isUse, eventId, userId) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/referral/create",
-        {
-          referralCode,
-          isUse,
-          eventId,
-          userId,
-        }
-      );
+      const res = await axios.post("http://localhost:8000/referral/create", {
+        referralCode,
+        isUse,
+        eventId,
+        userId,
+      });
       return res;
     } catch (err) {
       throw err;
@@ -244,15 +228,11 @@ const SinglePostPage = () => {
                         </HStack>
                         <HStack>
                           <BsPinMap />
-                          <Text>
-                            {selectedEvent.province}
-                          </Text>
+                          <Text>{selectedEvent.province}</Text>
                         </HStack>
                         <HStack>
                           <BsBuildings />
-                          <Text>
-                            {selectedEvent.address}
-                          </Text>
+                          <Text>{selectedEvent.address}</Text>
                         </HStack>
                       </VStack>
                     </Box>
@@ -262,12 +242,8 @@ const SinglePostPage = () => {
                       border={"3px solid lightgray"}
                       borderRadius={".5em"}
                     >
-                      <Text fontWeight={"bold"}>
-                        About This Event
-                      </Text>
-                      <Text>
-                        {selectedEvent.eventDescription}
-                      </Text>
+                      <Text fontWeight={"bold"}>About This Event</Text>
+                      <Text>{selectedEvent.eventDescription}</Text>
                     </Box>
                     <Box w={"full"}>
                       <VStack>{renderedTickets}</VStack>
@@ -283,9 +259,7 @@ const SinglePostPage = () => {
                 border={"3px solid lightgray"}
                 borderRadius={".5em"}
               >
-                <Text fontWeight={"bold"}>
-                  Ordered Ticket
-                </Text>
+                <Text fontWeight={"bold"}>Ordered Ticket</Text>
                 <Box>{cartsFilter}</Box>
                 <Box>
                   <Text>Referral Code</Text>

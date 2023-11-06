@@ -3,14 +3,11 @@ import {
   Box,
   Button,
   Text,
-  Stack,
   FormLabel,
   Input,
   RadioGroup,
   Radio,
-  Flex,
   Center,
-  Spacer,
   VStack,
   HStack,
 } from "@chakra-ui/react";
@@ -19,11 +16,11 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function CreateTicket() {
+function CreateTicket(props) {
   const [showTicket, setShowTicket] = useState(true);
   const [selected, setSelected] = useState("input"); // Default value
   const [price, setPrice] = useState(""); // Untuk menyimpan nilai harga
-
+  console.log("props", props.id);
   const handleChange2 = (value) => {
     setSelected(value);
     // Reset nilai harga ketika pilihan diubah
@@ -61,10 +58,10 @@ function CreateTicket() {
   const onSubmit = async (values, actions) => {
     createTicket(
       values.ticketName,
-      values.ticketQuantity,
-      values.ticketPrice,
+      +values.ticketQuantity,
+      +values.ticketPrice,
       values.ticketDescription,
-      values.eventID
+      props.id
     );
     console.log(values);
     actions.resetForm();
@@ -102,7 +99,7 @@ function CreateTicket() {
               >
                 <Center>
                   <Text fontSize={"1em"} fontWeight={"bold"}>
-                    FORM CREATE TICKET
+                    CREATE TICKET
                   </Text>
                 </Center>
               </Box>
@@ -146,7 +143,7 @@ function CreateTicket() {
               </Box>
               <Box>
                 <RadioGroup value={selected} onChange={handleChange2}>
-                  <FormLabel>Ticket Category</FormLabel>
+                  <FormLabel>Ticket Type</FormLabel>
                   <HStack spacing={"5"}>
                     <Radio
                       id="gratis"
@@ -154,7 +151,7 @@ function CreateTicket() {
                       value="gratis"
                       colorScheme="blue"
                     >
-                      Gratis
+                      Free
                     </Radio>
                     <Radio
                       outline="red"
@@ -163,7 +160,7 @@ function CreateTicket() {
                       value="berbayar"
                       colorScheme="blue"
                     >
-                      Berbayar
+                      Paid
                     </Radio>
                   </HStack>
                 </RadioGroup>
@@ -178,11 +175,12 @@ function CreateTicket() {
                       id="ticketPrice"
                       name="ticketPrice"
                       type="number"
-                      placeholder="Rp.0"
+                      variant="flushed"
+                      placeholder="Rp."
                       value={formik.values.ticketPrice}
                       onChange={formik.handleChange}
                       bgColor={"white"}
-                      color={"black"}
+                      focusBorderColor={"none"}
                     />
                     {formik.touched.ticketPrice && formik.errors.ticketPrice ? (
                       <Text fontSize={"0.75em"} color={"red"}>

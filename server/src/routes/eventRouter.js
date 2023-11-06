@@ -10,6 +10,6 @@ const {
 } = require("../controllers/eventController");
 
 router.get("/", findEventsController);
-router.post("/create", createEventController);
+router.post("/create", uploadEventFile, createEventController);
 
 module.exports = router;

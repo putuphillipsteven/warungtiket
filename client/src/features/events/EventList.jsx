@@ -24,6 +24,7 @@ const EventList = () => {
 
   const renderedEvents = filtered.map((event) => (
     <Card
+      eventImage={event.image}
       eventName={event.eventName}
       date={event.date}
       province={event.province}
