@@ -8,11 +8,13 @@ import TestRadio from "./pages/testRadio/index";
 import DashBoard from "./pages/DashBoard";
 import { ProfileModal } from "./components/ProfileModal";
 import SinglePostPage from "./features/events/SingleEventPage";
+import Auth from "./components/Auth";
 import Navbar from "./components/Navbar";
 import { Box } from "@chakra-ui/react";
 
 function App() {
   return (
+    <Auth>
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<SignIn />} />
@@ -29,6 +31,7 @@ function App() {
         element={<SinglePostPage />}
       />
     </Routes>
+    </Auth>
   );
 }
 

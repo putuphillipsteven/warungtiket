@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 
 const initialState = {
