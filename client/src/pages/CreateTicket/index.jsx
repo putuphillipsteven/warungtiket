@@ -107,7 +107,6 @@ function CreateTicket(props) {
                 <FormLabel>Ticket Name</FormLabel>
                 <Input
                   variant="flushed"
-                  placeholder="Input Name"
                   name="ticketName"
                   focusBorderColor={"none"}
                   borderColor={"gray"}
@@ -126,7 +125,6 @@ function CreateTicket(props) {
                 <Input
                   type="number"
                   variant="flushed"
-                  placeholder="Input Quantity"
                   name="ticketQuantity"
                   focusBorderColor={"none"}
                   borderColor={"gray"}
@@ -177,7 +175,7 @@ function CreateTicket(props) {
                       type="text"
                       variant="flushed"
                       placeholder="Rp."
-                      value={`Rp ${(formik.values.ticketPrice)}`}
+                      // value={`Rp ${(formik.values.ticketPrice)}`}
                       onChange={formik.handleChange}
                       bgColor={"white"}
                       focusBorderColor={"none"}
@@ -194,7 +192,6 @@ function CreateTicket(props) {
                 <FormLabel>Ticket Description</FormLabel>
                 <Input
                   variant="flushed"
-                  placeholder="Input Description"
                   name="ticketDescription"
                   focusBorderColor={"none"}
                   borderColor={"gray"}

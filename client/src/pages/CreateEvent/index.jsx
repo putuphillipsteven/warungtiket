@@ -48,8 +48,8 @@ export default function CreateEvent() {
   };
 
   // add form ticket
-  let coba = renderedTicket();
-  const renderedCoba = coba.map((element) => {
+  let addTicket = renderedTicket();
+  const renderedaddTicket = addTicket.map((element) => {
     return <>{element}</>;
   });
 
@@ -301,7 +301,7 @@ export default function CreateEvent() {
             </Center>
           </Box>
         </form>
-        <Box>{renderedCoba}</Box>
+        <Box>{renderedaddTicket}</Box>
         {showEvent ? (
           <Box>
             <Flex>
