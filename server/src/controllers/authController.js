@@ -1,7 +1,7 @@
 const {
   registerService,
   loginService,
-  // keepLoginService,
+  keepLoginService,
 } = require("../services/authService");
 
 const registerController = async (req, res) => {
