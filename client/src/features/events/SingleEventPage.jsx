@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/index";
 import EventCard from "../../components/UpcomingEvents/EventCard";
 import toRupiah from "@develoka/angka-rupiah-js";
@@ -26,6 +26,10 @@ import { OrderedTicket } from "./OrderedTicket";
 const referralCodes = require("referral-codes");
 // The page
 const SinglePostPage = () => {
+  // Store transaction id that has been created
+  const [transactionId, setTransactionId] = useState(0);
+  console.log("first state", transactionId);
+  const navigate = useNavigate();
   // Total price
   const [total, setTotal] = useState(0);
 
@@ -79,9 +83,6 @@ const SinglePostPage = () => {
   const cartsFilter = filteredCarts.map((cart, index) => (
     <OrderedTicket key={index} {...cart} />
   ));
-
-  // Store transaction id that has been created
-  const [transactionId, setTransactionId] = useState(0);
 
   // Handle qty for rendered tickets
   const handleTambah = (id) => {
@@ -145,7 +146,6 @@ const SinglePostPage = () => {
   let filterKeranjang = carts.filter((cart) => {
     return cart.qty !== 0;
   });
-
   // Payment function
   const payment = async (
     status,
@@ -163,41 +163,32 @@ const SinglePostPage = () => {
           eventId,
         }
       );
-      await setTransactionId(res?.data?.data?.id);
-      await tembakTransactionDetails(transactionId);
-      await tembakReferral(
-        reffCode[0],
-        false,
-        selectedEvent.id,
-        user.id
-      );
+      setTransactionId();
+      console.log("id dalam", res.data.data.id);
+      await tembakTransactionDetails(res?.data?.data?.id);
+
       alert("Transaction Success");
       return res;
     } catch (err) {
       throw err;
     }
   };
-
+  console.log("trIdAfter", transactionId);
   // Transaction detail function
-  const tembakTransactionDetails = async (
-    transactionId
-  ) => {
-    try {
-      filterKeranjang.map(async (keranjang) => {
-        const res = await axios.post(
-          "http://localhost:8000/transactionDetails/create",
-          {
-            quantity: keranjang.qty,
-            price: keranjang.ticketPrice,
-            totalPrice: keranjang.totalPrice,
-            transactionId: transactionId,
-          }
-        );
-        return res;
-      });
-    } catch (err) {
-      throw err;
-    }
+  const tembakTransactionDetails = async (id) => {
+    filterKeranjang.map(async (keranjang) => {
+      console.log("id dalam tembak detail", id);
+      const res = await axios.post(
+        "http://localhost:8000/transactionDetails/create",
+        {
+          quantity: keranjang.qty,
+          price: keranjang.ticketPrice,
+          totalPrice: keranjang.totalPrice,
+          transactionId: id,
+        }
+      );
+      return res;
+    });
   };
 
   // Referral Function
@@ -222,6 +213,7 @@ const SinglePostPage = () => {
       throw err;
     }
   };
+  console.log("final state", transactionId);
   return (
     <Box>
       <Navbar />
@@ -311,12 +303,24 @@ const SinglePostPage = () => {
                       }}
                       _active={"none"}
                       onClick={async () => {
-                        await payment(
-                          false,
-                          reffCode[0],
-                          user.id,
-                          selectedEvent.id
-                        );
+                        try {
+                          await payment(
+                            false,
+                            reffCode[0],
+                            user.id,
+                            selectedEvent.id
+                          );
+
+                          await tembakReferral(
+                            reffCode[0],
+                            false,
+                            selectedEvent.id,
+                            user.id
+                          );
+                          navigate("/");
+                        } catch (err) {
+                          throw err;
+                        }
                       }}
                     >
                       <Text>Payment</Text>
