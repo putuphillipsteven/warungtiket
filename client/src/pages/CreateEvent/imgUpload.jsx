@@ -10,10 +10,9 @@ import {
 
 import React, { useState } from "react";
 
-export default function Upload() {
-  const [file, setFile] = useState();
+export default function Upload({ file, setFile }) {
   function handleChange(e) {
-    setFile(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files[0]);
   }
 
   return (
@@ -48,7 +47,6 @@ export default function Upload() {
                     Drop images here
                   </Heading>
                   <Text fontWeight="light">or click to upload</Text>
-                  //{" "}
                 </Stack>
               </Stack>
             </Box>
@@ -57,15 +55,17 @@ export default function Upload() {
               height="100%"
               width="100%"
               position="absolute"
+              bgColor={"red"}
               top="0"
               left="0"
               opacity="0"
               aria-hidden="true"
               accept="image/*"
+              cursor={"pointer"}
               onChange={handleChange}
             />
+            <Image w={"100%"} src={file ? URL.createObjectURL(file) : ""} />
           </Box>
-          <Image src={file} />
         </Box>
       </AspectRatio>
     </Box>

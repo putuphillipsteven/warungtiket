@@ -21,6 +21,7 @@ export default function EventCard(props) {
       <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
         <Box>
           <VStack flexDir={"column"} lineHeight={".6"}>
+            <Image src={props.eventImage} />
             <Text fontWeight={"bold"} fontSize={"1.2em"}>
               {props.eventName}
             </Text>
