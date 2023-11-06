@@ -1,4 +1,12 @@
-import { Box, Center, Divider, Spacer, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Divider,
+  Image,
+  Spacer,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
@@ -11,9 +19,7 @@ export default function Card(props) {
         p={"1em 1em"}
       >
         <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
-          <Center>
-            <Text>IMG</Text>
-          </Center>
+          <Image w={"100%"} src={""} />
         </Box>
         <Spacer m={"2em"} />
         <Box>

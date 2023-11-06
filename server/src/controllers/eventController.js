@@ -18,19 +18,11 @@ const findEventsController = async (req, res) => {
 
 const createEventController = async (req, res) => {
   try {
-    const {
-      image,
-      eventName,
-      date,
-      province,
-      city,
-      address,
-      eventDescription,
-    } = req.body;
-    console.log(req.body);
+    const { eventName, date, province, city, address, eventDescription } =
+      req.body;
     // const { id } = req.user;
     const result = await createEventService(
-      image,
+      req.file?.filename,
       eventName,
       date,
       province,
