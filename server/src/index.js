@@ -40,6 +40,9 @@ app.use("/transaction", transactionRouter);
 const transactionDetailsRouter = require("./routes/transactionDetailsRoute");
 app.use("/transactionDetails", transactionDetailsRouter);
 
+const referralRouter = require("./routes/referralRoute");
+app.use("/referral", referralRouter);
+
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
 });
