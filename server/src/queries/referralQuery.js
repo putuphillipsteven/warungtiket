@@ -16,7 +16,7 @@ const createReferralQuery = async (referralCode, isUse, eventId, userId) => {
   }
 };
 
-const findRefferalQuery = async ({ referralCode = null }) => {
+const findReferralQuery = async ({ referralCode = null }) => {
   try {
     const res = await referral.findOne({
       where: {
@@ -31,4 +31,5 @@ const findRefferalQuery = async ({ referralCode = null }) => {
 
 module.exports = {
   createReferralQuery,
+  findReferralQuery,
 };
