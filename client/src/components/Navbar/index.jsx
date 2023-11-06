@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { BsTicketPerforated } from "react-icons/bs";
 import { ProfileModal } from "../ProfileModal";
-import logo from "../../img/logo.svg";
+import logo from "../../img/logo.png";
 import { useSelector } from "react-redux";
 
 function Navbar(props) {
@@ -36,7 +36,7 @@ function Navbar(props) {
         <Box>
           <VStack align={"stretch"} spacing={"0.5em"}>
             <Flex alignItems={"center"}>
-              <Box w={"10em"}>
+              <Box w={"15em"}>
                 <Link to={"/"}>
                   <Image src={logo} />
                 </Link>
