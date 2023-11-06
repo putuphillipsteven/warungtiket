@@ -7,6 +7,6 @@ const {
 } = require("../controllers/referralController");
 
 router.post("/create", createReferralController);
-router.get("/:code", findReferralController );
+router.get("/", findReferralController);
 
 module.exports = router;
