@@ -52,12 +52,3 @@ module.exports = {
 };
 
 
-// "data": {
-//     image: 5,
-//     eventName: "test",
-//     date: "11-4-2023",
-//     province: "Yogyakarta",
-//     city: "Yogyakarta",
-//     address: "test",
-//     eventDescription: "test",
-// }

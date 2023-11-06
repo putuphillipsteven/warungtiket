@@ -9,6 +9,7 @@ export default function UpcomingEvents() {
   const events = useSelector(selectAllEvents);
   const renderedEvents = events.map((event) => (
     <EventCard
+      eventImage={event.eventImage}
       eventName={event.eventName}
       date={event.date}
       province={event.province}

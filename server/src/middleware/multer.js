@@ -6,20 +6,9 @@ const eventStorage = multer.diskStorage({
     cb(null, path.join(__dirname, "../public/img/event"));
   },
   filename: (req, file, cb) => {
-    const { username } = req.user;
-    cb(null, `event_${username}-${Date.now()}-${file.originalname}`);
+    cb(null, `event_${Date.now()}-${file.originalname}`);
   },
 });
-
-// const avatarStorage = multer.diskStorage({
-//   destination: (req, res, cb) => {
-//     cb(null, path.join(__dirname, "../public/images/avatar"));
-//   },
-//   filename: (req, file, cb) => {
-//     const { username } = req.body;
-//     cb(null, `avatar_${username}-${Date.now()}-${file.originalname}`);
-//   },
-// });
 
 const fileFilter = (req, file, cb) => {
   const fileType = file.mimetype.split("/")[1];
@@ -45,13 +34,6 @@ const uploadEventFile = multer({
   limits,
 }).single("img");
 
-// const uploadAvatarFile = multer({
-//   storage: avatarStorage,
-//   fileFilter,
-//   limits,
-// }).single("avatar");
-
 module.exports = {
   uploadEventFile,
-  //   uploadAvatarFile,
 };

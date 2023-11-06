@@ -23,6 +23,9 @@ import Upload from "./imgUpload";
 import useCounter from "../../features/events/useCounter";
 
 export default function CreateEvent() {
+  const [file, setFile] = useState();
+  const [eventId, setEventId] = useState(0);
+  console.log("eventId", eventId);
   // setShowEvent fungsinya untuk menampilkan ketika form event belum diisi
   // form tiket tdk akan muncul, namun ketika  form event
   // telah diisi secara otomatis akan menampilkan form input tket
@@ -33,25 +36,13 @@ export default function CreateEvent() {
   // add form ticket
   const [count, increment, decrement] = useCounter(0);
   // Default value
-  const [selected, setSelected] = useState("input");
-  // Untuk menyimpan nilai harga
-  const [price, setPrice] = useState("");
-
-  const handleChange2 = (value) => {
-    setSelected(value);
-    // Reset nilai harga ketika pilihan diubah
-    setPrice("");
-  };
-
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value);
-  };
+  // const [selected, setSelected] = useState("input");
 
   // add form ticket
   const renderedTicket = () => {
     let arr = [];
     for (let i = 0; i < count; i++) {
-      arr.push(<CreateTicket />);
+      arr.push(<CreateTicket id={eventId} />);
     }
     return arr;
   };
@@ -71,21 +62,27 @@ export default function CreateEvent() {
     eventDescription
   ) => {
     try {
-      await axios.post("http://localhost:8000/event/create", {
-        eventName,
-        date,
-        province,
-        city,
-        address,
-        eventDescription,
-      });
+      const formData = new FormData();
+      formData.append("img", file);
+      formData.append("eventName", eventName);
+      formData.append("date", date);
+      formData.append("province", province);
+      formData.append("city", city);
+      formData.append("address", address);
+      formData.append("eventDescription", eventDescription);
+      console.log("formData", formData);
+      const res = await axios.post(
+        "http://localhost:8000/event/create",
+        formData
+      );
+      setEventId(res?.data?.data?.id);
+      console.log(res);
       await alert("Create Event Success");
     } catch (err) {
       console.log(err);
     }
   };
   const onSubmit = async (values, actions) => {
-    console.log(values);
     createEvent(
       values.eventName,
       values.date,
@@ -94,7 +91,7 @@ export default function CreateEvent() {
       values.address,
       values.eventDescription
     );
-    actions.resetForm();
+    // actions.resetForm();
   };
   const {
     values,
@@ -117,6 +114,31 @@ export default function CreateEvent() {
     onSubmit,
   });
 
+  // const event = async (
+  //   eventName,
+  //   date,
+  //   province,
+  //   city,
+  //   address,
+  //   eventDescription
+  // ) => {
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:8000/transaction",
+  //       {
+  //         eventName,
+  //         date,
+  //         province,
+  //         city,
+  //         address,
+  //         eventDescription
+  //       }
+  //     );
+  //     await alert("Event Success");
+  //     set
+  //   }
+  // }
+
   return (
     <Box
       p={"1.5em 3.5em"}
@@ -138,7 +160,7 @@ export default function CreateEvent() {
         <Center>
           <Text as="b">FORM CREATE EVENT</Text>
         </Center>
-        <Upload />
+        <Upload file={file} setFile={setFile} />
         <form onSubmit={handleSubmit}>
           <Box>
             <FormControl>

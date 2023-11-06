@@ -16,11 +16,11 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function CreateTicket() {
+function CreateTicket(props) {
   const [showTicket, setShowTicket] = useState(true);
   const [selected, setSelected] = useState("input"); // Default value
   const [price, setPrice] = useState(""); // Untuk menyimpan nilai harga
-
+  console.log("props", props.id);
   const handleChange2 = (value) => {
     setSelected(value);
     // Reset nilai harga ketika pilihan diubah
@@ -58,10 +58,10 @@ function CreateTicket() {
   const onSubmit = async (values, actions) => {
     createTicket(
       values.ticketName,
-      values.ticketQuantity,
-      values.ticketPrice,
+      +values.ticketQuantity,
+      +values.ticketPrice,
       values.ticketDescription,
-      values.eventID
+      props.id
     );
     console.log(values);
     actions.resetForm();
