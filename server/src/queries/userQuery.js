@@ -13,16 +13,18 @@ const findAllUserQuery = async () => {
   }
 };
 
-const findUserQuery = async ({
-  email = null,
+const findUserQuery = async (
+  id = null,
   username = null,
-}) => {
+  email = null
+) => {
   try {
     const res = await user.findOne({
       where: {
         [Op.or]: {
-          email,
+          id,
           username,
+          email,
         },
       },
     });
