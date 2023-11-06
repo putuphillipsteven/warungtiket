@@ -99,7 +99,7 @@ function CreateTicket(props) {
               >
                 <Center>
                   <Text fontSize={"1em"} fontWeight={"bold"}>
-                    FORM CREATE TICKET
+                    CREATE TICKET
                   </Text>
                 </Center>
               </Box>
@@ -143,7 +143,7 @@ function CreateTicket(props) {
               </Box>
               <Box>
                 <RadioGroup value={selected} onChange={handleChange2}>
-                  <FormLabel>Ticket Category</FormLabel>
+                  <FormLabel>Ticket Type</FormLabel>
                   <HStack spacing={"5"}>
                     <Radio
                       id="gratis"
@@ -151,7 +151,7 @@ function CreateTicket(props) {
                       value="gratis"
                       colorScheme="blue"
                     >
-                      Gratis
+                      Free
                     </Radio>
                     <Radio
                       outline="red"
@@ -160,7 +160,7 @@ function CreateTicket(props) {
                       value="berbayar"
                       colorScheme="blue"
                     >
-                      Berbayar
+                      Paid
                     </Radio>
                   </HStack>
                 </RadioGroup>
@@ -175,11 +175,12 @@ function CreateTicket(props) {
                       id="ticketPrice"
                       name="ticketPrice"
                       type="number"
-                      placeholder="Rp.0"
+                      variant="flushed"
+                      placeholder="Rp."
                       value={formik.values.ticketPrice}
                       onChange={formik.handleChange}
                       bgColor={"white"}
-                      color={"black"}
+                      focusBorderColor={"none"}
                     />
                     {formik.touched.ticketPrice && formik.errors.ticketPrice ? (
                       <Text fontSize={"0.75em"} color={"red"}>

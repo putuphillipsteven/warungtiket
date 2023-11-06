@@ -158,7 +158,7 @@ export default function CreateEvent() {
           </Center>
         </Box>
         <Center>
-          <Text as="b">FORM CREATE EVENT</Text>
+          <Text as="b">CREATE EVENT</Text>
         </Center>
         <Upload file={file} setFile={setFile} />
         <form onSubmit={handleSubmit}>

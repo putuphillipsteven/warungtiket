@@ -79,7 +79,7 @@ const SinglePostPage = () => {
   // step 1
   // set local set utk transaction id/event id
   // Shoot transaction id
-  const [transactionId, setTransactionId] = useState(0);
+  // const [transactionId, setTransactionId] = useState(0);
 
   console.log("transactionId", transactionId);
   // Handle qty for rendered tickets
@@ -143,22 +143,7 @@ const SinglePostPage = () => {
     return cart.qty !== 0;
   });
   console.log("filterKeranjang", filterKeranjang);
-  const tembakTransactionDetails = async () => {
-    try {
-      filterKeranjang.map(async (keranjang) => {
-        console.log("keranjang", keranjang);
-        await axios.post("http://localhost:8000/transactionDetails/create", {
-          quantity: keranjang.qty,
-          price: keranjang.ticketPrice,
-          totalPrice: keranjang.totalPrice,
-          transactionId: transactionId,
-        });
-      });
-      await alert("Transaction Detail Success");
-    } catch (err) {
-      throw err;
-    }
-  };
+
   // step 2
   // tembak transaction/event
   // Payment function
