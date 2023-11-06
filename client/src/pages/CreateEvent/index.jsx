@@ -13,7 +13,7 @@ import {
   Flex,
   Textarea,
 } from "@chakra-ui/react";
-import logo from "../../img/logo.svg";
+import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { createSchema } from "../../schemas";
 import { Link, useNavigate } from "react-router-dom";

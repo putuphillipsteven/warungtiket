@@ -1,5 +1,5 @@
 const {
-  createReferralQuery,
+  createReferralQuery, findReferralQuery,
 } = require("../queries/referralQuery");
 
 const createReferralService = async (
@@ -21,6 +21,16 @@ const createReferralService = async (
   }
 };
 
+const findReferralService = async () => {
+  try {
+    const res = await findReferralQuery();
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createReferralService,
+  findReferralService,
 };

@@ -1,5 +1,5 @@
 const {
-  createReferralService,
+  createReferralService, findReferralService
 } = require("../services/referralService");
 
 const createReferralController = async (req, res) => {
@@ -21,6 +21,20 @@ const createReferralController = async (req, res) => {
   }
 };
 
+const findReferralController = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const result = await findReferralService(code);
+    return res.status(200).json({
+      message: "Find Referral Success",
+      data : result,
+    });
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   createReferralController,
+  findReferralController
 };
