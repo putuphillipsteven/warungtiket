@@ -33,6 +33,9 @@ module.exports = (sequelize, Sequelize) => {
     }),
       user.hasMany(models.event, {
         foreignKey: "userId",
+      }),
+      user.hasMany(models.referral, {
+        foreignKey: "userId",
       });
   };
   return user;

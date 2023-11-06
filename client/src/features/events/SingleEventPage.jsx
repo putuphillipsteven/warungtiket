@@ -71,8 +71,6 @@ const SinglePostPage = () => {
 
   // Shoot database
   const [transactionId, setTransactionId] = useState(0);
-
-  console.log("transactionId", transactionId);
   // Handle qty for rendered tickets
   const handleTambah = (id) => {
     setCarts(
@@ -129,30 +127,10 @@ const SinglePostPage = () => {
       </Box>
     );
   }
-  console.log("carts", carts);
   let filterKeranjang = carts.filter((cart) => {
     return cart.qty !== 0;
   });
-  console.log("filterKeranjang", filterKeranjang);
-  const tembakTransactionDetails = async () => {
-    try {
-      filterKeranjang.map(async (keranjang) => {
-        console.log("keranjang", keranjang);
-        await axios.post(
-          "http://localhost:8000/transactionDetails/create",
-          {
-            quantity: keranjang.qty,
-            price: keranjang.ticketPrice,
-            totalPrice: keranjang.totalPrice,
-            transactionId: transactionId,
-          }
-        );
-      });
-      await alert("Transaction Detail Success");
-    } catch (err) {
-      throw err;
-    }
-  };
+
   const payment = async (
     status,
     referralCode,
@@ -169,10 +147,58 @@ const SinglePostPage = () => {
           eventId,
         }
       );
-      await alert("Transaction Success");
-      setTransactionId(res?.data?.data?.id);
-      console.log("transactionId", transactionId);
+      await setTransactionId(res?.data?.data?.id);
+      await tembakTransactionDetails(transactionId);
+      await tembakReferral(
+        reffCode[0],
+        false,
+        selectedEvent.id,
+        user.id
+      );
+      alert("Transaction Success");
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };
 
+  const tembakTransactionDetails = async (
+    transactionId
+  ) => {
+    try {
+      filterKeranjang.map(async (keranjang) => {
+        const res = await axios.post(
+          "http://localhost:8000/transactionDetails/create",
+          {
+            quantity: keranjang.qty,
+            price: keranjang.ticketPrice,
+            totalPrice: keranjang.totalPrice,
+            transactionId: transactionId,
+          }
+        );
+        return res;
+      });
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const tembakReferral = async (
+    referralCode,
+    isUse,
+    eventId,
+    userId
+  ) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/referral/create",
+        {
+          referralCode,
+          isUse,
+          eventId,
+          userId,
+        }
+      );
       return res;
     } catch (err) {
       throw err;
@@ -249,10 +275,7 @@ const SinglePostPage = () => {
                 <Text fontWeight={"bold"}>
                   Ordered Ticket
                 </Text>
-                <Box>
-                  {cartsFilter}
-                  {/* <OrderedTicket /> */}
-                </Box>
+                <Box>{cartsFilter}</Box>
 
                 <Flex>
                   <Box>
@@ -277,7 +300,6 @@ const SinglePostPage = () => {
                           user.id,
                           selectedEvent.id
                         );
-                        tembakTransactionDetails();
                       }}
                     >
                       <Text>Payment</Text>
