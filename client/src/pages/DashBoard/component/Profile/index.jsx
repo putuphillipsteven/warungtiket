@@ -8,8 +8,10 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
+import { useSelector } from "react-redux";
 export default function Profile(props) {
-  const [show, setShow] = useState(true);
+  const user = useSelector((state) => state.login);
+  console.log("user", user);
   return (
     <Box>
       <VStack align={"stretch"}>
@@ -19,7 +21,10 @@ export default function Profile(props) {
             <Text as={"b"}>Profile Saya</Text>
           </Box>
         </HStack>
-        <Divider borderColor={"#192655"} borderWidth={"2px"} />
+        <Divider
+          borderColor={"#192655"}
+          borderWidth={"2px"}
+        />
         <Box p={"0 .5em"}>
           <VStack align={"stretch"} spacing={"1em"}>
             <Box>
@@ -38,28 +43,19 @@ export default function Profile(props) {
             <Box>
               <Text as={"b"}>Nama</Text>
             </Box>
-            <Divider borderColor={"#192655"} borderWidth={"2px"} />
-            <Text>I Putu Phillip Steven</Text>
+            <Divider
+              borderColor={"#192655"}
+              borderWidth={"2px"}
+            />
+            <Text>{props.username}</Text>
             <Box>
               <Text as={"b"}>Email</Text>
             </Box>
-            <Divider borderColor={"#192655"} borderWidth={"2px"} />
-            <Text>putu.phillip@gmail.com</Text>
-            <Box>
-              <Text as={"b"}>Nomor Handphone</Text>
-            </Box>
-            <Divider borderColor={"#192655"} borderWidth={"2px"} />
-            <Text>081213465888</Text>
-            <Box>
-              <Text as={"b"}>Alamat</Text>
-            </Box>
-            <Divider borderColor={"#192655"} borderWidth={"2px"} />
-            <Text>Jambi</Text>
-            <Box>
-              <Text as={"b"}>No Rek</Text>
-            </Box>
-            <Divider borderColor={"#192655"} borderWidth={"2px"} />
-            <Text>---</Text>
+            <Divider
+              borderColor={"#192655"}
+              borderWidth={"2px"}
+            />
+            <Text>{props.email}</Text>
           </VStack>
         </Box>
       </VStack>

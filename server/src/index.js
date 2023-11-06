@@ -47,6 +47,9 @@ const referralRouter = require("./routes/referralRoute");
 const city = require("./models/city");
 app.use("/referral", referralRouter);
 
+const provinceRouter = require("./routes/provincesRoute")
+app.use("/province", provinceRouter);
+
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);
 });

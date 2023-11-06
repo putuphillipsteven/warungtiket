@@ -1,8 +1,13 @@
-import { Box, Grid, Text, VStack, filter } from "@chakra-ui/react";
+import {
+  Box,
+  Grid,
+  Text,
+  VStack,
+  filter,
+} from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
-import toRupiah from "@develoka/angka-rupiah-js";
 import { fetchEvents, selectAllEvents } from "./eventSlice";
 
 const EventList = () => {
@@ -10,7 +15,9 @@ const EventList = () => {
 
   const events = useSelector(selectAllEvents);
 
-  const eventsStatus = useSelector((state) => state.events.status);
+  const eventsStatus = useSelector(
+    (state) => state.events.status
+  );
 
   useEffect(() => {
     if (eventsStatus === "idle") {
@@ -50,7 +57,10 @@ const EventList = () => {
           </Text>
         </Box>
         <Box width={"100%"}>
-          <Grid templateColumns={"repeat(6, 1fr)"} gap={"1em"}>
+          <Grid
+            templateColumns={"repeat(6, 1fr)"}
+            gap={"1em"}
+          >
             {renderedEvents}
           </Grid>
         </Box>
