@@ -11,5 +11,5 @@ const { verifyToken } = require("../middleware/auth");
 
 router.post("/login", loginController);
 router.post("/register", registerController);
-router.get("/keep-login", verifyToken, keepLoginController);
+router.get("/keep-login", keepLoginController);
 module.exports = router;

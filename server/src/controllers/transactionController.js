@@ -2,7 +2,6 @@ const {
   createTransactionService,
   findTransactionService,
 } = require("../services/transactionService");
-
 const findTransactionController = async (req, res) => {
   try {
     const result = await findTransactionService();
@@ -16,13 +15,23 @@ const findTransactionController = async (req, res) => {
 };
 const createTransactionController = async (req, res) => {
   try {
-    const { status, referralCode, userId, eventId } =
-      req.body;
+    const {
+      status,
+      referralCode,
+      userId,
+      eventId,
+      referralUsed,
+      totalQuantity,
+      totalPrice,
+    } = req.body;
     const result = await createTransactionService(
       status,
       referralCode,
       userId,
-      eventId
+      eventId,
+      referralUsed,
+      totalQuantity,
+      totalPrice
     );
     return res.status(200).json({
       message: "success",

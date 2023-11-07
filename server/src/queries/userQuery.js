@@ -13,7 +13,11 @@ const findAllUserQuery = async () => {
   }
 };
 
-const findUserQuery = async ({ id = null, email = null, username = null }) => {
+const findUserQuery = async ({
+  id = null,
+  email = null,
+  username = null,
+}) => {
   try {
     const res = await user.findOne({
       where: {
@@ -46,24 +50,24 @@ const findUserIdQuery = async (id = null) => {
   }
 };
 
-const updateUserQuery = async (id, point) => {
+const updateUserQuery = async (id) => {
   try {
-    // const res = user.increment("point", {
-    //   by: point,
-    //   where: {
-    //     id,
-    //   },
-    // });
-    const res = user.update(
-      {
-        point: Sequelize.literal(`point + ${point}`),
+    const res = user.increment("point", {
+      by: 10000,
+      where: {
+        id,
       },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
+    });
+    // const res = user.update(
+    //   {
+    //     point: Sequelize.literal(`point + ${point}`),
+    //   },
+    //   {
+    //     where: {
+    //       id: id,
+    //     },
+    //   }
+    // );
     return res;
   } catch (err) {
     throw err;
