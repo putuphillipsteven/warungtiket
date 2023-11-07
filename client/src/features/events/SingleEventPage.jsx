@@ -269,7 +269,10 @@ const SinglePostPage = () => {
                       <HStack>
                         <BsPinMap />
                         <Text>
-                          {selectedEvent.province}
+                          {
+                            selectedEvent?.province
+                              ?.province
+                          }
                         </Text>
                       </HStack>
                       <HStack>

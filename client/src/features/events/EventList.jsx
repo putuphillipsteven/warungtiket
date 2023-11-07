@@ -14,7 +14,7 @@ const EventList = () => {
   const dispatch = useDispatch();
 
   const events = useSelector(selectAllEvents);
-
+  console.log("events", events);
   const eventsStatus = useSelector(
     (state) => state.events.status
   );
@@ -25,11 +25,11 @@ const EventList = () => {
     }
   }, [eventsStatus, dispatch]);
 
-  let filtered = events.filter((event) => {
-    return event.province == "Yogyakarta";
-  });
+  // let filtered = events.filter((event) => {
+  //   return event.province == "Yogyakarta";
+  // });
 
-  const renderedEvents = filtered.map((event) => (
+  const renderedEvents = events.map((event) => (
     <Card {...event} />
   ));
 

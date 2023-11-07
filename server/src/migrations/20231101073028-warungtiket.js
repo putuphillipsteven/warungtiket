@@ -10,6 +10,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       eventName: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -18,29 +21,31 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      province: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      cityId: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      price: {
-        type: Sequelize.INTEGER,
+      category: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       eventDescription: {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      userId: {
+        type: Sequelize.INTEGER,
+      },
+      provinceId: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
+      },
     });
   },
-
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("events");
   },
