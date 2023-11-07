@@ -1,8 +1,8 @@
 const { createEventQuery, findEventsQuery } = require("../queries/eventQuery");
 
-const findEventsService = async (province) => {
+const findEventsService = async (province, provinceId) => {
   try {
-    const res = await findEventsQuery(province);
+    const res = await findEventsQuery(province, provinceId);
     return res;
   } catch (err) {
     throw err;

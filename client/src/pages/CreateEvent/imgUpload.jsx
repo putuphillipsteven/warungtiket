@@ -64,6 +64,7 @@ export default function Upload({ file, setFile }) {
               cursor={"pointer"}
               onChange={handleChange}
             />
+            {/* <Image w={"100%"} src={file ? URL.createObjectURL(file) : ""} /> */}
             <Image w={"100%"} src={file ? URL.createObjectURL(file) : ""} />
           </Box>
         </Box>

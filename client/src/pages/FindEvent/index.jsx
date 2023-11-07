@@ -28,37 +28,39 @@ function FindEvent() {
   const [locationFilter, setLocationFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const Events = events.filter(
-    (event) =>
-      (categoryFilter === "" ||
-        event.category === categoryFilter) &&
-      (locationFilter === "" ||
-        event.location === locationFilter) &&
-      (statusFilter === "" ||
-        event.status === statusFilter) &&
-      (searchQuery === "" ||
-        event.category
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()))
-  );
-  const renderedEvents = events.map((event) => (
-    <Card {...event} />
-  ));
 
-    const [province, setProvince] = useState([]);
-    const provinceData = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/province");
-        setProvince(res?.data?.data);
-        return res?.data?.data;
-      } catch (err) {
-        throw err;
-      }
-    };
+  const [event1, setEvent1] = useState([]);
+  const renderedEvents = event1.map((event) => <Card {...event} />);
+  const fetchEvent = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/event?provinceId=${locationFilter}`
+      );
+      setEvent1(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    fetchEvent();
+  }, [locationFilter]);
 
-    useEffect(() => {
-      provinceData();
-    }, []);
+  console.log("fe", event1);
+
+  const [province, setProvince] = useState([]);
+  const provinceData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/province");
+      setProvince(res?.data?.data);
+      return res?.data?.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    provinceData();
+  }, []);
 
   return (
     <Box>
@@ -93,53 +95,16 @@ function FindEvent() {
             </Box>
             <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
             <Box>
-              <FormLabel color={"white"}>Event Category</FormLabel>
-              <Select>
-                tes
+              <FormLabel>Prov Category</FormLabel>
+              <Select
+                placeholder={"Select Province"}
+                onChange={(e) => setLocationFilter(e.target.value)}
+              >
+                {province.map((option) => (
+                  <option value={option.id}>{option.province}</option>
+                ))}
               </Select>
             </Box>
-            <Box>
-              <Select
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-              >
-                <option value="">City Category</option>
-                <option value="Kuliner">Kuliner</option>
-                <option value="Musik">Musik</option>
-                <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">Kebudayaan</option>
-                <option value="Komedi">Komedi</option>
-                <option value="Webinar">Webinar</option>
-              </Select>
-            </Box>
-            <Box>
-              <Select
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-              >
-                <option value="">Province Kategori</option>
-                <option value="Kuliner">Kuliner</option>
-                <option value="Musik">Musik</option>
-                <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">Kebudayaan</option>
-                <option value="Komedi">Komedi</option>
-                <option value="Webinar">Webinar</option>
-              </Select>
-            </Box>
-            {/* <Box>
-              <Select
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-              >
-                <option value="">Semua Kategori</option>
-                <option value="Kuliner">Kuliner</option>
-                <option value="Musik">Musik</option>
-                <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">Kebudayaan</option>
-                <option value="Komedi">Komedi</option>
-                <option value="Webinar">Webinar</option>
-              </Select>
-            </Box> */}
             <Box>
               <Button
                 onClick={() => {

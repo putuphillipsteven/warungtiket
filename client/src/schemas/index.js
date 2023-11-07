@@ -46,7 +46,7 @@ export const createEventSchema = yup.object().shape({
   province: yup.string().required(<Text as="b">Province is Required!</Text>),
   city: yup.string().required(<Text as="b">City is Required!</Text>),
   address: yup.string().required(<Text as="b">Address is Required!</Text>),
-  eventCategory: yup
+  category: yup
     .string()
     .required(<Text as="b">Event Category is Required!</Text>),
   eventDescription: yup
