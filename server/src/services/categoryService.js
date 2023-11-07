@@ -1,4 +1,6 @@
-const { findAllCategoryQuery } = require("../queries/categoryQuery");
+const {
+  findAllCategoryQuery,
+} = require("../queries/categoryQuery");
 
 const findAllCategoryService = async () => {
   try {

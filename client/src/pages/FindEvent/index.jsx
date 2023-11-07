@@ -41,7 +41,6 @@ function FindEvent() {
           .toLowerCase()
           .includes(searchQuery.toLowerCase()))
   );
-
   const renderedEvents = events.map((event) => (
     <Card {...event} />
   ));

@@ -30,7 +30,9 @@ export default function EventCard(props) {
               {props.eventName}
             </Text>
             <Text fontSize={".75em"}>{props.date}</Text>
-            <Text fontSize={".75em"}>{props.province}</Text>
+            <Text fontSize={".75em"}>
+              {props?.province?.province}
+            </Text>
             <Text fontSize={".75em"}>{props.address}</Text>
           </VStack>
         </Box>
