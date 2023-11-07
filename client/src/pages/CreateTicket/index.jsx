@@ -16,6 +16,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toRupiah from "@develoka/angka-rupiah-js";
+import { ticketSchema } from "../../schemas";
 
 function CreateTicket(props) {
   const [showTicket, setShowTicket] = useState(true);
@@ -68,21 +69,29 @@ function CreateTicket(props) {
     actions.resetForm();
   };
 
-  const formik = useFormik({
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    isSubmitting,
+  } = useFormik({
     initialValues: {
       ticketName: "",
       ticketQuantity: "",
       ticketPrice: "0",
       ticketDescription: "",
     },
-    validationSchema,
+    validationSchema: ticketSchema,
     onSubmit,
   });
 
   return (
     <Box>
       {showTicket ? (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Box
             mt={".5em"}
             bgColor={"white"}
@@ -107,38 +116,40 @@ function CreateTicket(props) {
               <Box>
                 <FormLabel>Ticket Name</FormLabel>
                 <Input
+                  id="ticketName"
+                  name="ticketName"
+                  type="text"
                   variant="flushed"
                   placeholder="Input Name"
-                  name="ticketName"
                   focusBorderColor={"none"}
                   borderColor={"gray"}
-                  value={formik.values.ticketName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={values.ticketName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-                {formik.touched.ticketName && formik.errors.ticketName ? (
+                {touched.ticketName && errors.ticketName ? (
                   <Text fontSize={"0.75em"} color={"red"}>
-                    {formik.errors.ticketName}
+                    {errors.ticketName}
                   </Text>
                 ) : null}
               </Box>
               <Box>
                 <FormLabel>Ticket Quantity</FormLabel>
                 <Input
+                  id="ticketQuantity"
+                  name="ticketQuantity"
                   type="number"
                   variant="flushed"
                   placeholder="Input Quantity"
-                  name="ticketQuantity"
                   focusBorderColor={"none"}
                   borderColor={"gray"}
-                  value={formik.values.ticketQuantity}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={values.ticketQuantity}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-                {formik.touched.ticketQuantity &&
-                formik.errors.ticketQuantity ? (
+                {touched.ticketQuantity && errors.ticketQuantity ? (
                   <Text fontSize={"0.75em"} color={"red"}>
-                    {formik.errors.ticketQuantity}
+                    {errors.ticketQuantity}
                   </Text>
                 ) : null}
               </Box>
@@ -180,17 +191,17 @@ function CreateTicket(props) {
                           type="number"
                           variant="flushed"
                           placeholder="Rp."
-                          value={formik.values.ticketPrice}
-                          onChange={formik.handleChange}
+                          value={values.ticketPrice}
+                          onChange={handleChange}
                           bgColor={"white"}
                           focusBorderColor={"none"}
                         />
-                        {toRupiah(formik.values.ticketPrice)}
+                        {toRupiah(values.ticketPrice)}
                       </Text>
                     </Box>
-                    {formik.touched.ticketPrice && formik.errors.ticketPrice ? (
+                    {touched.ticketPrice && errors.ticketPrice ? (
                       <Text fontSize={"0.75em"} color={"red"}>
-                        {formik.errors.ticketPrice}
+                        {errors.ticketPrice}
                       </Text>
                     ) : null}
                   </Box>
@@ -199,19 +210,21 @@ function CreateTicket(props) {
               <Box>
                 <FormLabel>Ticket Description</FormLabel>
                 <Input
+                  id="ticketDescription"
+                  name="ticketDescription"
+                  type="ticketDescription"
                   variant="flushed"
                   placeholder="Input Description"
-                  name="ticketDescription"
                   focusBorderColor={"none"}
                   borderColor={"gray"}
-                  value={formik.values.ticketDescription}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={values.ticketDescription}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-                {formik.touched.ticketDescription &&
-                formik.errors.ticketDescription ? (
+                {touched.ticketDescription &&
+                errors.ticketDescription ? (
                   <Text fontSize={"0.75em"} color={"red"}>
-                    {formik.errors.ticketDescription}
+                    {errors.ticketDescription}
                   </Text>
                 ) : null}
               </Box>
@@ -228,6 +241,7 @@ function CreateTicket(props) {
                 _active={"none"}
                 bgColor={"#192655"}
                 mt={4}
+                // onClick={isSub}
               >
                 SUBMIT TICKET
               </Button>

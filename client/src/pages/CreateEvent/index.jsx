@@ -16,12 +16,13 @@ import {
 import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { createEventSchema } from "../../schemas";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CreateTicket from "../CreateTicket";
 import Upload from "./imgUpload";
 import useCounter from "../../features/events/useCounter";
 import { useSelector } from "react-redux";
+import createTicket from "../CreateTicket";
 
 export default function CreateEvent() {
   const [file, setFile] = useState();
@@ -32,6 +33,7 @@ export default function CreateEvent() {
   // telah diisi secara otomatis akan menampilkan form input tket
   const [showEvent, setShowEvent] = useState(false);
 
+  const navigate = useNavigate();
   // get data from redux
   const user = useSelector((state) => state.login.user);
 
@@ -94,7 +96,7 @@ export default function CreateEvent() {
       values.eventDescription,
       user.id
     );
-    // actions.resetForm();
+    actions.resetForm();
   };
   const {
     values,
@@ -304,7 +306,8 @@ export default function CreateEvent() {
         <Box>{renderedaddTicket}</Box>
         {showEvent ? (
           <Box>
-            <Flex>
+            <CreateTicket />
+            <Center>
               <Button
                 type={"submit"}
                 size="md"
@@ -315,26 +318,14 @@ export default function CreateEvent() {
                 _hover={{ bgColor: "#F5F5F5", color: "black" }}
                 _active={"none"}
                 bgColor={"#192655"}
-                onClick={increment}
+                mt={"1em"}
+                onClick={() => {
+                  navigate("/");
+                }}
               >
-                Add Ticket
+                Create Ticket Completed
               </Button>
-              <Spacer margin={".3em"} />
-              <Button
-                type={"submit"}
-                size="md"
-                height="40px"
-                width="200px"
-                fontWeight={"bold"}
-                color={"#F5F5F5"}
-                _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                _active={"none"}
-                bgColor={"#192655"}
-                onClick={decrement}
-              >
-                Substract Ticket
-              </Button>
-            </Flex>
+            </Center>
           </Box>
         ) : null}
       </VStack>
