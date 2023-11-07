@@ -24,6 +24,7 @@ const createEventController = async (req, res) => {
       province,
       city,
       address,
+      category,
       eventDescription,
       userId,
     } = req.body;
@@ -35,6 +36,7 @@ const createEventController = async (req, res) => {
       province,
       city,
       address,
+      category,
       eventDescription,
       userId
     );

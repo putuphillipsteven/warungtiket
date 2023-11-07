@@ -1,6 +1,8 @@
 const {
   findAllUserQuery,
   findUserQuery,
+  findUserIdQuery,
+  updateUserQuery,
 } = require("../queries/userQuery");
 
 const findAllUserService = async () => {
@@ -20,7 +22,21 @@ const findUserService = async (id, username, email) => {
   }
 };
 
+const updateUserService = async (id, point) => {
+  try {
+    const check = findUserIdQuery(id);
+
+    if (!check) throw new Error("username doenst exist");
+
+    const res = await updateUserQuery(id, point);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   findAllUserService,
   findUserService,
+  updateUserService,
 };

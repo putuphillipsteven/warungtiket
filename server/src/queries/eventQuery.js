@@ -27,6 +27,7 @@ const createEventQuery = async (
   province,
   city,
   address,
+  category,
   eventDescription,
   userId
 ) => {
@@ -38,6 +39,7 @@ const createEventQuery = async (
       province,
       city,
       address,
+      category,
       eventDescription,
       userId,
     });

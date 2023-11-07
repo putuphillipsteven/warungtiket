@@ -18,5 +18,10 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "provinces",
     }
   );
+  province.associate = (models) => {
+    province.hasMany(models.event, {
+      foreignKey: "provinceId",
+    });
+  };
   return province;
 };
