@@ -1,4 +1,7 @@
-const { createCityQuery, findCityQuery } = require("../queries/cityQuery");
+const {
+  createCityQuery,
+  findCityQuery,
+} = require("../queries/cityQuery");
 
 const findCityService = async (citiesName) => {
   try {

@@ -36,7 +36,7 @@ export default function Card(props) {
                 </Text>
                 <Text color={"gray"}>{props.date}</Text>
                 <Text>{props.price}</Text>
-                <Text>{props.province}</Text>
+                <Text>{props?.province?.province}</Text>
                 <Text fontSize={".75em"}>
                   {props?.tickets?.length > 0
                     ? "Paid Event"
