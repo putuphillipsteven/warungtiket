@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
       point: {
         type: Sequelize.INTEGER,
         allowNull: true,
-      }
+      },
     },
     {
       timestamps: false,

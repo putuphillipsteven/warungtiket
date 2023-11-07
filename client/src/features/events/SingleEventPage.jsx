@@ -173,6 +173,7 @@ const SinglePostPage = () => {
     return cart.qty !== 0;
   });
 
+  console.log("user", user);
   // step 2
   // tembak transaction/event
   // Payment function
@@ -188,34 +189,43 @@ const SinglePostPage = () => {
   ) => {
     try {
       if (+user?.id !== +selectedEvent?.userId) {
-        if (total === 0) {
+        if (totalQuantity != 0) {
+          if (user?.id) {
+            const res = await axios.post(
+              "http://localhost:8000/transaction",
+              {
+                status,
+                referralCode,
+                userId,
+                eventId,
+                referralUsed,
+                totalQuantity,
+                totalPrice,
+                isUse,
+              }
+            );
+            await tembakTransactionDetails(
+              res?.data?.data?.id
+            );
+            navigate("/");
+            toast({
+              title: "Transaction success",
+              status: "success",
+            });
+            console.log("res", res);
+            return res;
+          } else {
+            toast({
+              title: "Login dulu",
+              status: "error",
+            });
+          }
+        } else {
           toast({
-            title: "Masak sih 0 ",
+            title:
+              "Tolong minimal 1 ya untuk pembelian tiketnya mas",
             status: "error",
           });
-        } else {
-          const res = await axios.post(
-            "http://localhost:8000/transaction",
-            {
-              status,
-              referralCode,
-              userId,
-              eventId,
-              referralUsed,
-              totalQuantity,
-              totalPrice,
-              isUse,
-            }
-          );
-          await tembakTransactionDetails(
-            res?.data?.data?.id
-          );
-          navigate("/");
-          toast({
-            title: "Transaction success",
-            status: "success",
-          });
-          return res;
         }
       } else {
         toast({
@@ -225,8 +235,7 @@ const SinglePostPage = () => {
       }
     } catch (err) {
       toast({
-        title:
-          "Referral code tidak ditemukan, kosongkan atau cari yang pasti",
+        title: "Code referral tidak ditemukan",
         status: "error",
       });
     }
