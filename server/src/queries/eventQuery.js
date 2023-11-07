@@ -11,7 +11,7 @@ const findEventsQuery = async (province = null) => {
         },
       };
     const res = await event.findAll({
-      include: [db.ticket],
+      include: [db.ticket, db.user],
       ...filter,
     });
     return res;
@@ -39,7 +39,7 @@ const createEventQuery = async (
       city,
       address,
       eventDescription,
-      userId
+      userId,
     });
 
     return res;
@@ -52,5 +52,3 @@ module.exports = {
   createEventQuery,
   findEventsQuery,
 };
-
-

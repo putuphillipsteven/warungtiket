@@ -41,12 +41,7 @@ export default function DashBoard(props) {
   const selectedUser = user.find(
     (user) => user.id === +loggedInUser.id
   );
-  console.log(
-    "selecteduser",
-    selectedUser?.transactions?.map((transaction) => {
-      console.log("id", transaction.eventId);
-    })
-  );
+
   const buyedEvent = () => {
     let newArr = [];
     selectedUser?.transactions?.map((transaction) =>
