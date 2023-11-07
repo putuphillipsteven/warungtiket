@@ -7,7 +7,10 @@ import {
   Select,
   Spacer,
   VStack,
+  FormLabel,
   Divider,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import Navbar from "../../components/Navbar";
 import React, { useEffect, useState } from "react";
@@ -16,6 +19,7 @@ import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
 import { selectAllEvents } from "../../features/events/eventSlice";
+import axios from "axios";
 
 function FindEvent() {
   const events = useSelector(selectAllEvents);
@@ -41,6 +45,22 @@ function FindEvent() {
   const renderedEvents = events.map((event) => (
     <Card {...event} />
   ));
+
+    const [province, setProvince] = useState([]);
+    const provinceData = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/province");
+        setProvince(res?.data?.data);
+        return res?.data?.data;
+      } catch (err) {
+        throw err;
+      }
+    };
+
+    useEffect(() => {
+      provinceData();
+    }, []);
+
   return (
     <Box>
       <Navbar
@@ -53,9 +73,7 @@ function FindEvent() {
               placeholder={"Search Event"}
               _placeholder={{ fontWeight: "bold" }}
               value={searchQuery.statusFilter}
-              onChange={(e) =>
-                setSearchQuery(e.target.value)
-              }
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </Box>
         }
@@ -74,29 +92,55 @@ function FindEvent() {
                 Filter
               </Text>
             </Box>
-            <Divider
-              borderColor={"#3876BF"}
-              borderWidth={"2px"}
-            />
+            <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
+            <Box>
+              <FormLabel color={"white"}>Event Category</FormLabel>
+              <Select>
+                tes
+              </Select>
+            </Box>
             <Box>
               <Select
                 value={categoryFilter}
-                onChange={(e) =>
-                  setCategoryFilter(e.target.value)
-                }
+                onChange={(e) => setCategoryFilter(e.target.value)}
+              >
+                <option value="">City Category</option>
+                <option value="Kuliner">Kuliner</option>
+                <option value="Musik">Musik</option>
+                <option value="Olahraga">Olahraga</option>
+                <option value="Kebudayaan">Kebudayaan</option>
+                <option value="Komedi">Komedi</option>
+                <option value="Webinar">Webinar</option>
+              </Select>
+            </Box>
+            <Box>
+              <Select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+              >
+                <option value="">Province Kategori</option>
+                <option value="Kuliner">Kuliner</option>
+                <option value="Musik">Musik</option>
+                <option value="Olahraga">Olahraga</option>
+                <option value="Kebudayaan">Kebudayaan</option>
+                <option value="Komedi">Komedi</option>
+                <option value="Webinar">Webinar</option>
+              </Select>
+            </Box>
+            {/* <Box>
+              <Select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
               >
                 <option value="">Semua Kategori</option>
                 <option value="Kuliner">Kuliner</option>
                 <option value="Musik">Musik</option>
                 <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">
-                  Kebudayaan
-                </option>
+                <option value="Kebudayaan">Kebudayaan</option>
                 <option value="Komedi">Komedi</option>
                 <option value="Webinar">Webinar</option>
               </Select>
-            </Box>
-
+            </Box> */}
             <Box>
               <Button
                 onClick={() => {

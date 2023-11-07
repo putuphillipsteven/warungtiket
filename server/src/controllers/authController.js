@@ -8,11 +8,7 @@ const registerController = async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-    const result = await registerService(
-      email,
-      username,
-      password
-    );
+    const result = await registerService(email, username, password);
 
     return res.status(200).json({
       message: "Success",

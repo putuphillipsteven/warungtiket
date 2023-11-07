@@ -101,6 +101,7 @@ export default function CreateEvent() {
       throw err;
     }
   };
+
   useEffect(() => {
     provinceData();
   }, []);

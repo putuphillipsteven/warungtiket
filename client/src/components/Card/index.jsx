@@ -1,11 +1,4 @@
-import {
-  Box,
-  Divider,
-  Image,
-  Spacer,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Divider, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
@@ -19,11 +12,7 @@ export default function Card(props) {
         borderRadius={".5em"}
         p={"1em 1em"}
       >
-        <Box
-          h={"8em"}
-          borderRadius={".5em"}
-          bgColor={"gray"}
-        >
+        <Box h={"8em"} borderRadius={".5em"} bgColor={"gray"}>
           <Image w={"100%"} src={""} />
         </Box>
         <Spacer m={"2em"} />
@@ -31,23 +20,17 @@ export default function Card(props) {
           <Box>
             <VStack align={"stretch"}>
               <VStack align={"flex-start"}>
-                <Text fontWeight={"bold"}>
-                  {props.eventName}
-                </Text>
+                <Text fontWeight={"bold"}>{props.eventName}</Text>
                 <Text color={"gray"}>{props.date}</Text>
                 <Text>{props.price}</Text>
-                <Text>{props.province}</Text>
+                {/* <Text>{props.province}</Text> */}
                 <Text fontSize={".75em"}>
-                  {props?.tickets?.length > 0
-                    ? "Paid Event"
-                    : "Free Event"}
+                  {props?.tickets?.length > 0 ? "Paid Event" : "Free Event"}
                 </Text>
               </VStack>
               <Divider borderWidth={"2px"} />
               <VStack align={"flex-start"}>
-                <Text fontWeight={"bold"}>
-                  {props?.user?.username}
-                </Text>
+                <Text fontWeight={"bold"}>{props?.user?.username}</Text>
               </VStack>
             </VStack>
           </Box>
