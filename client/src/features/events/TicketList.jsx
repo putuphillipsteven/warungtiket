@@ -28,7 +28,7 @@ export const TicketList = (props) => {
     props.setTotalPrice(props.totalPrice - price);
     props.handleKurang(props.id);
   };
-
+  console.log("ticketprops", props);
   return (
     <Box
       w={"full"}
@@ -40,6 +40,10 @@ export const TicketList = (props) => {
         <Box>
           <Text fontWeight={"bold"}>
             {props.ticketName}
+          </Text>
+          <Text fontSize={".75em"}>Sisa Tiket</Text>
+          <Text fontWeight={"bold"} fontSize={".75em"}>
+            {props.ticketQuantity}
           </Text>
           <Text>
             {props.ticketPrice === 0

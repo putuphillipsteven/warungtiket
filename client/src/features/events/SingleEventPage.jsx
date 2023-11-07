@@ -8,6 +8,7 @@ import {
   Spacer,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -25,6 +26,7 @@ import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
 const referralCodes = require("referral-codes");
+
 // The page
 const SinglePostPage = () => {
   // Store transaction id that has been created
@@ -33,7 +35,7 @@ const SinglePostPage = () => {
   const navigate = useNavigate();
   // Total price
   const [total, setTotal] = useState(0);
-
+  const toast = useToast();
   // Params for pagination
   const { eventId } = useParams();
 
@@ -90,7 +92,6 @@ const SinglePostPage = () => {
   // Shoot transaction id
   // const [transactionId, setTransactionId] = useState(0);
 
-  console.log("transactionId", transactionId);
   // Handle qty for rendered tickets
   const handleTambah = (id) => {
     setCarts(
@@ -153,7 +154,6 @@ const SinglePostPage = () => {
   let filterKeranjang = carts.filter((cart) => {
     return cart.qty !== 0;
   });
-  console.log("filterKeranjang", filterKeranjang);
 
   // step 2
   // tembak transaction/event
@@ -165,26 +165,39 @@ const SinglePostPage = () => {
     eventId
   ) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/transaction",
-        {
-          status,
-          referralCode,
-          userId,
-          eventId,
-        }
-      );
-      setTransactionId();
-      console.log("id dalam", res.data.data.id);
-      await tembakTransactionDetails(res?.data?.data?.id);
-
-      alert("Transaction Success");
-      return res;
+      if (+user?.id !== +selectedEvent?.userId) {
+        const res = await axios.post(
+          "http://localhost:8000/transaction",
+          {
+            status,
+            referralCode,
+            userId,
+            eventId,
+          }
+        );
+        await tembakTransactionDetails(res?.data?.data?.id);
+        await tembakReferral(
+          reffCode[0],
+          false,
+          selectedEvent.id,
+          user.id
+        );
+        navigate("/");
+        toast({
+          title: "Transaction success",
+          status: "success",
+        });
+        return res;
+      } else {
+        toast({
+          title: "Anda penyelenggara event ini",
+          status: "error",
+        });
+      }
     } catch (err) {
       throw err;
     }
   };
-  console.log("trIdAfter", transactionId);
   // Transaction detail function
   const tembakTransactionDetails = async (id) => {
     filterKeranjang.map(async (keranjang) => {
@@ -224,7 +237,9 @@ const SinglePostPage = () => {
       throw err;
     }
   };
-  console.log("final state", transactionId);
+
+  console.log("--", selectedEvent.tickets);
+
   return (
     <Box>
       <Navbar />
@@ -346,14 +361,6 @@ const SinglePostPage = () => {
                               user.id,
                               selectedEvent.id
                             );
-
-                            await tembakReferral(
-                              reffCode[0],
-                              false,
-                              selectedEvent.id,
-                              user.id
-                            );
-                            navigate("/");
                           } catch (err) {
                             throw err;
                           }
