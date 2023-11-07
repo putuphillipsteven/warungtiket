@@ -11,11 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { logOutSuccess } from "../../features/login/loginSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ProfileModal = () => {
   const [show, setShow] = useState(false);
-
+  const user = useSelector((state) => state.login.user);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -83,7 +83,12 @@ export const ProfileModal = () => {
                 size={"3em"}
                 bgColor={"transparent"}
                 _hover={"none"}
-                icon={<AiOutlineClose size={"1em"} color={"black"} />}
+                icon={
+                  <AiOutlineClose
+                    size={"1em"}
+                    color={"black"}
+                  />
+                }
                 _active={"none"}
                 onClick={updateState}
                 alignSelf={"flex-end"}
@@ -93,14 +98,24 @@ export const ProfileModal = () => {
                 size={"3em"}
                 bgColor={"transparent"}
                 _hover={"none"}
-                icon={<BsPersonCircle size={"3em"} color={"black"} />}
+                icon={
+                  <BsPersonCircle
+                    size={"3em"}
+                    color={"black"}
+                  />
+                }
                 _active={"none"}
               />
               <VStack spacing={"0"}>
-                <Text>I Putu Phillip Steven</Text>
-                <Text fontSize={".75em"}>putu.phillip@gmail.com</Text>
+                <Text>{user?.username}</Text>
+                <Text fontSize={".75em"}>
+                  {user?.email}
+                </Text>
               </VStack>
-              <Divider borderColor={"#192655"} borderWidth={"2px"} />
+              <Divider
+                borderColor={"#192655"}
+                borderWidth={"2px"}
+              />
               <VStack>
                 <Link to={"/dashboard"}>
                   <Text>Dashboard</Text>

@@ -1,5 +1,5 @@
 const db = require("../models");
-const { Op, and } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const user = db.user;
 
 const findAllUserQuery = async () => {
@@ -13,11 +13,7 @@ const findAllUserQuery = async () => {
   }
 };
 
-const findUserQuery = async ({
-  id = null,
-  email = null,
-  username = null,
-}) => {
+const findUserQuery = async ({ id = null, email = null, username = null }) => {
   try {
     const res = await user.findOne({
       where: {
@@ -35,7 +31,48 @@ const findUserQuery = async ({
   }
 };
 
+const findUserIdQuery = async (id = null) => {
+  try {
+    const params = {};
+    if (id) params.id = id;
+    const res = await user.findOne({
+      where: {
+        ...params,
+      },
+    });
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const updateUserQuery = async (id, point) => {
+  try {
+    // const res = user.increment("point", {
+    //   by: point,
+    //   where: {
+    //     id,
+    //   },
+    // });
+    const res = user.update(
+      {
+        point: Sequelize.literal(`point + ${point}`),
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    );
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   findAllUserQuery,
   findUserQuery,
+  findUserIdQuery,
+  updateUserQuery,
 };

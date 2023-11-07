@@ -28,6 +28,9 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
+      category: {
+        type: Sequelize.INTEGER,
+      },
       eventDescription: {
         type: Sequelize.STRING,
       },

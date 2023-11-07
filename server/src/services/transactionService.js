@@ -1,7 +1,13 @@
+const refferalCodeGenerator = require("referral-code-generator");
 const {
   createTransactionQuery,
   findTransactionQUery,
 } = require("../queries/transactionQuery");
+
+const {
+  findReferralQuery,
+  updateReferralQuery,
+} = require("../queries/referralQuery");
 
 const findTransactionService = async () => {
   try {
@@ -19,6 +25,18 @@ const createTransactionService = async (
   eventId
 ) => {
   try {
+    // if (referralCode) {
+    //   const check = await findReferralQuery(referralCode);
+    //   if (!check) throw new Error("Not Found");
+    //   await updateReferralQuery(check.id);
+    // }
+    const newReferral =
+      await refferalCodeGenerator.alphaNumeric(
+        "uppercase",
+        8,
+        7
+      );
+    console.log(newReferral);
     const res = await createTransactionQuery(
       status,
       referralCode,

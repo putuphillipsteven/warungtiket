@@ -18,7 +18,11 @@ export default function EventCard(props) {
       borderRadius={".5em"}
       position={"relative"}
     >
-      <Flex flexDir={"column-reverse"} align={"stretch"} h={"100%"}>
+      <Flex
+        flexDir={"column-reverse"}
+        align={"stretch"}
+        h={"100%"}
+      >
         <Box>
           <VStack flexDir={"column"} lineHeight={".6"}>
             <Image src={props.eventImage} />

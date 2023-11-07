@@ -34,8 +34,8 @@ export const loginSchema = yup.object().shape({
     .string()
     .email("Invalid Email")
     .matches(emailRules, "Invalid Email")
-    .required("Email is Required"),
-  password: yup.string().required("Password is Required"),
+    .required(<Text as={"b"}>Email is Required</Text>),
+  password: yup.string().required(<Text as={"b"}>Password is Required</Text>),
 });
 
 export const createEventSchema = yup.object().shape({

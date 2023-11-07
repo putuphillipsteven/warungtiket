@@ -12,6 +12,9 @@ import {
   Spacer,
   Flex,
   Textarea,
+  Select,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import logo from "../../img/logo.png";
 import { useFormik } from "formik";
@@ -61,6 +64,7 @@ export default function CreateEvent() {
     province,
     city,
     address,
+    category,
     eventDescription,
     userId
   ) => {
@@ -72,6 +76,7 @@ export default function CreateEvent() {
       formData.append("province", province);
       formData.append("city", city);
       formData.append("address", address);
+      formData.append("category", category);
       formData.append("eventDescription", eventDescription);
       formData.append("userId", userId);
       console.log("formData", formData);
@@ -86,6 +91,48 @@ export default function CreateEvent() {
       console.log(err);
     }
   };
+  const [province, setProvince] = useState([]);
+  const provinceData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/province");
+      setProvince(res?.data?.data);
+      return res?.data?.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    provinceData();
+  }, []);
+
+  const [city, setCity] = useState([]);
+  const cityData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/city");
+      setCity(res?.data?.data);
+      return res?.data?.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    cityData();
+  }, []);
+
+  const [category, setCategory] = useState([]);
+  const categoryData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/category");
+      setCategory(res?.data?.data);
+      return res?.data?.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    categoryData();
+  }, []);
+
   const onSubmit = async (values, actions) => {
     createEvent(
       values.eventName,
@@ -93,6 +140,7 @@ export default function CreateEvent() {
       values.province,
       values.city,
       values.address,
+      values.category,
       values.eventDescription,
       user.id
     );
@@ -113,12 +161,13 @@ export default function CreateEvent() {
       province: "",
       city: "",
       address: "",
+      category: "",
       eventDescription: "",
     },
     validationSchema: createEventSchema,
     onSubmit,
   });
-
+  console.log("ct", category);
   return (
     <Box
       p={"1.5em 3.5em"}
@@ -161,9 +210,15 @@ export default function CreateEvent() {
                     _hover={{ borderColor: "transparent" }}
                   ></Input>
                   {touched.eventName && errors.eventName ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
+                    <Alert
+                      status="error"
+                      fontSize={"0.7em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
                       {errors.eventName}
-                    </Text>
+                    </Alert>
                   ) : null}
                 </Box>
                 <Box>
@@ -182,9 +237,15 @@ export default function CreateEvent() {
                     _hover={{ borderColor: "transparent" }}
                   />
                   {touched.date && errors.date ? (
-                    <Text fontSize={"0.75em"} color={"red"}>
+                    <Alert
+                      status="error"
+                      fontSize={"0.7em"}
+                      borderRadius={"0.5em"}
+                      h={"1em"}
+                    >
+                      <AlertIcon />
                       {errors.date}
-                    </Text>
+                    </Alert>
                   ) : null}
                 </Box>
                 <Box>
@@ -192,7 +253,7 @@ export default function CreateEvent() {
                     <Flex>
                       <Box w={"100%"}>
                         <FormLabel color={"white"}>Province</FormLabel>
-                        <Input
+                        <Select
                           id="province"
                           name="province"
                           type="text"
@@ -204,17 +265,28 @@ export default function CreateEvent() {
                           borderRadius={"0.5em"}
                           borderColor={"transparent"}
                           _hover={{ borderColor: "transparent" }}
-                        />
+                          placeholder={"Select Province"}
+                        >
+                          {province.map((option) => (
+                            <option value={option.id}>{option.province}</option>
+                          ))}
+                        </Select>
                         {touched.province && errors.province ? (
-                          <Text fontSize={"0.75em"} color={"red"}>
+                          <Alert
+                            status="error"
+                            fontSize={"0.7em"}
+                            borderRadius={"0.5em"}
+                            h={"1em"}
+                          >
+                            <AlertIcon />
                             {errors.province}
-                          </Text>
+                          </Alert>
                         ) : null}
                       </Box>
                       <Spacer m={".5em"} />
                       <Box w={"100%"}>
                         <FormLabel color={"white"}>City</FormLabel>
-                        <Input
+                        <Select
                           id="city"
                           name="city"
                           type="text"
@@ -226,11 +298,24 @@ export default function CreateEvent() {
                           borderRadius={"0.5em"}
                           borderColor={"transparent"}
                           _hover={{ borderColor: "transparent" }}
-                        />
+                          placeholder={"Select City"}
+                        >
+                          {city.map((option) => (
+                            <option value={option.id}>
+                              {option.citiesName}
+                            </option>
+                          ))}
+                        </Select>
                         {touched.city && errors.city ? (
-                          <Text fontSize={"0.75em"} color={"red"}>
+                          <Alert
+                            status="error"
+                            fontSize={"0.7em"}
+                            borderRadius={"0.5em"}
+                            h={"1em"}
+                          >
+                            <AlertIcon />
                             {errors.city}
-                          </Text>
+                          </Alert>
                         ) : null}
                       </Box>
                     </Flex>
@@ -250,9 +335,48 @@ export default function CreateEvent() {
                         _hover={{ borderColor: "transparent" }}
                       />
                       {touched.address && errors.address ? (
-                        <Text fontSize={"0.75em"} color={"red"}>
+                        <Alert
+                          status="error"
+                          fontSize={"0.7em"}
+                          borderRadius={"0.5em"}
+                          h={"1em"}
+                        >
+                          <AlertIcon />
                           {errors.address}
-                        </Text>
+                        </Alert>
+                      ) : null}
+                    </Box>
+                    <Box>
+                      <FormLabel color={"white"}>Event Category</FormLabel>
+                      <Select
+                        id="category"
+                        name="category"
+                        type="text"
+                        onChange={handleChange}
+                        value={values.category}
+                        onBlur={handleBlur}
+                        bgColor={"#F5F5F5"}
+                        focusBorderColor={"transparent"}
+                        borderRadius={"0.5em"}
+                        borderColor={"transparent"}
+                        _hover={{ borderColor: "transparent" }}
+                      >
+                        {category.map((option) => (
+                          <option value={option.id}>
+                            {option.categoriesName}
+                          </option>
+                        ))}
+                      </Select>
+                      {touched.category && errors.category ? (
+                        <Alert
+                          status="error"
+                          fontSize={"0.7em"}
+                          borderRadius={"0.5em"}
+                          h={"1em"}
+                        >
+                          <AlertIcon />
+                          {errors.category}
+                        </Alert>
                       ) : null}
                     </Box>
                     <Box>
@@ -273,9 +397,15 @@ export default function CreateEvent() {
                         h={"10em"}
                       ></Textarea>
                       {touched.eventDescription && errors.eventDescription ? (
-                        <Text fontSize={"0.75em"} color={"red"}>
+                        <Alert
+                          status="error"
+                          fontSize={"0.7em"}
+                          borderRadius={"0.5em"}
+                          h={"1em"}
+                        >
+                          <AlertIcon />
                           {errors.eventDescription}
-                        </Text>
+                        </Alert>
                       ) : null}
                     </Box>
                   </VStack>

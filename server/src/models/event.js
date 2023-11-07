@@ -19,15 +19,19 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      province: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      provinceId: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
       },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      cityId: {
+        type: Sequelize.INTEGER,
+        // allowNull: false,
       },
       address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      category: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -44,12 +48,19 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "events",
     }
   );
-
+  // event.associate = (models) => {
+  //   event.belongsTo(models.province, {
+  //     foreignKey: "provinceId"
+  //   })
+  // }
   event.associate = (models) => {
     event.hasMany(models.ticket, { foreignKey: "eventID" }),
       event.belongsTo(models.user, {
         foreignKey: "userId",
       });
+    event.belongsTo(models.province, {
+      foreignKey: "provinceId",
+    });
   };
 
   return event;
