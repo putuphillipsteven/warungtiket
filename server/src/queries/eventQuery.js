@@ -11,7 +11,7 @@ const findEventsQuery = async (province = null) => {
         },
       };
     const res = await event.findAll({
-      include: [db.ticket, db.province],
+      include: [db.ticket, db.user],
       ...filter,
     });
     return res;

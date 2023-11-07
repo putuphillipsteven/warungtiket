@@ -10,18 +10,14 @@ export const OrderedTicket = (props) => {
   return (
     <Box>
       <Text>{props.ticketName}</Text>
+
       <Flex>
         <Text fontSize={".75em"}>Qty</Text>
         <Spacer />
-        <Text fontSize={".75em"}>
-          {" "}
-          {props.qty}
-        </Text>
+        <Text fontSize={".75em"}>{props.qty}</Text>
       </Flex>
       <Flex>
-        <Text fontSize={".75em"}>
-          Ticket Total
-        </Text>
+        <Text fontSize={".75em"}>Ticket Total</Text>
         <Spacer />
         <Text fontSize={".75em"}>
           {toRupiah(props.totalPrice)}

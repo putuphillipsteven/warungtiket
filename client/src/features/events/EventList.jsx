@@ -30,16 +30,7 @@ const EventList = () => {
   });
 
   const renderedEvents = filtered.map((event) => (
-    <Card
-      eventImage={event.image}
-      eventName={event.eventName}
-      date={event.date}
-      province={event.province}
-      address={event.address}
-      price={event.price == 0 ? "Free" : event.price}
-      description={event.eventDescription}
-      path={event.id}
-    />
+    <Card {...event} />
   ));
 
   return (

@@ -5,7 +5,6 @@ import {
   Text,
   Button,
   Select,
-  Flex,
   Spacer,
   VStack,
   Divider,
@@ -16,7 +15,6 @@ import "react-multi-carousel/lib/styles.css";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
-import toRupiah from "@develoka/angka-rupiah-js";
 import { selectAllEvents } from "../../features/events/eventSlice";
 
 function FindEvent() {
@@ -28,22 +26,20 @@ function FindEvent() {
   const [searchQuery, setSearchQuery] = useState("");
   const Events = events.filter(
     (event) =>
-      (categoryFilter === "" || event.category === categoryFilter) &&
-      (locationFilter === "" || event.location === locationFilter) &&
-      (statusFilter === "" || event.status === statusFilter) &&
+      (categoryFilter === "" ||
+        event.category === categoryFilter) &&
+      (locationFilter === "" ||
+        event.location === locationFilter) &&
+      (statusFilter === "" ||
+        event.status === statusFilter) &&
       (searchQuery === "" ||
-        event.category.toLowerCase().includes(searchQuery.toLowerCase()))
+        event.category
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()))
   );
 
   const renderedEvents = events.map((event) => (
-    <Card
-      eventName={event.eventName}
-      date={event.date}
-      province={event.province}
-      address={event.address}
-      description={event.eventDescription}
-      path={event.id}
-    />
+    <Card {...event} />
   ));
   return (
     <Box>
@@ -57,7 +53,9 @@ function FindEvent() {
               placeholder={"Search Event"}
               _placeholder={{ fontWeight: "bold" }}
               value={searchQuery.statusFilter}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) =>
+                setSearchQuery(e.target.value)
+              }
             />
           </Box>
         }
@@ -76,17 +74,24 @@ function FindEvent() {
                 Filter
               </Text>
             </Box>
-            <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
+            <Divider
+              borderColor={"#3876BF"}
+              borderWidth={"2px"}
+            />
             <Box>
               <Select
                 value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
+                onChange={(e) =>
+                  setCategoryFilter(e.target.value)
+                }
               >
                 <option value="">Semua Kategori</option>
                 <option value="Kuliner">Kuliner</option>
                 <option value="Musik">Musik</option>
                 <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">Kebudayaan</option>
+                <option value="Kebudayaan">
+                  Kebudayaan
+                </option>
                 <option value="Komedi">Komedi</option>
                 <option value="Webinar">Webinar</option>
               </Select>
