@@ -25,7 +25,10 @@ module.exports = {
       point: {
         type: Sequelize.INTEGER,
         allowNull: true,
-      }
+      },
+      avatar: {
+				type: Sequelize.STRING
+			}
     });
   },
 

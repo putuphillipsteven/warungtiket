@@ -48,8 +48,36 @@ const keepLoginQuery = async (id) => {
   }
 };
 
+const updateQuery = async (username, email, id, avatar) => {
+  try {
+    await db.sequelize.transaction(async (t) => {
+      await user.update(
+        {
+          username,
+          email,
+          avatar,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+    });
+    console.log(username);
+    console.log(fullname);
+    console.log(email);
+    console.log(avatar);
+    console.log(id);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
 module.exports = {
   registerQuery,
   loginQuery,
   keepLoginQuery,
+  updateQuery,
 };

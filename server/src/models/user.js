@@ -23,7 +23,10 @@ module.exports = (sequelize, Sequelize) => {
       point: {
         type: Sequelize.INTEGER,
         allowNull: true,
-      }
+      },
+      avatar: {
+				type: Sequelize.STRING
+			}
     },
     {
       timestamps: false,
