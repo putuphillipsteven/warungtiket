@@ -16,6 +16,7 @@ const createEventService = async (
   province,
   city,
   address,
+  category,
   eventDescription,
   userId
 ) => {
@@ -27,6 +28,7 @@ const createEventService = async (
       province,
       city,
       address,
+      category,
       eventDescription,
       userId
     );
