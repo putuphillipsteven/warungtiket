@@ -39,10 +39,30 @@ export const loginSchema = yup.object().shape({
 });
 
 export const createEventSchema = yup.object().shape({
-  eventName: yup.string().required("input name"),
-  date: yup.date().required("input date"),
-  province: yup.string().required("input data"),
-  city: yup.string().required("input data"),
-  address: yup.string().required("address is required"),
-  eventDescription: yup.string().required("description is Required"),
+  eventName: yup
+    .string()
+    .required(<Text as="b">createEventSchema Name is Required!</Text>),
+  date: yup.date().required(<Text as="b">Date is Required!</Text>),
+  province: yup.string().required(<Text as="b">Province is Required!</Text>),
+  city: yup.string().required(<Text as="b">City is Required!</Text>),
+  address: yup.string().required(<Text as="b">Address is Required!</Text>),
+  eventCategory: yup
+    .string()
+    .required(<Text as="b">Event Category is Required!</Text>),
+  eventDescription: yup
+    .string()
+    .required(<Text as="b">Event Description is Required!</Text>),
+});
+
+export const ticketSchema = yup.object().shape({
+  ticketName: yup
+    .string()
+    .required(<Text as="b">Ticket Name is Required!</Text>),
+  ticketQuantity: yup
+    .number()
+    .required(<Text as="b">Ticket Quantity is Required!</Text>),
+  ticketPrice: yup.number().required(<Text as="b">Price is Required!</Text>),
+  ticketDescription: yup
+    .string()
+    .required(<Text as="b">Ticket Description is Required!</Text>),
 });

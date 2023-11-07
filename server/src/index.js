@@ -31,6 +31,8 @@ app.use("/event", eventRouter);
 const cityRouter = require("./routes/cityRoute");
 app.use("/city", cityRouter);
 
+// const city = require("./models/city");
+
 const ticketRouter = require("./routes/ticketRoute");
 app.use("/ticket", ticketRouter);
 
