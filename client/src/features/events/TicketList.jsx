@@ -41,7 +41,16 @@ export const TicketList = (props) => {
           <Text fontWeight={"bold"}>
             {props.ticketName}
           </Text>
-          <Text fontSize={".75em"}>Sisa Tiket</Text>
+          <Text fontSize={".75em"}>
+            Kuota Tiket{" "}
+            <Text
+              as={"span"}
+              fontSize={".5em"}
+              color={"red"}
+            >
+              * Jika stok kurang, gagal bro, maaf ya
+            </Text>
+          </Text>
           <Text fontWeight={"bold"} fontSize={".75em"}>
             {props.ticketQuantity}
           </Text>

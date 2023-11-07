@@ -1,11 +1,22 @@
 const {
   createReferralQuery,
   findReferralQuery,
+  updateReferralQuery,
 } = require("../queries/referralQuery");
 
-const createReferralService = async (referralCode, isUse, eventId, userId) => {
+const createReferralService = async (
+  referralCode,
+  isUse,
+  eventId,
+  userId
+) => {
   try {
-    const res = await createReferralQuery(referralCode, isUse, eventId, userId);
+    const res = await createReferralQuery(
+      referralCode,
+      isUse,
+      eventId,
+      userId
+    );
     return res;
   } catch (err) {
     throw err;
@@ -21,7 +32,23 @@ const findReferralService = async (referralCode) => {
   }
 };
 
+const updateReferralService = async (
+  id,
+  referralCode,
+  isUse
+) => {
+  try {
+    const check = await findReferralQuery(referralCode);
+    if (!check) throw new Error("Not Found");
+    const res = await updateReferralQuery(check.id);
+    return res;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createReferralService,
   findReferralService,
+  updateReferralService,
 };

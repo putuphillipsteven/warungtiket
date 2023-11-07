@@ -326,6 +326,7 @@ const SinglePostPage = () => {
                         // onBlur={formik.handleBlur}
                       />
                       <Button
+                        size={"xs"}
                         bgColor={"#192655"}
                         color={"white"}
                         _hover={{
@@ -342,16 +343,16 @@ const SinglePostPage = () => {
                       <Text fontWeight={"bold"}>Total</Text>
                       <Text>{toRupiah(total)}</Text>
                     </Box>
-                    <Spacer />
-                    <Box>
+                    <Spacer m={".5em"} />
+                    <Box alignSelf={"flex-end"}>
                       <Button
-                        h={"100%"}
                         bgColor={"#192655"}
                         color={"white"}
                         _hover={{
                           bgColor: "#F5F5F5",
                           color: "black",
                         }}
+                        size={"xs"}
                         _active={"none"}
                         onClick={async () => {
                           try {
