@@ -2,16 +2,18 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
   FormLabel,
   HStack,
   Heading,
-  Input,
   Spacer,
   Text,
   VStack,
   useToast,
+  Input,
+  InputGroup,
+  FormControl,
 } from "@chakra-ui/react";
+import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,12 +29,11 @@ import {
 import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
-const referralCodes = require("referral-codes");
-
+import referralCodes from "@develoka/angka-rupiah-js";
 // The page
 const SinglePostPage = () => {
   // Store transaction id that has been created
-
+  const [fieldImage, setFieldImage] = useState(null);
   const [transactionId, setTransactionId] = useState(0);
   const navigate = useNavigate();
   // Total price
@@ -122,6 +123,21 @@ const SinglePostPage = () => {
       })
     );
   };
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      username: "",
+      password: "",
+      image: null,
+    },
+    onSubmit: (values) => {
+      // register(
+      //   values.email,
+      //   values.username,
+      //   values.password
+      // );
+    },
+  });
 
   // Mapping rendered tickets that event have
   const renderedTickets = tickets.map((ticket, index) => (
@@ -173,7 +189,6 @@ const SinglePostPage = () => {
     return cart.qty !== 0;
   });
 
-  console.log("user", user);
   // step 2
   // tembak transaction/event
   // Payment function
@@ -191,18 +206,18 @@ const SinglePostPage = () => {
       if (+user?.id !== +selectedEvent?.userId) {
         if (totalQuantity != 0) {
           if (user?.id) {
+            let formData = new FormData();
+            formData.append("status", status);
+            formData.append("referralCode", referralCode);
+            formData.append("userId", userId);
+            formData.append("eventId", eventId);
+            formData.append("referralUsed", referralUsed);
+            formData.append("totalQuantity", totalQuantity);
+            formData.append("totalPrice", totalPrice);
+            formData.append("isUse", isUse);
             const res = await axios.post(
               "http://localhost:8000/transaction",
-              {
-                status,
-                referralCode,
-                userId,
-                eventId,
-                referralUsed,
-                totalQuantity,
-                totalPrice,
-                isUse,
-              }
+              formData
             );
             await tembakTransactionDetails(
               res?.data?.data?.id
@@ -387,6 +402,8 @@ const SinglePostPage = () => {
                         )}
                       </Text>
                     </Box>
+                    <Spacer />
+
                     <Spacer m={".5em"} />
                     <Box alignSelf={"flex-end"}>
                       <Button
@@ -419,6 +436,29 @@ const SinglePostPage = () => {
                     </Box>
                   </Flex>
                 </VStack>
+                <Box>
+                  <form onSubmit={formik.handleSubmit}>
+                    <FormLabel fontSize={".75em"}>
+                      Bukti Pembayaran
+                    </FormLabel>
+                    <FormControl mb={5}>
+                      <InputGroup>
+                        <Input
+                          h={"100%"}
+                          type="file"
+                          name="image"
+                          size="xs"
+                          onChange={(event) => {
+                            setFieldImage(
+                              event.currentTarget.files[0]
+                            );
+                          }}
+                          p={".5em 1em"}
+                        />
+                      </InputGroup>
+                    </FormControl>
+                  </form>
+                </Box>
               </Box>
             </Flex>
           </Box>

@@ -21,7 +21,8 @@ const createTransactionQuery = async (
   referralUsed,
   totalQuantity,
   totalPrice,
-  isUse
+  isUse,
+  avatar
 ) => {
   try {
     const res = await transaction.create({
@@ -33,7 +34,9 @@ const createTransactionQuery = async (
       totalQuantity,
       totalPrice,
       isUse,
+      avatar,
     });
+
     return res;
   } catch (err) {
     throw err;

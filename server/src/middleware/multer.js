@@ -24,6 +24,20 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+const paymentStorage = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, path.join(__dirname, "../public/img/payment"));
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      `avatar_${username}-${Date.now()}-${
+        file.originalname
+      }`
+    );
+  },
+});
+
 const limits = {
   fileSize: 1024 * 1024,
 };
@@ -34,6 +48,12 @@ const uploadEventFile = multer({
   limits,
 }).single("img");
 
+const uploadPaymentFile = multer({
+  storage: paymentStorage,
+  fileFilter,
+  limits,
+}).single("avatar");
 module.exports = {
+  uploadPaymentFile,
   uploadEventFile,
 };

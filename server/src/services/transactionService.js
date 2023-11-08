@@ -28,7 +28,8 @@ const createTransactionService = async (
   referralUsed,
   totalQuantity,
   totalPrice,
-  isUse
+  isUse,
+  avatar
 ) => {
   try {
     if (referralUsed) {
@@ -45,16 +46,17 @@ const createTransactionService = async (
     );
     const res = await createTransactionQuery(
       status,
-      (referralCode = newReferral),
+      newReferral,
       userId,
       eventId,
       referralUsed,
       totalQuantity,
-      totalPrice
+      totalPrice,
+      avatar
     );
     await createReferralQuery(
-      (referralCode = newReferral),
-      (isUse = false),
+      newReferral,
+      false,
       eventId,
       userId
     );

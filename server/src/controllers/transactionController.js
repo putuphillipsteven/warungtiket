@@ -23,6 +23,7 @@ const createTransactionController = async (req, res) => {
       referralUsed,
       totalQuantity,
       totalPrice,
+      isUse,
     } = req.body;
     const result = await createTransactionService(
       status,
@@ -31,7 +32,9 @@ const createTransactionController = async (req, res) => {
       eventId,
       referralUsed,
       totalQuantity,
-      totalPrice
+      totalPrice,
+      isUse,
+      req.file?.filename
     );
     return res.status(200).json({
       message: "success",

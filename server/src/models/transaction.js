@@ -33,6 +33,9 @@ module.exports = (sequelize, Sequelize) => {
       referralUsed: {
         type: Sequelize.STRING,
       },
+      avatar: {
+        type: Sequelize.STRING,
+      },
     },
     {
       timestamps: false,
