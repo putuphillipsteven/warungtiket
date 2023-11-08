@@ -6,8 +6,8 @@ require("dotenv").config({
   path: path.resolve(__dirname, "../.env"),
 });
 
-const db = require("./models");
-db.sequelize.sync({ alter: true });
+// const db = require("./models");
+// db.sequelize.sync({ alter: true });
 
 const PORT = process.env.PORT || 8000;
 
@@ -53,6 +53,8 @@ app.use("/province", provinceRouter);
 
 const categoryRouter = require("./routes/categoryRoute");
 app.use("/category", categoryRouter);
+
+app.use("/uploads", express.static(path.join(__dirname, "./public/images")));
 
 app.listen(PORT, (req, res) => {
   console.log(`Server started on port ${PORT}`);

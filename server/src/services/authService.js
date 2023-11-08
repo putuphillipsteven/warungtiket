@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const {
   registerQuery,
   keepLoginQuery,
+  updateQuery,
 } = require("../queries/authQuery");
 
 const { findUserQuery } = require("../queries/userQuery");
@@ -76,8 +77,19 @@ const keepLoginService = async (id) => {
   }
 };
 
+const updateService = async (username, email, fullname, avatar, id) => {
+	try {
+		const res = updateQuery(username, email, fullname, avatar, id)
+		console.log(res)
+		return res
+	} catch (err) {
+		throw err
+	}
+}
+
 module.exports = {
   registerService,
   loginService,
   keepLoginService,
+  updateService,
 };

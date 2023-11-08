@@ -7,7 +7,10 @@ import {
   Select,
   Spacer,
   VStack,
+  FormLabel,
   Divider,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import Navbar from "../../components/Navbar";
 import React, { useEffect, useState } from "react";
@@ -16,6 +19,7 @@ import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card";
 import { selectAllEvents } from "../../features/events/eventSlice";
+import axios from "axios";
 
 function FindEvent() {
   const events = useSelector(selectAllEvents);
@@ -24,22 +28,40 @@ function FindEvent() {
   const [locationFilter, setLocationFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const Events = events.filter(
-    (event) =>
-      (categoryFilter === "" ||
-        event.category === categoryFilter) &&
-      (locationFilter === "" ||
-        event.location === locationFilter) &&
-      (statusFilter === "" ||
-        event.status === statusFilter) &&
-      (searchQuery === "" ||
-        event.category
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase()))
-  );
-  const renderedEvents = events.map((event) => (
-    <Card {...event} />
-  ));
+
+  const [event1, setEvent1] = useState([]);
+  const renderedEvents = event1.map((event) => <Card {...event} />);
+  const fetchEvent = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/event?provinceId=${locationFilter}`
+      );
+      setEvent1(res?.data?.data);
+    } catch (err) {
+      throw err;
+    }
+  };
+  useEffect(() => {
+    fetchEvent();
+  }, [locationFilter]);
+
+  console.log("fe", event1);
+
+  const [province, setProvince] = useState([]);
+  const provinceData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/province");
+      setProvince(res?.data?.data);
+      return res?.data?.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    provinceData();
+  }, []);
+
   return (
     <Box>
       <Navbar
@@ -52,9 +74,7 @@ function FindEvent() {
               placeholder={"Search Event"}
               _placeholder={{ fontWeight: "bold" }}
               value={searchQuery.statusFilter}
-              onChange={(e) =>
-                setSearchQuery(e.target.value)
-              }
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </Box>
         }
@@ -73,29 +93,18 @@ function FindEvent() {
                 Filter
               </Text>
             </Box>
-            <Divider
-              borderColor={"#3876BF"}
-              borderWidth={"2px"}
-            />
+            <Divider borderColor={"#3876BF"} borderWidth={"2px"} />
             <Box>
+              <FormLabel>Prov Category</FormLabel>
               <Select
-                value={categoryFilter}
-                onChange={(e) =>
-                  setCategoryFilter(e.target.value)
-                }
+                placeholder={"Select Province"}
+                onChange={(e) => setLocationFilter(e.target.value)}
               >
-                <option value="">Semua Kategori</option>
-                <option value="Kuliner">Kuliner</option>
-                <option value="Musik">Musik</option>
-                <option value="Olahraga">Olahraga</option>
-                <option value="Kebudayaan">
-                  Kebudayaan
-                </option>
-                <option value="Komedi">Komedi</option>
-                <option value="Webinar">Webinar</option>
+                {province.map((option) => (
+                  <option value={option.id}>{option.province}</option>
+                ))}
               </Select>
             </Box>
-
             <Box>
               <Button
                 onClick={() => {
