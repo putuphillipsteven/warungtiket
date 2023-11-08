@@ -7,14 +7,11 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
-
 import React, { useState } from "react";
-
 export default function Upload({ file, setFile }) {
   function handleChange(e) {
     setFile(e.target.files[0]);
   }
-
   return (
     <Box>
       <AspectRatio>
@@ -64,7 +61,6 @@ export default function Upload({ file, setFile }) {
               cursor={"pointer"}
               onChange={handleChange}
             />
-            {/* <Image w={"100%"} src={file ? URL.createObjectURL(file) : ""} /> */}
             <Image w={"100%"} src={file ? URL.createObjectURL(file) : ""} />
           </Box>
         </Box>
