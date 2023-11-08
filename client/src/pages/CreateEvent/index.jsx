@@ -29,7 +29,6 @@ import CreateTicket from "../CreateTicket";
 import Upload from "./imgUpload";
 import useCounter from "../../features/events/useCounter";
 import { useSelector } from "react-redux";
-import createTicket from "../CreateTicket";
 
 export default function CreateEvent() {
   const [file, setFile] = useState();
@@ -66,7 +65,6 @@ export default function CreateEvent() {
     eventName,
     date,
     province,
-    city,
     address,
     category,
     eventDescription,
@@ -78,18 +76,18 @@ export default function CreateEvent() {
       formData.append("eventName", eventName);
       formData.append("date", date);
       formData.append("province", province);
-      formData.append("city", city);
       formData.append("address", address);
       formData.append("category", category);
       formData.append("eventDescription", eventDescription);
       formData.append("userId", userId);
-      console.log("formData", formData);
       const res = await axios.post(
         "http://localhost:8000/event/create",
         formData
       );
+      console.log("formData", formData);
+
       setEventId(res?.data?.data?.id);
-      console.log(res);
+      console.log("res", res);
       await alert("Create Event Success");
     } catch (err) {
       console.log(err);
@@ -148,7 +146,6 @@ export default function CreateEvent() {
       values.eventName,
       values.date,
       values.province,
-      values.city,
       values.address,
       values.category,
       values.eventDescription,
@@ -169,7 +166,6 @@ export default function CreateEvent() {
       eventName: "",
       date: "",
       province: "",
-      city: "",
       address: "",
       category: "",
       eventDescription: "",
@@ -265,150 +261,151 @@ export default function CreateEvent() {
                   <VStack spacing={"1em"} align={"stretch"}>
                     <Flex>
                       <Box w={"100%"}>
-                        <FormLabel color={"white"}>
-                          Province
-                        </FormLabel>
-                    {/* <Flex> */}
-                      <Box>
-                        <FormLabel color={"white"}>Province</FormLabel>
-                        <Select
-                          id="province"
-                          name="province"
-                          type="text"
-                          onChange={handleChange}
-                          value={values.province}
-                          onBlur={handleBlur}
-                          bgColor={"#F5F5F5"}
-                          focusBorderColor={"transparent"}
-                          borderRadius={"0.5em"}
-                          borderColor={"transparent"}
-                          _hover={{
-                            borderColor: "transparent",
-                          }}
-                          placeholder={"Select Province"}
-                        >
-                          {province.map((option) => (
-                            <option value={option.id}>
-                              {option.province}
-                            </option>
-                          ))}
-                        </Select>
-                        {touched.province &&
-                        errors.province ? (
-                          <Alert
-                            status="error"
-                            fontSize={"0.7em"}
+                        <Box>
+                          <FormLabel color={"white"}>
+                            Province
+                          </FormLabel>
+                          <Select
+                            id="province"
+                            name="province"
+                            type="text"
+                            onChange={handleChange}
+                            value={values.province}
+                            onBlur={handleBlur}
+                            bgColor={"#F5F5F5"}
+                            focusBorderColor={"transparent"}
                             borderRadius={"0.5em"}
-                            h={"1em"}
+                            borderColor={"transparent"}
+                            _hover={{
+                              borderColor: "transparent",
+                            }}
+                            placeholder={"Select Province"}
                           >
-                            <AlertIcon />
-                            {errors.province}
-                          </Alert>
-                        ) : null}
+                            {province.map((option) => (
+                              <option value={option.id}>
+                                {option.province}
+                              </option>
+                            ))}
+                          </Select>
+                          {touched.province &&
+                          errors.province ? (
+                            <Alert
+                              status="error"
+                              fontSize={"0.7em"}
+                              borderRadius={"0.5em"}
+                              h={"1em"}
+                            >
+                              <AlertIcon />
+                              {errors.province}
+                            </Alert>
+                          ) : null}
+                        </Box>
+                        <Box>
+                          <FormLabel color={"white"}>
+                            Address
+                          </FormLabel>
+                          <Input
+                            id="address"
+                            name="address"
+                            type="text"
+                            onChange={handleChange}
+                            value={values.address}
+                            onBlur={handleBlur}
+                            bgColor={"#F5F5F5"}
+                            focusBorderColor={"transparent"}
+                            borderRadius={"0.5em"}
+                            borderColor={"transparent"}
+                            _hover={{
+                              borderColor: "transparent",
+                            }}
+                          />
+                          {touched.address &&
+                          errors.address ? (
+                            <Alert
+                              status="error"
+                              fontSize={"0.7em"}
+                              borderRadius={"0.5em"}
+                              h={"1em"}
+                            >
+                              <AlertIcon />
+                              {errors.address}
+                            </Alert>
+                          ) : null}
+                        </Box>
+                        <Box>
+                          <FormLabel color={"white"}>
+                            Event Category
+                          </FormLabel>
+                          <Input
+                            id="category"
+                            name="category"
+                            type="text"
+                            onChange={handleChange}
+                            value={values.category}
+                            onBlur={handleBlur}
+                            bgColor={"#F5F5F5"}
+                            focusBorderColor={"transparent"}
+                            borderRadius={"0.5em"}
+                            borderColor={"transparent"}
+                            _hover={{
+                              borderColor: "transparent",
+                            }}
+                          >
+                            {/* {category.map((option) => (
+                              <option value={option.id}>
+                                {option.categoriesName}
+                              </option>
+                            ))} */}
+                          </Input>
+                          {touched.category &&
+                          errors.category ? (
+                            <Alert
+                              status="error"
+                              fontSize={"0.7em"}
+                              borderRadius={"0.5em"}
+                              h={"1em"}
+                            >
+                              <AlertIcon />
+                              {errors.category}
+                            </Alert>
+                          ) : null}
+                        </Box>
+                        <Box>
+                          <FormLabel color={"white"}>
+                            Event Description
+                          </FormLabel>
+                          <Textarea
+                            id="eventDescription"
+                            name="eventDescription"
+                            type="text"
+                            onChange={handleChange}
+                            value={values.eventDescription}
+                            onBlur={handleBlur}
+                            bgColor={"#F5F5F5"}
+                            focusBorderColor={"transparent"}
+                            borderRadius={"0.5em"}
+                            borderColor={"transparent"}
+                            _hover={{
+                              borderColor: "transparent",
+                            }}
+                            size={"sm"}
+                            h={"10em"}
+                          ></Textarea>
+                          {touched.eventDescription &&
+                          errors.eventDescription ? (
+                            <Alert
+                              status="error"
+                              fontSize={"0.7em"}
+                              borderRadius={"0.5em"}
+                              h={"1em"}
+                            >
+                              <AlertIcon />
+                              {errors.eventDescription}
+                            </Alert>
+                          ) : null}
+                        </Box>
                       </Box>
-                    <Box>
-                      <FormLabel color={"white"}>
-                        Address
-                      </FormLabel>
-                      <Input
-                        id="address"
-                        name="address"
-                        type="text"
-                        onChange={handleChange}
-                        value={values.address}
-                        onBlur={handleBlur}
-                        bgColor={"#F5F5F5"}
-                        focusBorderColor={"transparent"}
-                        borderRadius={"0.5em"}
-                        borderColor={"transparent"}
-                        _hover={{
-                          borderColor: "transparent",
-                        }}
-                      />
-                      {touched.address && errors.address ? (
-                        <Alert
-                          status="error"
-                          fontSize={"0.7em"}
-                          borderRadius={"0.5em"}
-                          h={"1em"}
-                        >
-                          <AlertIcon />
-                          {errors.address}
-                        </Alert>
-                      ) : null}
-                    </Box>
-                    <Box>
-                      <FormLabel color={"white"}>
-                        Event Category
-                      </FormLabel>
-                      <Select
-                        id="category"
-                        name="category"
-                        type="text"
-                        onChange={handleChange}
-                        value={values.category}
-                        onBlur={handleBlur}
-                        bgColor={"#F5F5F5"}
-                        focusBorderColor={"transparent"}
-                        borderRadius={"0.5em"}
-                        borderColor={"transparent"}
-                        _hover={{
-                          borderColor: "transparent",
-                        }}
-                      >
-                        {category.map((option) => (
-                          <option value={option.id}>
-                            {option.categoriesName}
-                          </option>
-                        ))}
-                      </Select>
-                      {touched.category &&
-                      errors.category ? (
-                        <Alert
-                          status="error"
-                          fontSize={"0.7em"}
-                          borderRadius={"0.5em"}
-                          h={"1em"}
-                        >
-                          <AlertIcon />
-                          {errors.category}
-                        </Alert>
-                      ) : null}
-                    </Box>
-                    <Box>
-                      <FormLabel color={"white"}>
-                        Event Description
-                      </FormLabel>
-                      <Textarea
-                        id="eventDescription"
-                        name="eventDescription"
-                        type="text"
-                        onChange={handleChange}
-                        value={values.eventDescription}
-                        onBlur={handleBlur}
-                        bgColor={"#F5F5F5"}
-                        focusBorderColor={"transparent"}
-                        borderRadius={"0.5em"}
-                        borderColor={"transparent"}
-                        _hover={{
-                          borderColor: "transparent",
-                        }}
-                        size={"sm"}
-                        h={"10em"}
-                      ></Textarea>
-                      {touched.eventDescription &&
-                      errors.eventDescription ? (
-                        <Alert
-                          status="error"
-                          fontSize={"0.7em"}
-                          borderRadius={"0.5em"}
-                          h={"1em"}
-                        >
-                          <AlertIcon />
-                          {errors.eventDescription}
-                        </Alert>
-                      ) : null}
-                    </Box>
+                    </Flex>
                   </VStack>
                 </Box>
               </VStack>
@@ -429,7 +426,9 @@ export default function CreateEvent() {
                 }}
                 _active={"none"}
                 bgColor={"#192655"}
-                onClick={() => setShowEvent(true)}
+                onClick={() => {
+                  setShowEvent(true);
+                }}
                 isDisabled={isSubmitting}
               >
                 CREATE EVENT
