@@ -5,8 +5,9 @@ const {
 
 const findEventsController = async (req, res) => {
   try {
-    const { province } = req.query;
-    const result = await findEventsService(province);
+    const { province, provinceId } = req.query;
+    console.log("----", provinceId);
+    const result = await findEventsService(province, provinceId);
     return res.status(200).json({
       message: "Success Find",
       data: result,

@@ -250,8 +250,8 @@ export default function CreateEvent() {
                 </Box>
                 <Box>
                   <VStack spacing={"1em"} align={"stretch"}>
-                    <Flex>
-                      <Box w={"100%"}>
+                    {/* <Flex> */}
+                      <Box>
                         <FormLabel color={"white"}>Province</FormLabel>
                         <Select
                           id="province"
@@ -283,42 +283,6 @@ export default function CreateEvent() {
                           </Alert>
                         ) : null}
                       </Box>
-                      <Spacer m={".5em"} />
-                      <Box w={"100%"}>
-                        <FormLabel color={"white"}>City</FormLabel>
-                        <Select
-                          id="city"
-                          name="city"
-                          type="text"
-                          onChange={handleChange}
-                          value={values.city}
-                          onBlur={handleBlur}
-                          bgColor={"#F5F5F5"}
-                          focusBorderColor={"transparent"}
-                          borderRadius={"0.5em"}
-                          borderColor={"transparent"}
-                          _hover={{ borderColor: "transparent" }}
-                          placeholder={"Select City"}
-                        >
-                          {city.map((option) => (
-                            <option value={option.id}>
-                              {option.citiesName}
-                            </option>
-                          ))}
-                        </Select>
-                        {touched.city && errors.city ? (
-                          <Alert
-                            status="error"
-                            fontSize={"0.7em"}
-                            borderRadius={"0.5em"}
-                            h={"1em"}
-                          >
-                            <AlertIcon />
-                            {errors.city}
-                          </Alert>
-                        ) : null}
-                      </Box>
-                    </Flex>
                     <Box>
                       <FormLabel color={"white"}>Address</FormLabel>
                       <Input
