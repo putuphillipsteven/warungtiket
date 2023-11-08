@@ -6,7 +6,15 @@ const {
   findTransactionController,
 } = require("../controllers/transactionController");
 
-router.post("/", createTransactionController);
+const {
+  uploadPaymentFile,
+} = require("../middleware/multer");
+
+router.post(
+  "/",
+  uploadPaymentFile,
+  createTransactionController
+);
 router.get("/", findTransactionController);
 
 module.exports = router;

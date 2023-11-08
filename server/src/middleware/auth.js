@@ -16,8 +16,8 @@ const verifyToken = (req, res, next) => {
       token,
       process.env.JWT_SECRET_KEY
     );
-    if (!verifiedUser)
-      return res.status(500).send("Unauthorized token");
+    // if (!verifiedUser)
+    //   return res.status(500).send("Unauthorized token");
 
     req.user = verifiedUser;
     next();

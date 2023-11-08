@@ -17,18 +17,18 @@ export const TicketList = (props) => {
   const [count, increment, decrement] = useCounter(0);
 
   const price = props.ticketPrice;
-
   const tambah = () => {
     increment();
     props.setTotalPrice(props.totalPrice + price);
     props.handleTambah(props.id);
+    props.setTotalQty(props.totalQty + 1);
   };
   const kurang = () => {
     decrement();
     props.setTotalPrice(props.totalPrice - price);
     props.handleKurang(props.id);
+    props.setTotalQty(props.totalQty - 1);
   };
-  console.log("ticketprops", props);
   return (
     <Box
       w={"full"}

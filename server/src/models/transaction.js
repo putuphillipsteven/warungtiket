@@ -8,14 +8,14 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      // totalQuantity: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: false,
-      // },
-      // totalPrice: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: false,
-      // },
+      totalQuantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      totalPrice: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
@@ -30,6 +30,12 @@ module.exports = (sequelize, Sequelize) => {
       eventId: {
         type: Sequelize.INTEGER,
       },
+      referralUsed: {
+        type: Sequelize.STRING,
+      },
+      avatar: {
+        type: Sequelize.STRING,
+      },
     },
     {
       timestamps: false,
@@ -43,6 +49,9 @@ module.exports = (sequelize, Sequelize) => {
     transaction.hasMany(models.transactionDetails, {
       foreignKey: "transactionId",
     });
+    // transaction.belongsTo(models.event, {
+    //   foreignKey: "eventId",
+    // });
   };
 
   return transaction;

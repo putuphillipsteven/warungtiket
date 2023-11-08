@@ -45,18 +45,21 @@ export default function DashBoard(props) {
   const buyedEvent = () => {
     let newArr = [];
     selectedUser?.transactions?.map((transaction) =>
-      newArr.push(transaction.eventId)
+      newArr.push(transaction)
     );
     return newArr;
   };
   const events = useSelector(
     (state) => state?.events?.events
   );
+  console.log("selectedusers", selectedUser);
+
   const buyedEvents = buyedEvent();
   console.log(events);
   const filteredEvents = events.filter((el) =>
     buyedEvents.includes(el.userId)
   );
+  console.log("buyedEvents", buyedEvents);
   console.log("filteredEvents", filteredEvents);
   return (
     <Box>

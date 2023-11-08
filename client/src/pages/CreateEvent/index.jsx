@@ -19,7 +19,11 @@ import {
 import logo from "../../img/logo.png";
 import { useFormik } from "formik";
 import { createEventSchema } from "../../schemas";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 import CreateTicket from "../CreateTicket";
 import Upload from "./imgUpload";
@@ -94,7 +98,9 @@ export default function CreateEvent() {
   const [province, setProvince] = useState([]);
   const provinceData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/province");
+      const res = await axios.get(
+        "http://localhost:8000/province"
+      );
       setProvince(res?.data?.data);
       return res?.data?.data;
     } catch (err) {
@@ -108,7 +114,9 @@ export default function CreateEvent() {
   const [city, setCity] = useState([]);
   const cityData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/city");
+      const res = await axios.get(
+        "http://localhost:8000/city"
+      );
       setCity(res?.data?.data);
       return res?.data?.data;
     } catch (err) {
@@ -122,7 +130,9 @@ export default function CreateEvent() {
   const [category, setCategory] = useState([]);
   const categoryData = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/category");
+      const res = await axios.get(
+        "http://localhost:8000/category"
+      );
       setCategory(res?.data?.data);
       return res?.data?.data;
     } catch (err) {
@@ -167,7 +177,6 @@ export default function CreateEvent() {
     validationSchema: createEventSchema,
     onSubmit,
   });
-  console.log("ct", category);
   return (
     <Box
       p={"1.5em 3.5em"}
@@ -195,7 +204,9 @@ export default function CreateEvent() {
             <FormControl>
               <VStack spacing={"1em"} align={"stretch"}>
                 <Box>
-                  <FormLabel color={"white"}>Event Name</FormLabel>
+                  <FormLabel color={"white"}>
+                    Event Name
+                  </FormLabel>
                   <Input
                     id="eventName"
                     name="eventName"
@@ -222,7 +233,9 @@ export default function CreateEvent() {
                   ) : null}
                 </Box>
                 <Box>
-                  <FormLabel color={"white"}>Date</FormLabel>
+                  <FormLabel color={"white"}>
+                    Date
+                  </FormLabel>
                   <Input
                     id="date"
                     name="date"
@@ -250,6 +263,11 @@ export default function CreateEvent() {
                 </Box>
                 <Box>
                   <VStack spacing={"1em"} align={"stretch"}>
+                    <Flex>
+                      <Box w={"100%"}>
+                        <FormLabel color={"white"}>
+                          Province
+                        </FormLabel>
                     {/* <Flex> */}
                       <Box>
                         <FormLabel color={"white"}>Province</FormLabel>
@@ -264,14 +282,19 @@ export default function CreateEvent() {
                           focusBorderColor={"transparent"}
                           borderRadius={"0.5em"}
                           borderColor={"transparent"}
-                          _hover={{ borderColor: "transparent" }}
+                          _hover={{
+                            borderColor: "transparent",
+                          }}
                           placeholder={"Select Province"}
                         >
                           {province.map((option) => (
-                            <option value={option.id}>{option.province}</option>
+                            <option value={option.id}>
+                              {option.province}
+                            </option>
                           ))}
                         </Select>
-                        {touched.province && errors.province ? (
+                        {touched.province &&
+                        errors.province ? (
                           <Alert
                             status="error"
                             fontSize={"0.7em"}
@@ -284,7 +307,9 @@ export default function CreateEvent() {
                         ) : null}
                       </Box>
                     <Box>
-                      <FormLabel color={"white"}>Address</FormLabel>
+                      <FormLabel color={"white"}>
+                        Address
+                      </FormLabel>
                       <Input
                         id="address"
                         name="address"
@@ -296,7 +321,9 @@ export default function CreateEvent() {
                         focusBorderColor={"transparent"}
                         borderRadius={"0.5em"}
                         borderColor={"transparent"}
-                        _hover={{ borderColor: "transparent" }}
+                        _hover={{
+                          borderColor: "transparent",
+                        }}
                       />
                       {touched.address && errors.address ? (
                         <Alert
@@ -311,7 +338,9 @@ export default function CreateEvent() {
                       ) : null}
                     </Box>
                     <Box>
-                      <FormLabel color={"white"}>Event Category</FormLabel>
+                      <FormLabel color={"white"}>
+                        Event Category
+                      </FormLabel>
                       <Select
                         id="category"
                         name="category"
@@ -323,7 +352,9 @@ export default function CreateEvent() {
                         focusBorderColor={"transparent"}
                         borderRadius={"0.5em"}
                         borderColor={"transparent"}
-                        _hover={{ borderColor: "transparent" }}
+                        _hover={{
+                          borderColor: "transparent",
+                        }}
                       >
                         {category.map((option) => (
                           <option value={option.id}>
@@ -331,7 +362,8 @@ export default function CreateEvent() {
                           </option>
                         ))}
                       </Select>
-                      {touched.category && errors.category ? (
+                      {touched.category &&
+                      errors.category ? (
                         <Alert
                           status="error"
                           fontSize={"0.7em"}
@@ -344,7 +376,9 @@ export default function CreateEvent() {
                       ) : null}
                     </Box>
                     <Box>
-                      <FormLabel color={"white"}>Event Description</FormLabel>
+                      <FormLabel color={"white"}>
+                        Event Description
+                      </FormLabel>
                       <Textarea
                         id="eventDescription"
                         name="eventDescription"
@@ -356,11 +390,14 @@ export default function CreateEvent() {
                         focusBorderColor={"transparent"}
                         borderRadius={"0.5em"}
                         borderColor={"transparent"}
-                        _hover={{ borderColor: "transparent" }}
+                        _hover={{
+                          borderColor: "transparent",
+                        }}
                         size={"sm"}
                         h={"10em"}
                       ></Textarea>
-                      {touched.eventDescription && errors.eventDescription ? (
+                      {touched.eventDescription &&
+                      errors.eventDescription ? (
                         <Alert
                           status="error"
                           fontSize={"0.7em"}
@@ -386,7 +423,10 @@ export default function CreateEvent() {
                 width="200px"
                 fontWeight={"bold"}
                 color={"#F5F5F5"}
-                _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                _hover={{
+                  bgColor: "#F5F5F5",
+                  color: "black",
+                }}
                 _active={"none"}
                 bgColor={"#192655"}
                 onClick={() => setShowEvent(true)}
@@ -409,7 +449,10 @@ export default function CreateEvent() {
                 width="200px"
                 fontWeight={"bold"}
                 color={"#F5F5F5"}
-                _hover={{ bgColor: "#F5F5F5", color: "black" }}
+                _hover={{
+                  bgColor: "#F5F5F5",
+                  color: "black",
+                }}
                 _active={"none"}
                 bgColor={"#192655"}
                 mt={"1em"}

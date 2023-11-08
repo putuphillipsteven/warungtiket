@@ -32,11 +32,7 @@ const findReferralService = async (referralCode) => {
   }
 };
 
-const updateReferralService = async (
-  id,
-  referralCode,
-  isUse
-) => {
+const updateReferralService = async (referralCode) => {
   try {
     const check = await findReferralQuery(referralCode);
     if (!check) throw new Error("Not Found");
