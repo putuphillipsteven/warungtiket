@@ -16,161 +16,102 @@ import logo from "../../img/logo.png";
 import { useSelector } from "react-redux";
 
 function Navbar(props) {
-  const isLogin = useSelector((state) => state.login.isLogin);
-  const navigate = useNavigate();
+  const isLogin = useSelector(
+    (state) => state.login.isLogin
+  );
   return (
-    <Box position={"fixed"} zIndex={"10"} w={"full"} top={"0"}>
-      <Box bgColor={"#192655"} p={"0.25em 3.5em"}>
+    <Box
+      position={"fixed"}
+      zIndex={"10"}
+      w={"full"}
+      top={"0"}
+    >
+      {/* START TOP NAVBAR SIDE */}
+      <Box bgColor={"#f8f9fa"} p={"0.25em 3.5em"}>
         <Flex flexDir={"row-reverse"}>
-          <HStack spacing={"0.5em"}>
-            <Text fontSize={".75em"} color={"white"}>
-              <Link to={"/about-us"}>About WarungTiket</Link>
+          <HStack spacing={"0.5em"} color={"#212529"}>
+            <Text fontSize={".75em"}>
+              <Link to={"/about-us"}>
+                About WarungTiket
+              </Link>
             </Text>
-            <Text fontSize={".75em"} color={"white"}>
+            <Text fontSize={".75em"}>
               <Link>Help Center</Link>
             </Text>
           </HStack>
         </Flex>
       </Box>
-      <Box bgColor={"#3876BF"} p={"1em 3.5em"} w={"full"}>
+      <Box
+        bgColor={"#212529"}
+        p={"1em 3.5em"}
+        w={"full"}
+        color={"#f8f9fa"}
+      >
         <Box>
-          <VStack align={"stretch"} spacing={"0.5em"}>
-            <Flex alignItems={"center"}>
-              <Box w={"15em"}>
-                <Link to={"/"}>
-                  <Image src={logo} />
-                </Link>
-              </Box>
-              <Spacer />
-              {props.input}
-              <Spacer />
-              <Box>
-                <HStack spacing={"1em"}>
-                  <Link to={"/findevent"}>
-                    <Text
-                      display={props.display}
-                      color={"white"}
-                      fontWeight={"bold"}
-                    >
-                      FIND EVENT
-                    </Text>
-                  </Link>
-                  <Link to={"/createevent"}>
-                    <Text
-                      display={props.display}
-                      color={"white"}
-                      fontWeight={"bold"}
-                    >
-                      CREATE EVENT
-                    </Text>
-                  </Link>
-                  <Text
-                    as={"b"}
-                    color={"white"}
-                    display={isLogin ? "none" : "block"}
-                  >
-                    <Link to={isLogin ? "/cart" : "/signup"}>
-                      {isLogin ? (
-                        <IconButton
-                          fontSize={"1.5em"}
-                          color={"white"}
-                          bgColor={"transparent"}
-                          _hover={{ bgColor: "tranparent" }}
-                        >
-                          <BsTicketPerforated />
-                        </IconButton>
-                      ) : (
-                        "SIGN UP"
-                      )}
-                    </Link>
-                  </Text>
-                  <Text as={"b"} color={"white"}>
-                    <Link to={isLogin ? "" : "/login"}>
-                      {isLogin ? <ProfileModal /> : "LOGIN"}
-                    </Link>
-                  </Text>
-                </HStack>
-              </Box>
-            </Flex>
-            <Box>
-              <Flex flexDir={"row-reverse"}>
-                <HStack spacing={"1em"}>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#kuliner</Text>
-                  </Button>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#musik</Text>
-                  </Button>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#olahraga</Text>
-                  </Button>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#kebudayaan</Text>
-                  </Button>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#komedi</Text>
-                  </Button>
-                  <Button
-                    size={"xs"}
-                    p={"0.5em 1em"}
-                    borderRadius={"0.5em"}
-                    bgColor={"#192655"}
-                    color={"white"}
-                    _hover={{ bgColor: "#F5F5F5", color: "black" }}
-                    _active={"none"}
-                    onClick={() => navigate("/signup")}
-                  >
-                    <Text>#webinar</Text>
-                  </Button>
-                </HStack>
-              </Flex>
+          <Flex alignItems={"center"}>
+            <Box w={"10em"}>
+              <Link to={"/"}>
+                <Image src={logo} />
+              </Link>
             </Box>
-          </VStack>
+            <Spacer />
+            {props.input}
+            <Spacer />
+            <Box>
+              <HStack spacing={"1em"}>
+                <Link to={"/findevent"}>
+                  <Text
+                    display={props.display}
+                    color={"#f8f9fa"}
+                    fontWeight={"bold"}
+                    _hover={{ color: "#fca311" }}
+                  >
+                    FIND EVENT
+                  </Text>
+                </Link>
+                <Link to={"/createevent"}>
+                  <Text
+                    display={props.display}
+                    color={"#f8f9fa"}
+                    fontWeight={"bold"}
+                    _hover={{ color: "#fca311" }}
+                  >
+                    CREATE EVENT
+                  </Text>
+                </Link>
+                <Text
+                  as={"b"}
+                  color={"#f8f9fa"}
+                  display={isLogin ? "none" : "block"}
+                  _hover={{ color: "#fca311" }}
+                >
+                  <Link to={isLogin ? "/cart" : "/signup"}>
+                    {isLogin ? (
+                      <IconButton
+                        fontSize={"1.5em"}
+                        color={"#f8f9fa"}
+                        bgColor={"transparent"}
+                        _hover={{ bgColor: "tranparent" }}
+                      >
+                        <BsTicketPerforated />
+                      </IconButton>
+                    ) : (
+                      "SIGN UP"
+                    )}
+                  </Link>
+                </Text>
+                <Text
+                  as={"b"}
+                  color={"#f8f9fa"}
+                  _hover={{ color: "#fca311" }}
+                >
+                  <Link to={isLogin ? "" : "/login"}>
+                    {isLogin ? <ProfileModal /> : "LOGIN"}
+                  </Link>
+                </Text>
+              </HStack>
+            </Box>
+          </Flex>
         </Box>
       </Box>
     </Box>

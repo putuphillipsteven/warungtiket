@@ -12,7 +12,7 @@ export default function EventCard(props) {
   return (
     <Box
       overflow={"hidden"}
-      bgColor={"#E8E2E2"}
+      bgColor={"orange.500"}
       h={"17em"}
       p={"2.5em"}
       borderRadius={".5em"}

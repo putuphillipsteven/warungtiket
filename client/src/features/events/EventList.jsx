@@ -35,16 +35,18 @@ const EventList = () => {
 
   return (
     <Box p={"0 3.5em"}>
-      <VStack align={"flex-start"}>
+      <VStack align={"flex-start"} spacing={"2.5em"}>
         <Box color={"white"}>
           <Text
-            bgColor={"#192655"}
+            bgColor={"#212529"}
             p={".5em 1em"}
-            borderRadius={"0.5em"}
             w={"auto"}
             fontWeight={"bold"}
           >
-            Populer di Yogyakarta
+            Populer di{" "}
+            <Text as={"span"} color={"#fca311"}>
+              Yogyakarta
+            </Text>
           </Text>
         </Box>
         <Box width={"100%"}>

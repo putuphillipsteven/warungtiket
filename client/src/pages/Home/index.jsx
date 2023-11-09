@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import UpcomingEvents from "../../components/UpcomingEvents";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar/index";
@@ -8,9 +8,11 @@ export default function Home() {
   return (
     <Box>
       <Navbar />
-      <Box mt={"10em"} mb={"2em"} minHeight={"100vh"}>
-        <UpcomingEvents />
-        <EventList />
+      <Box mt={"8em"} mb={"2em"} minHeight={"100vh"}>
+        <VStack align={"stretch"}>
+          <UpcomingEvents />
+          <EventList />
+        </VStack>
       </Box>
       <Footer />
     </Box>
