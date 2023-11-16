@@ -30,20 +30,25 @@ import { selectAllEvents } from "./eventSlice";
 import { TicketList } from "./TicketList";
 import { OrderedTicket } from "./OrderedTicket";
 import referralCodes from "@develoka/angka-rupiah-js";
+
 // The page
 const SinglePostPage = () => {
+
   // Store transaction id that has been created
   const [fieldImage, setFieldImage] = useState(null);
   const [transactionId, setTransactionId] = useState(0);
   const navigate = useNavigate();
+
   // Total price
   const [total, setTotal] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
   const toast = useToast();
+
   // Params for pagination
   const { eventId } = useParams();
   const [inputReff, setInputReff] = useState("");
   console.log(inputReff);
+
   // Select  login redux
   const user = useSelector((state) => state.login.user);
 
