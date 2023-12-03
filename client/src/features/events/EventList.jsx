@@ -14,7 +14,6 @@ const EventList = () => {
   const dispatch = useDispatch();
 
   const events = useSelector(selectAllEvents);
-  console.log("events", events);
   const eventsStatus = useSelector(
     (state) => state.events.status
   );
@@ -25,17 +24,16 @@ const EventList = () => {
     }
   }, [eventsStatus, dispatch]);
 
-  // let filtered = events.filter((event) => {
-  //   return event.province == "Yogyakarta";
-  // });
-
   const renderedEvents = events.map((event) => (
     <Card {...event} />
   ));
 
   return (
-    <Box p={"0 3.5em"}>
-      <VStack align={"flex-start"} spacing={"2.5em"}>
+    <Box p={{ base: "0 1em" }}>
+      <VStack
+        align={"flex-start"}
+        spacing={{ base: "1em" }}
+      >
         <Box color={"white"}>
           <Text
             bgColor={"#212529"}
@@ -51,7 +49,10 @@ const EventList = () => {
         </Box>
         <Box width={"100%"}>
           <Grid
-            templateColumns={"repeat(6, 1fr)"}
+            templateRows={{
+              base: "repeat(auto, .8fr)",
+              md: "repeat(5, 1fr)",
+            }}
             gap={"1em"}
           >
             {renderedEvents}

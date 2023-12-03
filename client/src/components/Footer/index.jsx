@@ -19,22 +19,13 @@ export default function Footer() {
       bottom={"0"}
     >
       <VStack>
-        <Box w={"20%"}>
+        <Box w={{ base: "50%" }} color={"orange.500"}>
           <Flex>
-            <FaFacebookSquare
-              color={"white"}
-              fontSize={"1.5em"}
-            />
+            <FaFacebookSquare fontSize={"1.5em"} />
             <Spacer />
-            <AiFillInstagram
-              color={"white"}
-              fontSize={"1.5em"}
-            />
+            <AiFillInstagram fontSize={"1.5em"} />
             <Spacer />
-            <AiOutlineTwitter
-              color={"white"}
-              fontSize={"1.5em"}
-            />
+            <AiOutlineTwitter fontSize={"1.5em"} />
           </Flex>
         </Box>
       </VStack>

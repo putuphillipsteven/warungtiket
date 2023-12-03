@@ -8,12 +8,14 @@ import {
   Image,
   Button,
   VStack,
+  Icon,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsTicketPerforated } from "react-icons/bs";
 import { ProfileModal } from "../ProfileModal";
 import logo from "../../img/logo.png";
 import { useSelector } from "react-redux";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Navbar(props) {
   const isLogin = useSelector(
@@ -27,7 +29,7 @@ function Navbar(props) {
       top={"0"}
     >
       {/* START TOP NAVBAR SIDE */}
-      <Box bgColor={"#f8f9fa"} p={"0.25em 3.5em"}>
+      <Box bgColor={"#f8f9fa"} p={"0.25em 1em"}>
         <Flex flexDir={"row-reverse"}>
           <HStack spacing={"0.5em"} color={"#212529"}>
             <Text fontSize={".75em"}>
@@ -43,7 +45,7 @@ function Navbar(props) {
       </Box>
       <Box
         bgColor={"#212529"}
-        p={"1em 3.5em"}
+        p={{ base: "1em 1em" }}
         w={"full"}
         color={"#f8f9fa"}
       >
@@ -59,56 +61,71 @@ function Navbar(props) {
             <Spacer />
             <Box>
               <HStack spacing={"1em"}>
-                <Link to={"/findevent"}>
-                  <Text
-                    display={props.display}
-                    color={"#f8f9fa"}
-                    fontWeight={"bold"}
-                    _hover={{ color: "#fca311" }}
-                  >
-                    FIND EVENT
-                  </Text>
-                </Link>
-                <Link to={"/createevent"}>
-                  <Text
-                    display={props.display}
-                    color={"#f8f9fa"}
-                    fontWeight={"bold"}
-                    _hover={{ color: "#fca311" }}
-                  >
-                    CREATE EVENT
-                  </Text>
-                </Link>
-                <Text
-                  as={"b"}
-                  color={"#f8f9fa"}
-                  display={isLogin ? "none" : "block"}
-                  _hover={{ color: "#fca311" }}
-                >
-                  <Link to={isLogin ? "/cart" : "/signup"}>
-                    {isLogin ? (
-                      <IconButton
-                        fontSize={"1.5em"}
+                <Box display={{ base: "none" }}>
+                  <HStack spacing={"1em"}>
+                    <Link to={"/findevent"}>
+                      <Text
+                        display={props.display}
                         color={"#f8f9fa"}
-                        bgColor={"transparent"}
-                        _hover={{ bgColor: "tranparent" }}
+                        fontWeight={"bold"}
+                        _hover={{ color: "#fca311" }}
                       >
-                        <BsTicketPerforated />
-                      </IconButton>
-                    ) : (
-                      "SIGN UP"
-                    )}
-                  </Link>
-                </Text>
-                <Text
-                  as={"b"}
-                  color={"#f8f9fa"}
-                  _hover={{ color: "#fca311" }}
-                >
-                  <Link to={isLogin ? "" : "/login"}>
-                    {isLogin ? <ProfileModal /> : "LOGIN"}
-                  </Link>
-                </Text>
+                        FIND EVENT
+                      </Text>
+                    </Link>
+                    <Link to={"/createevent"}>
+                      <Text
+                        display={props.display}
+                        color={"#f8f9fa"}
+                        fontWeight={"bold"}
+                        _hover={{ color: "#fca311" }}
+                      >
+                        CREATE EVENT
+                      </Text>
+                    </Link>
+                    <Text
+                      as={"b"}
+                      color={"#f8f9fa"}
+                      display={isLogin ? "none" : "block"}
+                      _hover={{ color: "#fca311" }}
+                    >
+                      <Link
+                        to={isLogin ? "/cart" : "/signup"}
+                      >
+                        {isLogin ? (
+                          <IconButton
+                            fontSize={"1.5em"}
+                            color={"#f8f9fa"}
+                            bgColor={"transparent"}
+                            _hover={{
+                              bgColor: "tranparent",
+                            }}
+                          >
+                            <BsTicketPerforated />
+                          </IconButton>
+                        ) : (
+                          "SIGN UP"
+                        )}
+                      </Link>
+                    </Text>
+                    <Text
+                      as={"b"}
+                      color={"#f8f9fa"}
+                      _hover={{ color: "#fca311" }}
+                    >
+                      <Link to={isLogin ? "" : "/login"}>
+                        {isLogin ? (
+                          <ProfileModal />
+                        ) : (
+                          "LOGIN"
+                        )}
+                      </Link>
+                    </Text>
+                  </HStack>
+                </Box>
+                <Box>
+                  <GiHamburgerMenu />
+                </Box>
               </HStack>
             </Box>
           </Flex>

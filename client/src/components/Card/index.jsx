@@ -2,14 +2,12 @@ import {
   Box,
   Divider,
   Image,
-  Spacer,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Card(props) {
-  console.log("card props", props);
   return (
     <Link to={`/event/${props.id}`}>
       <Box

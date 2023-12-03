@@ -1,4 +1,4 @@
-import { Box, Text, VStack, Image } from "@chakra-ui/react";
+import { AspectRatio, Box, Center } from "@chakra-ui/react";
 import EventCard from "./EventCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -11,18 +11,17 @@ export default function UpcomingEvents() {
     <EventCard {...event} />
   ));
   return (
-    <Box>
-      <Box p={"0 3.5em"}>
-        <Box width={"100%"} overflow={"hidden"}>
-          <Carousel
-            overflow={"hidden"}
-            autoPlay={"true"}
-            axis={"horizontal"}
-          >
-            {renderedEvents}
-          </Carousel>
-        </Box>
-      </Box>
+    <Box p={{ base: "0 1em" }}>
+      <Carousel
+        autoPlay={"true"}
+        axis={"horizontal"}
+        infiniteLoop={true}
+        stopOnHover={true}
+        showArrows={false}
+        showThumbs={false}
+      >
+        {renderedEvents}
+      </Carousel>
     </Box>
   );
 }

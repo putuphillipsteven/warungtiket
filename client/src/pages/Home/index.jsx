@@ -8,8 +8,15 @@ export default function Home() {
   return (
     <Box>
       <Navbar />
-      <Box mt={"8em"} mb={"2em"} minHeight={"100vh"}>
-        <VStack align={"stretch"}>
+      <Box
+        mt={{ base: "7em" }}
+        mb={{ base: "1em" }}
+        minHeight={"100vh"}
+      >
+        <VStack
+          align={"stretch"}
+          spacing={{ base: "1.5em" }}
+        >
           <UpcomingEvents />
           <EventList />
         </VStack>
