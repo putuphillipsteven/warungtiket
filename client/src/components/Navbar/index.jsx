@@ -6,21 +6,24 @@ import {
   Spacer,
   IconButton,
   Image,
-  Button,
-  VStack,
-  Icon,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BsTicketPerforated } from "react-icons/bs";
 import { ProfileModal } from "../ProfileModal";
 import logo from "../../img/logo.png";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { IoMdClose } from "react-icons/io";
 
 function Navbar(props) {
+  const [extend, setExtend] = useState(false);
   const isLogin = useSelector(
     (state) => state.login.isLogin
   );
+  const handleExtend = () => {
+    setExtend(!extend);
+  };
   return (
     <Box
       position={"fixed"}
@@ -52,7 +55,7 @@ function Navbar(props) {
         <Box>
           <Flex alignItems={"center"}>
             <Box w={"10em"}>
-              <Link to={"/"}>
+              <Link to={"/"} aspectRatio={16 / 9}>
                 <Image src={logo} />
               </Link>
             </Box>
@@ -124,7 +127,16 @@ function Navbar(props) {
                   </HStack>
                 </Box>
                 <Box>
-                  <GiHamburgerMenu />
+                  {extend ? (
+                    <IoMdClose
+                      onClick={() => handleExtend()}
+                    />
+                  ) : (
+                    <GiHamburgerMenu
+                      fontWeight={"bold"}
+                      onClick={() => handleExtend()}
+                    />
+                  )}
                 </Box>
               </HStack>
             </Box>

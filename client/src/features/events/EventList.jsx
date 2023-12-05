@@ -1,10 +1,4 @@
-import {
-  Box,
-  Grid,
-  Text,
-  VStack,
-  filter,
-} from "@chakra-ui/react";
+import { Box, Grid, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
