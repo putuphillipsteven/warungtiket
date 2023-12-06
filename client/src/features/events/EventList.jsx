@@ -1,13 +1,33 @@
 import { Box, Grid, Text, VStack } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
 import { fetchEvents, selectAllEvents } from "./eventSlice";
+import axios from "axios";
 
 const EventList = () => {
+  const [provinceId, setProvinceId] = useState("");
+
+  const [event, setEvent] = useState([]);
+
   const dispatch = useDispatch();
 
+  const fetchEvent = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/event?provinceId=${provinceId}`
+      );
+      return res?.data?.data;
+    } catch (err) {
+      console.log("error", err);
+    }
+  };
+  useEffect(() => {
+    setEvent(fetchEvent());
+  }, []);
+
   const events = useSelector(selectAllEvents);
+
   const eventsStatus = useSelector(
     (state) => state.events.status
   );
@@ -18,8 +38,10 @@ const EventList = () => {
     }
   }, [eventsStatus, dispatch]);
 
-  const renderedEvents = events.map((event) => (
-    <Card {...event} />
+  console.log("EVENTNOW", event);
+
+  const renderedEvents = events?.map((el) => (
+    <Card {...el} />
   ));
 
   return (
@@ -37,7 +59,7 @@ const EventList = () => {
           >
             Populer di{" "}
             <Text as={"span"} color={"#fca311"}>
-              Yogyakarta
+              Aceh
             </Text>
           </Text>
         </Box>
