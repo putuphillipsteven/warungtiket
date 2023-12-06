@@ -19,7 +19,7 @@ export default function Footer() {
       bottom={"0"}
     >
       <VStack>
-        <Box w={{ base: "50%" }} color={"orange.500"}>
+        <Box w={{ base: "70%" }} color={"white"}>
           <Flex>
             <FaFacebookSquare fontSize={"1.5em"} />
             <Spacer />

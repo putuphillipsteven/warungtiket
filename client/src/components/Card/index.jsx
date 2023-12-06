@@ -1,6 +1,7 @@
 import {
   Box,
   Divider,
+  HStack,
   Image,
   Text,
   VStack,
@@ -20,15 +21,14 @@ export default function Card(props) {
         <Box h={"8em"} bgColor={"darkGray.800"}>
           <Image w={"100%"} objectFit={"contain"} />
         </Box>
-        <Box p={"1em 1em"}>
+        <Box p={"0 1em"}>
           <Box>
             <VStack align={"stretch"}>
-              <VStack align={"flex-start"}>
+              <VStack align={"flex-start"} p={"1em 0"}>
                 <Text fontWeight={"bold"}>
                   {props.eventName}
                 </Text>
                 <Text color={"gray"}>{props.date}</Text>
-                <Text>{props.price}</Text>
                 <Text>{props?.province?.province}</Text>
                 <Text fontSize={".75em"}>
                   {props?.tickets?.length > 0
@@ -37,11 +37,17 @@ export default function Card(props) {
                 </Text>
               </VStack>
               <Divider borderWidth={"2px"} />
-              <VStack align={"flex-start"}>
+              <HStack pb={".5em"}>
+                <Box
+                  bgColor={"orange.500"}
+                  w={"2em"}
+                  h={"2em"}
+                  borderRadius={"50%"}
+                ></Box>
                 <Text fontWeight={"bold"}>
                   {props?.user?.username}
                 </Text>
-              </VStack>
+              </HStack>
             </VStack>
           </Box>
         </Box>

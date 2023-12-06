@@ -4,19 +4,18 @@ import {
   Text,
   HStack,
   Spacer,
-  IconButton,
   Image,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BsTicketPerforated } from "react-icons/bs";
-import { ProfileModal } from "../ProfileModal";
 import logo from "../../img/logo.png";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import { NavLink } from "./NavLink";
 
-function Navbar(props) {
+export default function Navbar(props) {
   const [extend, setExtend] = useState(false);
   const isLogin = useSelector(
     (state) => state.login.isLogin
@@ -64,72 +63,21 @@ function Navbar(props) {
             <Spacer />
             <Box>
               <HStack spacing={"1em"}>
-                <Box display={{ base: "none" }}>
+                <Box
+                  display={{ base: "none", lg: "block" }}
+                >
                   <HStack spacing={"1em"}>
-                    <Link to={"/findevent"}>
-                      <Text
-                        display={props.display}
-                        color={"#f8f9fa"}
-                        fontWeight={"bold"}
-                        _hover={{ color: "#fca311" }}
-                      >
-                        FIND EVENT
-                      </Text>
-                    </Link>
-                    <Link to={"/createevent"}>
-                      <Text
-                        display={props.display}
-                        color={"#f8f9fa"}
-                        fontWeight={"bold"}
-                        _hover={{ color: "#fca311" }}
-                      >
-                        CREATE EVENT
-                      </Text>
-                    </Link>
-                    <Text
-                      as={"b"}
-                      color={"#f8f9fa"}
-                      display={isLogin ? "none" : "block"}
-                      _hover={{ color: "#fca311" }}
-                    >
-                      <Link
-                        to={isLogin ? "/cart" : "/signup"}
-                      >
-                        {isLogin ? (
-                          <IconButton
-                            fontSize={"1.5em"}
-                            color={"#f8f9fa"}
-                            bgColor={"transparent"}
-                            _hover={{
-                              bgColor: "tranparent",
-                            }}
-                          >
-                            <BsTicketPerforated />
-                          </IconButton>
-                        ) : (
-                          "SIGN UP"
-                        )}
-                      </Link>
-                    </Text>
-                    <Text
-                      as={"b"}
-                      color={"#f8f9fa"}
-                      _hover={{ color: "#fca311" }}
-                    >
-                      <Link to={isLogin ? "" : "/login"}>
-                        {isLogin ? (
-                          <ProfileModal />
-                        ) : (
-                          "LOGIN"
-                        )}
-                      </Link>
-                    </Text>
+                    <NavLink
+                      display={props.display}
+                      isLogin={isLogin}
+                    />
                   </HStack>
                 </Box>
                 <Box>
                   {extend ? (
                     <IoMdClose
                       onClick={() => handleExtend()}
+                      fontWeight={"bold"}
                     />
                   ) : (
                     <GiHamburgerMenu
@@ -143,8 +91,24 @@ function Navbar(props) {
           </Flex>
         </Box>
       </Box>
+      <Box
+        minH={"100vh"}
+        display={extend ? "block" : "none"}
+        bgColor={"white"}
+        color={"gray.900"}
+      >
+        <Box
+          display={extend ? "block" : "none"}
+          m={"1em 0 0 1em"}
+        >
+          <VStack spacing={"1em"} align={"flex-start"}>
+            <NavLink
+              display={props.display}
+              isLogin={isLogin}
+            />
+          </VStack>
+        </Box>
+      </Box>
     </Box>
   );
 }
-
-export default Navbar;

@@ -43,11 +43,16 @@ const EventList = () => {
         </Box>
         <Box width={"100%"}>
           <Grid
-            templateRows={{
-              base: "repeat(auto, .8fr)",
-              md: "repeat(5, 1fr)",
+            gridAutoFlow={"column"}
+            gridAutoColumns={"70%"}
+            gap={".5em"}
+            overflowX={"auto"}
+            overscrollBehavior={"contain"}
+            sx={{
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
             }}
-            gap={"1em"}
           >
             {renderedEvents}
           </Grid>
