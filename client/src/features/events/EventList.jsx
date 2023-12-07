@@ -1,46 +1,18 @@
 import { Box, Grid, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card";
-import { fetchEvents, selectAllEvents } from "./eventSlice";
-import axios from "axios";
+import { fetchEvent } from "../../app/FetchingData/event";
 
 const EventList = () => {
   const [provinceId, setProvinceId] = useState("");
 
   const [event, setEvent] = useState([]);
 
-  const dispatch = useDispatch();
-
-  const fetchEvent = async () => {
-    try {
-      const res = await axios.get(
-        `http://localhost:8000/event?provinceId=${provinceId}`
-      );
-      return res?.data?.data;
-    } catch (err) {
-      console.log("error", err);
-    }
-  };
   useEffect(() => {
-    setEvent(fetchEvent());
-  }, []);
+    fetchEvent(provinceId, setEvent);
+  }, [provinceId, setProvinceId]);
 
-  const events = useSelector(selectAllEvents);
-
-  const eventsStatus = useSelector(
-    (state) => state.events.status
-  );
-
-  useEffect(() => {
-    if (eventsStatus === "idle") {
-      dispatch(fetchEvents());
-    }
-  }, [eventsStatus, dispatch]);
-
-  console.log("EVENTNOW", event);
-
-  const renderedEvents = events?.map((el) => (
+  const renderedEvents = event?.map((el) => (
     <Card {...el} />
   ));
 
