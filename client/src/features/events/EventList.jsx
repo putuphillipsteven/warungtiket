@@ -1,18 +1,8 @@
 import { Box, Grid, Text, VStack } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
 import Card from "../../components/Card";
-import { fetchEvent } from "../../app/FetchingData/event";
 
-const EventList = () => {
-  const [provinceId, setProvinceId] = useState("");
-
-  const [event, setEvent] = useState([]);
-
-  useEffect(() => {
-    fetchEvent(provinceId, setEvent);
-  }, [provinceId, setProvinceId]);
-
-  const renderedEvents = event?.map((el) => (
+const EventList = (props) => {
+  const renderedEvents = props?.events?.map((el) => (
     <Card {...el} />
   ));
 

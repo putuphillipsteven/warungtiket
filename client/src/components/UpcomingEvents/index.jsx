@@ -1,13 +1,10 @@
-import { AspectRatio, Box, Center } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import EventCard from "./EventCard";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useSelector } from "react-redux";
-import { selectAllEvents } from "../../features/events/eventSlice";
 
-export default function UpcomingEvents() {
-  const events = useSelector(selectAllEvents);
-  const renderedEvents = events.map((event) => (
+export default function UpcomingEvents(props) {
+  const renderedEvents = props?.events?.map((event) => (
     <EventCard {...event} />
   ));
   return (
