@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <Box>
       <Navbar />
-      <Box m={{ base: "7em 0 1em 0" }} minHeight={"100vh"}>
+      <Box m={{ base: "7em 0 1em 0" }} minHeight={"90vh"}>
         <VStack align={"stretch"} spacing={{ base: "1em" }}>
           <UpcomingEvents events={events} />
           <EventList events={events} />
