@@ -1,95 +1,75 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const {
-  registerQuery,
-  keepLoginQuery,
-  updateQuery,
-} = require("../queries/authQuery");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { registerQuery, keepLoginQuery, updateQuery } = require('../queries/authQuery');
 
-const { findUserQuery } = require("../queries/userQuery");
+const { findUserQuery } = require('../queries/userQuery');
 
-const registerService = async (
-  email,
-  username,
-  password
-) => {
-  try {
-    const check = await findUserQuery({ email, username });
+const registerService = async (email, username, password) => {
+	try {
+		const check = await findUserQuery({ email, username });
 
-    if (check)
-      throw new Error("Email or username already exist");
+		if (check) throw new Error('Email or username already exist');
 
-    const salt = await bcrypt.genSalt(10);
+		const salt = await bcrypt.genSalt(10);
 
-    const hashPassword = await bcrypt.hash(password, salt);
+		const hashPassword = await bcrypt.hash(password, salt);
 
-    const res = await registerQuery(
-      email,
-      username,
-      hashPassword
-    );
+		const res = await registerQuery(email, username, hashPassword);
 
-    return res;
-  } catch (err) {
-    throw err;
-  }
+		return res;
+	} catch (err) {
+		throw err;
+	}
 };
 
 const loginService = async (email, password) => {
-  try {
-    const check = await findUserQuery({ email });
-    if (!check) throw new Error("Email Doesnt Exist");
+	try {
+		const check = await findUserQuery({ email });
+		if (!check) throw new Error('Email Doesnt Exist');
 
-    const isValid = await bcrypt.compare(
-      password,
-      check.password
-    );
-    if (!isValid) throw new Error("Password is Incorrect");
+		const isValid = await bcrypt.compare(password, check.password);
+		if (!isValid) throw new Error('Password is Incorrect');
 
-    let payload = {
-      id: check.id,
-      email: check.email,
-      username: check.username,
-    };
+		let payload = {
+			id: check.id,
+			email: check.email,
+			username: check.username,
+		};
 
-    const token = jwt.sign(
-      payload,
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "1hr",
-      }
-    );
-    return { user: check, token };
-  } catch (err) {
-    throw err;
-  }
+		const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+			expiresIn: '1hr',
+		});
+		return { user: check, token };
+	} catch (err) {
+		throw err;
+	}
 };
 
 const keepLoginService = async (id) => {
-  try {
-    const res = await keepLoginQuery(id);
+	try {
+		const res = await keepLoginQuery(id);
 
-    if (!res) throw new Error("User Doesnt Exist");
+		if (!res) throw new Error('User Doesnt Exist');
 
-    return res;
-  } catch (err) {
-    throw err;
-  }
+		return res;
+	} catch (err) {
+		throw err;
+	}
 };
 
 const updateService = async (username, email, fullname, avatar, id) => {
 	try {
-		const res = updateQuery(username, email, fullname, avatar, id)
-		console.log(res)
-		return res
+		const res = updateQuery(username, email, fullname, avatar, id);
+		console.log(res);
+		return res;
 	} catch (err) {
-		throw err
+		throw err;
 	}
-}
+};
 
 module.exports = {
-  registerService,
-  loginService,
-  keepLoginService,
-  updateService,
+	registerService,
+	loginService,
+	keepLoginService,
+	updateService,
 };

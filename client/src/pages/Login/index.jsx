@@ -42,7 +42,7 @@ export default function SignIn() {
 			navigate('/');
 		} catch (err) {
 			toast({
-				title: 'Email or Username doesnt exist',
+				title: err?.response?.data?.message,
 				status: 'error',
 			});
 			throw err;
