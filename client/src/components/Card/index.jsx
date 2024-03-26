@@ -7,13 +7,13 @@ export default function Card(props) {
 			<Box
 				w={'100%'}
 				h={'100%'}
-				border={'3px solid lightgray'}
+				border={'3px solid black'}
 				borderRadius={'.5em'}
 				overflow={'hidden'}
 			>
 				<Box
 					h={'8em'}
-					bgColor={'darkGray.800'}
+					bgColor={'blueMain.900'}
 					bgImage={'https://bit.ly/naruto-sage'}
 					bgRepeat={'no-repeat'}
 					bgPosition={'center'}
@@ -30,9 +30,9 @@ export default function Card(props) {
 									{props?.tickets?.length > 0 ? 'Paid Event' : 'Free Event'}
 								</Text>
 							</VStack>
-							<Divider borderWidth={'2px'} />
+							<Divider borderWidth={'2px'} borderColor={'black'} />
 							<HStack pb={'.5em'}>
-								<Box bgColor={'orange.500'} w={'2em'} h={'2em'} borderRadius={'50%'}></Box>
+								<Box bgColor={'blueMain.900'} w={'2em'} h={'2em'} borderRadius={'50%'}></Box>
 								<Text fontWeight={'bold'} fontSize={{ base: 'xs', sm: 'xs' }}>
 									{`${props?.user?.username.slice(0, 10)}...` || `John Doe`}
 								</Text>

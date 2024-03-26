@@ -320,7 +320,8 @@ export default function SignUp() {
 								bgColor={'blueSec.900'}
 								borderRadius={'0.5em'}
 								size={'lg'}
-								_hover={{ fontWeight: 'bold' }}
+								_hover={{ color: 'orange.500' }}
+								fontWeight={'bold'}
 								_active={{ color: '#3876BF' }}
 								variant={'solid'}
 								isDisabled={isSubmitting}
@@ -340,7 +341,8 @@ export default function SignUp() {
 						<Button
 							color={'white'}
 							bgColor={'#192655'}
-							_hover={{ fontWeight: 'bold' }}
+							_hover={{ color: 'orange.500' }}
+							fontWeight={'bold'}
 							_active={{ color: '#3876BF' }}
 							variant={'solid'}
 							borderRadius={'0.5em'}

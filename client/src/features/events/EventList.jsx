@@ -8,11 +8,14 @@ const EventList = (props) => {
 		<Box p={{ base: '0 1em' }}>
 			<VStack align={'flex-start'} spacing={{ base: '1em' }}>
 				<Box color={'white'}>
-					<Text bgColor={'#212529'} p={'.5em 1em'} w={'auto'} fontWeight={'bold'}>
-						Event{' '}
-						<Text as={'span'} color={'#fca311'}>
-							Pilihan
-						</Text>
+					<Text
+						bgColor={'blueMain.900'}
+						p={'.5em 1em'}
+						borderRadius={'.5em'}
+						w={'auto'}
+						fontWeight={'bold'}
+					>
+						Selected Events
 					</Text>
 				</Box>
 				<Box width={'100%'}>

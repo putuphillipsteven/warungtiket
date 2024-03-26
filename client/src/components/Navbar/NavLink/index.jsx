@@ -23,7 +23,7 @@ export const NavLink = (props) => {
 			navigate('/');
 		} catch (err) {
 			toast({
-				title: 'Maaf coba logout dikemudian tahun',
+				title: err.message,
 				status: 'error',
 			});
 		}

@@ -14,13 +14,11 @@ import {
 import { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../img/logo.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoMdClose, IoMdSearch } from 'react-icons/io';
 import { NavLink } from './NavLink';
 import { FaAngleLeft } from 'react-icons/fa';
-import { ProfileModal } from '../ProfileModal';
-import { logOutSuccess } from '../../features/login/loginSlice';
 
 export default function Navbar(props) {
 	const user = useSelector((state) => state.login.user);
@@ -39,9 +37,9 @@ export default function Navbar(props) {
 	return (
 		<Box position={'fixed'} zIndex={'10'} w={'full'} top={'0'}>
 			{/* START TOP NAVBAR SIDE */}
-			<Box bgColor={'white'} p={'0.25em 1em'}>
+			<Box bgColor={'blueSec.900'} p={'0.25em 1em'}>
 				<Flex flexDir={'row-reverse'}>
-					<HStack spacing={'0.5em'} color={'darkGray.800'}>
+					<HStack spacing={'0.5em'} color={'white'}>
 						<Text fontSize={'.75em'}>
 							<Link to={'/about-us'}>About WarungTiket</Link>
 						</Text>
@@ -51,7 +49,7 @@ export default function Navbar(props) {
 					</HStack>
 				</Flex>
 			</Box>
-			<Box bgColor={'darkGray.800'} p={{ base: '1em 1em' }} w={'full'} color={'white'}>
+			<Box bgColor={'blueMain.900'} p={{ base: '1em 1em' }} w={'full'} color={'white'}>
 				<Box>
 					<Flex alignItems={'center'}>
 						<Box display={search ? 'block' : 'none'}>
