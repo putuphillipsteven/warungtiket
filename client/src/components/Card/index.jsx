@@ -1,57 +1,46 @@
-import {
-  Box,
-  Divider,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Divider, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function Card(props) {
-  return (
-    <Link to={`/event/${props.id}`}>
-      <Box
-        w={"100%"}
-        h={"100%"}
-        border={"3px solid lightgray"}
-        borderRadius={".5em"}
-        overflow={"hidden"}
-      >
-        <Box h={"8em"} bgColor={"darkGray.800"}>
-          <Image w={"100%"} objectFit={"contain"} />
-        </Box>
-        <Box p={"0 1em"}>
-          <Box>
-            <VStack align={"stretch"}>
-              <VStack align={"flex-start"} p={"1em 0"}>
-                <Text fontWeight={"bold"}>
-                  {props.eventName}
-                </Text>
-                <Text color={"gray"}>{props.date}</Text>
-                <Text>{props?.province?.province}</Text>
-                <Text fontSize={".75em"}>
-                  {props?.tickets?.length > 0
-                    ? "Paid Event"
-                    : "Free Event"}
-                </Text>
-              </VStack>
-              <Divider borderWidth={"2px"} />
-              <HStack pb={".5em"}>
-                <Box
-                  bgColor={"orange.500"}
-                  w={"2em"}
-                  h={"2em"}
-                  borderRadius={"50%"}
-                ></Box>
-                <Text fontWeight={"bold"}>
-                  {props?.user?.username}
-                </Text>
-              </HStack>
-            </VStack>
-          </Box>
-        </Box>
-      </Box>
-    </Link>
-  );
+	return (
+		<Link to={`/event/${props.id}`}>
+			<Box
+				w={'100%'}
+				h={'100%'}
+				border={'3px solid lightgray'}
+				borderRadius={'.5em'}
+				overflow={'hidden'}
+			>
+				<Box
+					h={'8em'}
+					bgColor={'darkGray.800'}
+					bgImage={'https://bit.ly/naruto-sage'}
+					bgRepeat={'no-repeat'}
+					bgPosition={'center'}
+					bgSize={'cover'}
+				></Box>
+				<Box p={'0 1em'}>
+					<Box>
+						<VStack align={'stretch'}>
+							<VStack align={'flex-start'} p={'1em 0'}>
+								<Text fontWeight={'bold'}>{props.eventName || `Lorem ipsum`}</Text>
+								<Text color={'gray'}>{props.date || `YY|MM|DD`}</Text>
+								<Text>{props?.province?.province || `Indonesia`}</Text>
+								<Text fontSize={'.75em'}>
+									{props?.tickets?.length > 0 ? 'Paid Event' : 'Free Event'}
+								</Text>
+							</VStack>
+							<Divider borderWidth={'2px'} />
+							<HStack pb={'.5em'}>
+								<Box bgColor={'orange.500'} w={'2em'} h={'2em'} borderRadius={'50%'}></Box>
+								<Text fontWeight={'bold'} fontSize={{ base: 'xs', sm: 'xs' }}>
+									{`${props?.user?.username.slice(0, 10)}...` || `John Doe`}
+								</Text>
+							</HStack>
+						</VStack>
+					</Box>
+				</Box>
+			</Box>
+		</Link>
+	);
 }

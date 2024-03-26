@@ -79,6 +79,7 @@ export default function Navbar(props) {
 											fontSize={'1.2em'}
 											onClick={() => handleExtend()}
 											fontWeight={'bold'}
+											_hover={{ color: 'orange.500' }}
 										/>
 									) : (
 										<HStack spacing={'.5em'}>

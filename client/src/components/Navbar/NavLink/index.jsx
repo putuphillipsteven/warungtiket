@@ -32,33 +32,29 @@ export const NavLink = (props) => {
 	return (
 		<>
 			<Box display={{ base: 'block', lg: 'none' }}>
-				<VStack align={'stretch'}>
-					<VStack spacing={'0'} align={'stretch'}>
-						<Text fontWeight={'bold'}>{user?.username}</Text>
-						<Text fontSize={'.75em'}>{user?.email}</Text>
-					</VStack>
+				{props?.isLogin && (
 					<VStack align={'stretch'}>
-						<Link to={'/dashboard'}>
-							<Text fontWeight={'bold'} _hover={{ color: 'orange.500' }}>
-								DASHBOARD
-							</Text>
-						</Link>
-						<Link>
-							<Text onClick={logout} fontWeight={'bold'} _hover={{ color: 'orange.500' }}>
-								LOGOUT
-							</Text>
-						</Link>
+						<VStack spacing={'0'} align={'stretch'}>
+							<Text fontWeight={'bold'}>{user?.username}</Text>
+							<Text fontSize={'.75em'}>{user?.email}</Text>
+						</VStack>
+						<VStack align={'stretch'}>
+							<Link to={'/dashboard'}>
+								<Text fontWeight={'bold'} _hover={{ color: 'orange.500' }}>
+									DASHBOARD
+								</Text>
+							</Link>
+							<Link>
+								<Text onClick={logout} fontWeight={'bold'} _hover={{ color: 'orange.500' }}>
+									LOGOUT
+								</Text>
+							</Link>
+						</VStack>
 					</VStack>
-				</VStack>
+				)}
 			</Box>
 			<Link to={'/findevent'}>
-				<Text
-					as={'p'}
-					minW={'6em'}
-					// display={props.display}
-					fontWeight={'bold'}
-					_hover={{ color: 'orange.500' }}
-				>
+				<Text as={'p'} minW={'6em'} fontWeight={'bold'} _hover={{ color: 'orange.500' }}>
 					FIND EVENT
 				</Text>
 			</Link>
@@ -66,7 +62,6 @@ export const NavLink = (props) => {
 				<Text
 					minW={'7em'}
 					maxW={'fit-content'}
-					// display={props.display}
 					fontWeight={'bold'}
 					_hover={{ color: 'orange.500' }}
 				>
