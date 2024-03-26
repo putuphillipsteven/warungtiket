@@ -3,7 +3,7 @@ import { Text } from '@chakra-ui/react';
 
 const passwordRules = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 const emailRules =
-	/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const basicSchema = yup.object().shape({
 	firstname: yup.string().required('First Name is Required'),
@@ -12,21 +12,16 @@ export const basicSchema = yup.object().shape({
 		.string()
 		.email('Invalid Email Address')
 		.matches(emailRules, 'Invalid Email Address')
-		.required(<Text as='b'>Email is Required!</Text>),
+		.required('Email is Required!'),
 	password: yup
 		.string()
-		.min(
-			8,
-			'Password Must Contain Minimum 8-16 Characters, at Least 1 Uppercase Letter, 1 Lowercase Letter and 1 Number',
-		)
-		.matches(passwordRules, {
-			message: <Text as='b'>Please Create a Stronger Password!</Text>,
-		})
-		.required(<Text as='b'>Password is Required!</Text>),
+		.min(8, <Text fontSize={'.8em'}>'Minimum 8 Chars, 1 Uppercase, 1 Lowercase and 1 Number'</Text>)
+		.matches(passwordRules, 'Please Create a Stronger Password!')
+		.required('Password is Required!'),
 	confirmPassword: yup
 		.string()
 		.oneOf([yup.ref('password'), null], 'Password Must Match!')
-		.required(<Text as='b'>Please Confirm your Password!</Text>),
+		.required('Please Confirm your Password!'),
 });
 
 export const loginSchema = yup.object().shape({

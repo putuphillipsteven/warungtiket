@@ -23,4 +23,10 @@ export const colors = {
 		800: '#22262a', //used
 		900: '#040e12',
 	},
+	blueMain: {
+		900: '#3876BF',
+	},
+	blueSec: {
+		900: '#192655',
+	},
 };
