@@ -1,4 +1,4 @@
-import { Box, Divider, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 export default function Card(props) {
