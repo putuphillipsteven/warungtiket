@@ -17,7 +17,6 @@ const createTicketQuery = async (
       ticketDescription,
       eventID,
     });
-
     return res;
   } catch (err) {
     throw err;

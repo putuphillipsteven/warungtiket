@@ -1,63 +1,47 @@
-import {
-  Box,
-  Grid,
-  Text,
-  VStack,
-  filter,
-} from "@chakra-ui/react";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Card from "../../components/Card";
-import { fetchEvents, selectAllEvents } from "./eventSlice";
+import { Box, Grid, Text, VStack } from '@chakra-ui/react';
+import Card from '../../components/Card';
 
-const EventList = () => {
-  const dispatch = useDispatch();
+const EventList = (props) => {
+	const renderedEvents = props?.events?.map((el) => <Card {...el} />);
 
-  const events = useSelector(selectAllEvents);
-  console.log("events", events);
-  const eventsStatus = useSelector(
-    (state) => state.events.status
-  );
-
-  useEffect(() => {
-    if (eventsStatus === "idle") {
-      dispatch(fetchEvents());
-    }
-  }, [eventsStatus, dispatch]);
-
-  // let filtered = events.filter((event) => {
-  //   return event.province == "Yogyakarta";
-  // });
-
-  const renderedEvents = events.map((event) => (
-    <Card {...event} />
-  ));
-
-  return (
-    <Box p={"0 3.5em"}>
-      <VStack align={"flex-start"}>
-        <Box color={"white"}>
-          <Text
-            bgColor={"#192655"}
-            p={".5em 1em"}
-            borderRadius={"0.5em"}
-            w={"auto"}
-            fontWeight={"bold"}
-          >
-            Populer di Yogyakarta
-          </Text>
-        </Box>
-        <Box width={"100%"}>
-          <Grid
-            templateColumns={"repeat(6, 1fr)"}
-            gap={"1em"}
-          >
-            {renderedEvents}
-          </Grid>
-        </Box>
-      </VStack>
-    </Box>
-  );
+	return (
+		<Box p={{ base: '0 1em' }}>
+			<VStack align={'flex-start'} spacing={{ base: '1em' }}>
+				<Box color={'white'}>
+					<Text
+						bgColor={'blueMain.900'}
+						p={'.5em 1em'}
+						borderRadius={'.5em'}
+						w={'auto'}
+						fontWeight={'bold'}
+					>
+						Selected Events
+					</Text>
+				</Box>
+				<Box width={'100%'}>
+					<Grid
+						templateColumns={{
+							base: 'repeat(2, 1fr)',
+							sm: 'repeat(3, 1fr)',
+							lg: 'repeat(4, 1fr)',
+							xl: 'repeat(5, 1fr)',
+						}}
+						autoFlow={'row'}
+						gap={'.5em'}
+						overflowX={'auto'}
+						overscrollBehavior={'contain'}
+						sx={{
+							'&::-webkit-scrollbar': {
+								display: 'none',
+							},
+						}}
+					>
+						{renderedEvents}
+					</Grid>
+				</Box>
+			</VStack>
+		</Box>
+	);
 };
 
 export default EventList;

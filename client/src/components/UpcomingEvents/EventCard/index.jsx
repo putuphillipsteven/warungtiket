@@ -1,43 +1,22 @@
-import {
-  Box,
-  Image,
-  Center,
-  Text,
-  VStack,
-  Flex,
-  Spacer,
-} from "@chakra-ui/react";
-
+import { Box, Image, Text, VStack, Flex, Spacer, AspectRatio } from '@chakra-ui/react';
+import bannerTest from '../../../img/bannerTest.jpg';
+import { imageUrl } from '../../../utils/route';
 export default function EventCard(props) {
-  return (
-    <Box
-      overflow={"hidden"}
-      bgColor={"#E8E2E2"}
-      h={"17em"}
-      p={"2.5em"}
-      borderRadius={".5em"}
-      position={"relative"}
-    >
-      <Flex
-        flexDir={"column-reverse"}
-        align={"stretch"}
-        h={"100%"}
-      >
-        <Box>
-          <VStack flexDir={"column"} lineHeight={".6"}>
-            <Image src={props.eventImage} />
-            <Text fontWeight={"bold"} fontSize={"1.2em"}>
-              {props.eventName}
-            </Text>
-            <Text fontSize={".75em"}>{props.date}</Text>
-            <Text fontSize={".75em"}>
-              {props?.province?.province}
-            </Text>
-            <Text fontSize={".75em"}>{props.address}</Text>
-          </VStack>
-        </Box>
-        <Spacer />
-      </Flex>
-    </Box>
-  );
+	return (
+		<Box
+			display={'flex'}
+			borderRadius={'.5em'}
+			flexDir={'column'}
+			minH={{ base: '10em', md: '15em', lg: '20em' }}
+			overflow={'hidden'}
+			w={'100%'}
+			justifyContent={'center'}
+			alignItems={'center'}
+			bgColor={'orange.500'}
+			bgImage={`${imageUrl}/event/${props?.img}`}
+			bgRepeat={'no-repeat'}
+			bgPosition={'center'}
+			bgSize={'cover'}
+		></Box>
+	);
 }
