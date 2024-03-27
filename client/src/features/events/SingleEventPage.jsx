@@ -93,8 +93,6 @@ const SinglePostPage = () => {
 		onSubmit: (values) => {},
 	});
 
-	console.log(`event`, event);
-
 	useEffect(() => {
 		getEventById(eventId, setEvent, setTickets, setCarts);
 	}, []);
@@ -190,7 +188,8 @@ const SinglePostPage = () => {
 			<Box p={{ lg: '0 10em' }} mt={'8em'} mb={'2em'} w={'100%'} h={'100%'}>
 				<VStack align={'stretch'} spacing={'1em'} w={'100%'} h={'auto'} p={'0 1em'}>
 					<Box w={'full'}>
-						<EventCard />
+						<EventCard img={event?.image} />
+						{console.log(event?.image)}
 					</Box>
 					<Flex w={'100%'} h={'100%'} alignItems={'stretch'}>
 						<Flex w={'60%'} h={'100%'} flexDir={'column'} justifyContent={'space-between'}>

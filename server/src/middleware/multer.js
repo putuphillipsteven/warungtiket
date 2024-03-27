@@ -1,9 +1,9 @@
-const path = require("path");
-const multer = require("multer");
+const path = require('path');
+const multer = require('multer');
 
 const eventStorage = multer.diskStorage({
 	destination: (req, res, cb) => {
-		cb(null, path.join(__dirname, "../public/img/event"));
+		cb(null, path.join(__dirname, '../public/img/event'));
 	},
 	filename: (req, file, cb) => {
 		cb(null, `event_${Date.now()}-${file.originalname}`);
@@ -12,7 +12,7 @@ const eventStorage = multer.diskStorage({
 
 const avatarStorage = multer.diskStorage({
 	destination: (req, res, cb) => {
-		cb(null, path.join(__dirname, "../public/images/avatar"));
+		cb(null, path.join(__dirname, '../public/images/avatar'));
 	},
 	filename: (req, file, cb) => {
 		const { username } = req.body;
@@ -21,17 +21,17 @@ const avatarStorage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-	const fileType = file.mimetype.split("/")[1];
-	if (fileType === "png" || fileType === "jpg" || fileType === "jpeg" || fileType === "gif") {
+	const fileType = file.mimetype.split('/')[1];
+	if (fileType === 'png' || fileType === 'jpg' || fileType === 'jpeg' || fileType === 'gif') {
 		cb(null, true);
 	} else {
-		cb("File type not allowed", false);
+		cb('File type not allowed', false);
 	}
 };
 
 const paymentStorage = multer.diskStorage({
 	destination: (req, res, cb) => {
-		cb(null, path.join(__dirname, "../public/img/payment"));
+		cb(null, path.join(__dirname, '../public/img/payment'));
 	},
 	filename: (req, file, cb) => {
 		cb(null, `avatar_${username}-${Date.now()}-${file.originalname}`);
@@ -39,25 +39,25 @@ const paymentStorage = multer.diskStorage({
 });
 
 const limits = {
-	fileSize: 1024 * 1024,
+	fileSize: 10024 * 10024,
 };
 
 const uploadEventFile = multer({
 	storage: eventStorage,
 	fileFilter,
 	limits,
-}).single("img");
+}).single('img');
 
 const uploadPaymentFile = multer({
 	storage: paymentStorage,
 	fileFilter,
 	limits,
-}).single("avatar");
+}).single('avatar');
 const uploadAvatarFile = multer({
 	storage: avatarStorage,
 	fileFilter,
 	limits,
-}).single("avatar");
+}).single('avatar');
 
 module.exports = {
 	uploadPaymentFile,

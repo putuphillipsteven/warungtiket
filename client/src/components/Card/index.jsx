@@ -1,5 +1,6 @@
 import { Box, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { imageUrl } from '../../utils/route';
 
 export default function Card(props) {
 	return (
@@ -14,7 +15,7 @@ export default function Card(props) {
 				<Box
 					h={'8em'}
 					bgColor={'blueMain.900'}
-					bgImage={'https://bit.ly/naruto-sage'}
+					bgImage={`${imageUrl}/event/${props?.image}`}
 					bgRepeat={'no-repeat'}
 					bgPosition={'center'}
 					bgSize={'cover'}
