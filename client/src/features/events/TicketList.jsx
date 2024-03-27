@@ -25,7 +25,7 @@ export const TicketList = (props) => {
 		}
 	};
 	return (
-		<Box w={'full'} p={'.5em'} border={'3px solid lightgray'} borderRadius={'.5em'}>
+		<Box w={'full'} p={'.5em'} border={'3px solid black'} borderRadius={'.5em'}>
 			<Flex>
 				<Box>
 					<Text fontWeight={'bold'}>{props.ticketName}</Text>

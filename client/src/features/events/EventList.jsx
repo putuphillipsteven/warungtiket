@@ -37,9 +37,6 @@ const EventList = (props) => {
 						}}
 					>
 						{renderedEvents}
-						<Card />
-						<Card />
-						<Card />
 					</Grid>
 				</Box>
 			</VStack>

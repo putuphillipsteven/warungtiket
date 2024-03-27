@@ -16,7 +16,7 @@ export const ProfileModal = () => {
 	const logout = async () => {
 		try {
 			await dispatch(logOutSuccess());
-			toast({
+			await toast({
 				title: 'Logout Success',
 				status: 'success',
 			});

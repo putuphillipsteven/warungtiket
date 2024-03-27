@@ -93,6 +93,8 @@ const SinglePostPage = () => {
 		onSubmit: (values) => {},
 	});
 
+	console.log(`event`, event);
+
 	useEffect(() => {
 		getEventById(eventId, setEvent, setTickets, setCarts);
 	}, []);
@@ -129,7 +131,6 @@ const SinglePostPage = () => {
 	useEffect(() => {
 		check();
 	}, []);
-
 	const payment = async (
 		status,
 		referralCode,
@@ -141,48 +142,31 @@ const SinglePostPage = () => {
 		isUse,
 	) => {
 		try {
-			if (+user?.id !== +event?.userId) {
-				if (totalQuantity != 0) {
-					if (user?.id) {
-						let formData = new FormData();
-						formData.append('status', status);
-						formData.append('referralCode', referralCode);
-						formData.append('userId', userId);
-						formData.append('eventId', eventId);
-						formData.append('referralUsed', referralUsed);
-						formData.append('totalQuantity', totalQuantity);
-						formData.append('totalPrice', totalPrice);
-						formData.append('isUse', isUse);
-						const res = await axios.post('http://localhost:8000/transaction', formData);
-						await tembakTransactionDetails(res?.data?.data?.id);
-						navigate('/');
-						toast({
-							title: 'Transaction success',
-							status: 'success',
-						});
-						console.log('res', res);
-						return res;
-					} else {
-						toast({
-							title: 'Login dulu',
-							status: 'error',
-						});
-					}
-				} else {
-					toast({
-						title: 'Tolong minimal 1 ya untuk pembelian tiketnya mas',
-						status: 'error',
-					});
-				}
-			} else {
-				toast({
-					title: 'Anda penyelenggara event ini',
-					status: 'error',
-				});
-			}
-		} catch (err) {
+			if (totalQuantity <= 0) throw new Error(`Please buy minimum 1 ticket`);
+			if (fieldImage === null) throw new Error(`Please upload the payment proof`);
+			if (+user?.id === +event?.userId) throw new Error(`Youre the organizer, cant buy this event`);
+			if (!user?.id) throw new Error(`Please login first`);
+			let formData = new FormData();
+			formData.append('status', status);
+			formData.append('referralCode', referralCode);
+			formData.append('userId', userId);
+			formData.append('eventId', eventId);
+			formData.append('referralUsed', referralUsed);
+			formData.append('totalQuantity', totalQuantity);
+			formData.append('totalPrice', totalPrice);
+			formData.append('isUse', isUse);
+			const res = await axios.post('http://localhost:8000/transaction', formData);
+			await tembakTransactionDetails(res?.data?.data?.id);
+			navigate('/');
 			toast({
-				title: 'Code referral tidak ditemukan',
+				title: 'Transaction success',
+				status: 'success',
+			});
+			return res;
+		} catch (err) {
+			console.log(err?.response?.data?.message);
+			toast({
+				title: err?.response?.data?.message || err.message,
 				status: 'error',
 			});
 		}
@@ -203,144 +187,152 @@ const SinglePostPage = () => {
 	return (
 		<Box>
 			<Navbar />
-			<Box p={'0 3.5em'} mt={'10em'} mb={'2em'}>
-				<VStack align={'flex-start'} spacing={'2em'}>
+			<Box p={{ lg: '0 10em' }} mt={'8em'} mb={'2em'} w={'100%'} h={'100%'}>
+				<VStack align={'stretch'} spacing={'1em'} w={'100%'} h={'auto'} p={'0 1em'}>
 					<Box w={'full'}>
 						<EventCard />
 					</Box>
-					<Box w={'full'} p={'1em 0'}>
-						<Flex w={'100%'}>
-							<Box w={'60%'} h={'100%'}>
-								<Flex align={'stretch'} flexDir={'column'}>
-									<Box w={'full'} p={'.5em'} border={'3px solid lightgray'} borderRadius={'.5em'}>
-										<VStack align={'stretch'}>
-											<Text fontWeight={'bold'}>{event?.eventName}</Text>
-											<HStack>
-												<BsCalendarMinus />
-												<Text>{event?.date}</Text>
-											</HStack>
-											<HStack>
-												<BsPinMap />
-												<Text>{event?.province?.province}</Text>
-											</HStack>
-											<HStack>
-												<BsBuildings />
-												<Text>{event?.address}</Text>
-											</HStack>
-										</VStack>
-									</Box>
-									<Spacer m={'.5em'} />
-									<Box w={'full'} p={'.5em'} border={'3px solid lightgray'} borderRadius={'.5em'}>
-										<Text fontWeight={'bold'}>About This Event</Text>
-										<Text>{event?.eventDescription}</Text>
-									</Box>
-									<Spacer m={'.5em'} />
-									<Box w={'full'}>
-										<VStack>{renderedTickets}</VStack>
-									</Box>
-								</Flex>
-							</Box>
-							<Spacer margin={'.5em'} />
+					<Flex w={'100%'} h={'100%'} alignItems={'stretch'}>
+						<Flex w={'60%'} h={'100%'} flexDir={'column'} justifyContent={'space-between'}>
 							<Box
-								w={'40%'}
-								alignSelf={'flex-end'}
+								w={'full'}
 								p={'.5em'}
-								border={'3px solid lightgray'}
+								border={'3px solid black'}
 								borderRadius={'.5em'}
+								h={'100%'}
 							>
 								<VStack align={'stretch'}>
-									<Text fontWeight={'bold'}>Ordered Ticket</Text>
-									<Box>{cartsFilter}</Box>
-									<Box>
-										<VStack align={'stretch'}>
-											<FormControl>
-												<FormLabel>Referral Code</FormLabel>
-												<Input
-													id='referralUsed'
-													name='referralUsed'
-													type='text'
-													variant='flushed'
-													focusBorderColor={'none'}
-													borderColor={'gray'}
-													value={inputReff.toUpperCase()}
-													onChange={(e) => setInputReff(e.target.value.toUpperCase())}
-												/>
-											</FormControl>
-										</VStack>
-									</Box>
-									<Flex>
-										<Box>
-											<Text fontSize={'.75em'} fontWeight={'bold'}>
-												Diskon Presale
-											</Text>
-											<Text fontSize={'.75em'}>{toRupiah(diskon)}</Text>
-											<Text fontSize={'.75em'} fontWeight={'bold'}>
-												Total Diskon
-											</Text>
-											<Text fontSize={'.75em'}>{toRupiah(diskon * totalQty)}</Text>
-											<Text fontSize={'.75em'} fontWeight={'bold'}>
-												Total Qty
-											</Text>
-											<Text fontSize={'.75em'}>{totalQty}</Text>
-											<Text fontWeight={'bold'}>Total</Text>
-											<Text>{toRupiah(total - diskon * totalQty)}</Text>
-										</Box>
-										<Spacer />
-
-										<Spacer m={'.5em'} />
-										<Box alignSelf={'flex-end'}>
-											<Button
-												bgColor={'#192655'}
-												color={'white'}
-												_hover={{
-													bgColor: '#F5F5F5',
-													color: 'black',
-												}}
-												size={'xs'}
-												_active={'none'}
-												onClick={async () => {
-													try {
-														await payment(
-															false,
-															referralCodes,
-															user.id,
-															event?.id,
-															inputReff,
-															totalQty,
-															total - diskon,
-														);
-													} catch (err) {
-														throw err;
-													}
-												}}
-											>
-												<Text>Payment</Text>
-											</Button>
-										</Box>
-									</Flex>
+									<Text fontWeight={'bold'}>{event?.eventName}</Text>
+									<HStack>
+										<BsCalendarMinus />
+										<Text>{event?.date}</Text>
+									</HStack>
+									<HStack>
+										<BsPinMap />
+										<Text>{event?.province?.province}</Text>
+									</HStack>
+									<HStack>
+										<BsBuildings />
+										<Text>{event?.address}</Text>
+									</HStack>
 								</VStack>
-								<Box>
-									<form onSubmit={formik.handleSubmit}>
-										<FormLabel fontSize={'.75em'}>Bukti Pembayaran</FormLabel>
-										<FormControl mb={5}>
-											<InputGroup>
-												<Input
-													h={'100%'}
-													type='file'
-													name='image'
-													size='xs'
-													onChange={(event) => {
-														setFieldImage(event.currentTarget.files[0]);
-													}}
-													p={'.5em 1em'}
-												/>
-											</InputGroup>
-										</FormControl>
-									</form>
-								</Box>
+							</Box>
+							<Spacer m={'.5em'} />
+							<Box
+								w={'full'}
+								p={'.5em'}
+								border={'3px solid black'}
+								borderRadius={'.5em'}
+								h={'100%'}
+							>
+								<Text fontWeight={'bold'}>About This Event</Text>
+								<Text>{event?.eventDescription}</Text>
+							</Box>
+							<Spacer m={'.5em'} />
+							<Box w={'full'} h={'100%'} alignSelf={'end'}>
+								<VStack>{renderedTickets}</VStack>
 							</Box>
 						</Flex>
-					</Box>
+						<Spacer margin={'.5em'} />
+						<Box
+							w={'40%'}
+							alignSelf={'flex-end'}
+							p={'.5em'}
+							border={'3px solid black'}
+							borderRadius={'.5em'}
+						>
+							<VStack align={'stretch'}>
+								<Text fontWeight={'bold'}>Ordered Ticket</Text>
+								<Box>{cartsFilter}</Box>
+								<Box>
+									<VStack align={'stretch'}>
+										<FormControl>
+											<FormLabel>Referral Code</FormLabel>
+											<Input
+												id='referralUsed'
+												name='referralUsed'
+												type='text'
+												variant='flushed'
+												focusBorderColor={'none'}
+												borderColor={'gray'}
+												value={inputReff.toUpperCase()}
+												onChange={(e) => setInputReff(e.target.value.toUpperCase())}
+											/>
+										</FormControl>
+									</VStack>
+								</Box>
+								<Flex>
+									<Box>
+										<Text fontSize={'.75em'} fontWeight={'bold'}>
+											Diskon Presale
+										</Text>
+										<Text fontSize={'.75em'}>{toRupiah(diskon)}</Text>
+										<Text fontSize={'.75em'} fontWeight={'bold'}>
+											Total Diskon
+										</Text>
+										<Text fontSize={'.75em'}>{toRupiah(diskon * totalQty)}</Text>
+										<Text fontSize={'.75em'} fontWeight={'bold'}>
+											Total Qty
+										</Text>
+										<Text fontSize={'.75em'}>{totalQty}</Text>
+										<Text fontWeight={'bold'}>Total</Text>
+										<Text>{toRupiah(total - diskon * totalQty)}</Text>
+									</Box>
+									<Spacer />
+
+									<Spacer m={'.5em'} />
+									<Box alignSelf={'flex-end'}>
+										<Button
+											bgColor={'#192655'}
+											color={'white'}
+											_hover={{
+												bgColor: '#F5F5F5',
+												color: 'black',
+											}}
+											size={'xs'}
+											_active={'none'}
+											onClick={async () => {
+												try {
+													await payment(
+														false,
+														referralCodes,
+														user.id,
+														event?.id,
+														inputReff,
+														totalQty,
+														total - diskon,
+													);
+												} catch (err) {
+													throw err;
+												}
+											}}
+										>
+											<Text>Payment</Text>
+										</Button>
+									</Box>
+								</Flex>
+							</VStack>
+							<Box>
+								<form onSubmit={formik.handleSubmit}>
+									<FormLabel fontSize={'.75em'}>Bukti Pembayaran</FormLabel>
+									<FormControl mb={5}>
+										<InputGroup>
+											<Input
+												h={'100%'}
+												type='file'
+												name='image'
+												size='xs'
+												onChange={(event) => {
+													setFieldImage(event.currentTarget.files[0]);
+												}}
+												p={'.5em 1em'}
+											/>
+										</InputGroup>
+									</FormControl>
+								</form>
+							</Box>
+						</Box>
+					</Flex>
 				</VStack>
 			</Box>
 		</Box>
