@@ -1,16 +1,15 @@
-const db = require("../models");
-const { Op } = require("sequelize");
+const db = require('../models');
 const province = db.category;
+
 const findAllCategoryQuery = async () => {
-  try {
-    const res = await province.findAll({
-    });
-    return res;
-  } catch (err) {
-    throw err;
-  }
+	try {
+		const res = await province.findAll({});
+		return res;
+	} catch (err) {
+		throw err;
+	}
 };
 
 module.exports = {
-  findAllCategoryQuery,
+	findAllCategoryQuery,
 };
